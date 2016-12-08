@@ -16,7 +16,6 @@
  */
 package org.apache.logging.log4j.kotlin
 
-import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.apache.logging.log4j.Marker
@@ -51,18 +50,13 @@ import kotlin.reflect.companionObject
  * ```
  * log.error(exc) { "Unexpected exception evaluating $whatever." }
  * ```
+ *
+ * One known limitation of the Kotlin logging API is that location aware logging does not work
  */
-class FunctionalLogger(val log: ExtendedLogger): ReadOnlyProperty<Any?, FunctionalLogger>, Logger by log {
+class FunctionalLogger(val log: ExtendedLogger): Logger by log {
   companion object {
     @Suppress("NOTHING_TO_INLINE")
     inline fun <T: Any?> (() -> T).asLog4jSupplier(): Supplier<T> = Supplier { invoke() }
-  }
-
-  // allows access to FunctionalLogger as a property delegate
-  override operator fun getValue(thisRef: Any?, property: KProperty<*>) = this
-
-  inline fun trace(crossinline supplier: () -> Any?) {
-    log.trace(supplier.asLog4jSupplier())
   }
 
   inline fun trace(t: Throwable, crossinline supplier: () -> Any?) {
@@ -156,10 +150,40 @@ class FunctionalLogger(val log: ExtendedLogger): ReadOnlyProperty<Any?, Function
   inline fun fatal(marker: Marker?, t: Throwable?, crossinline supplier: () -> Any?) {
     log.fatal(marker, supplier.asLog4jSupplier(), t)
   }
+
+  inline fun <R : Any?> trace(block: () -> R): R {
+    val entry = traceEntry()
+    try {
+      val result = block()
+      when(result) {
+        is Unit -> traceExit(entry)
+        else -> traceExit(entry, result)
+      }
+      return result
+    } catch (e: Throwable) {
+      catching(e)
+      throw e
+    }
+  }
+
+  inline fun <R : Any?> trace(crossinline supplier: () -> Any?, block: () -> R): R {
+    val entry = traceEntry(supplier.asLog4jSupplier())
+    try {
+      val result = block()
+      when(result) {
+        is Unit -> traceExit(entry)
+        else -> traceExit(entry, result)
+      }
+      return result
+    } catch (e: Throwable) {
+      catching(e)
+      throw e
+    }
+  }
 }
 
 /**
- * A delegate-based logger instantiation. Use: `val log by logger()`.
+ * Logger instantiation. Use: `val log = logger()`.
  */
 @Suppress("unused")
 inline fun <reified T : Any> T.logger(): FunctionalLogger =

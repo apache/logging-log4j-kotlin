@@ -34,6 +34,12 @@
     <url>https://git-wip-us.apache.org/repos/asf?p=logging-log4j-kotlin.git;a=summary</url>
     <tag>log4j-${Log4jReleaseVersion}</tag>
   </scm>
+
+  <properties>
+    <kotlin.version>1.0.5-2</kotlin.version>
+  </properties>
+
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -43,6 +49,48 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+      <version>${kotlin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-test</artifactId>
+      <version>${kotlin.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+
   <modules>
     <module>log4j-api-kotlin</module>
     <module>log4j-api-kotlin-sample</module>

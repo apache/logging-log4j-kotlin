@@ -18,11 +18,13 @@ package org.apache.logging.log4j.kotlin
 
 import org.junit.Test
 
-class LoggerTest {
-  val log = logger()
+class LoggerCompanionTest {
+  companion object {
+    val log = logger()
+  }
 
   @Test
-  fun `Logging works!`() {
+  fun `Logging from companion logger works!`() {
     log.debug("This is a debug log.")
   }
 }

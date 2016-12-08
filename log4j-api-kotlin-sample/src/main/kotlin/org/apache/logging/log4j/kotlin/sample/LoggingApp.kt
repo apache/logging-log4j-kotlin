@@ -18,9 +18,10 @@ package org.apache.logging.log4j.kotlin.sample
 
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.kotlin.logger
+import java.util.*
 
 object LoggingApp {
-  val log by logger()
+  val log = logger()
 
   @JvmStatic
   fun main(args: Array<String>) {
@@ -30,15 +31,30 @@ object LoggingApp {
 
     log.info { "Hello, world: $s1 $s2" }
 
-    log.traceEntry()
-    log.traceEntry(s1, s2)
-    val entryMessage = log.traceEntry("foobar", "")
+    log.trace("Regular trace")
 
-    log.traceExit()
-    log.traceExit(s2)
-    log.traceExit(entryMessage)
-    log.traceExit(entryMessage, s2)
-    log.traceExit("bonsai", s2)
+    log.trace {
+      log.info("Inside trace extension!")
+    }
+
+    log.trace({ "Trace extension with entry message." }) {
+      log.info("Inside trace extension with supplier!")
+    }
+
+    fun getKey(): Int = log.trace {
+      Random().nextInt(10)
+    }
+
+    fun getKeyError(): Int = log.trace {
+      throw Exception("Oops!")
+    }
+
+    log.info { "Key was ${getKey()}" }
+    try {
+      log.info { "Key was ${getKeyError()}" }
+    } catch(e: Exception) {
+      Unit
+    }
 
     log.throwing(t)
     log.throwing(Level.INFO, t)
