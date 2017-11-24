@@ -25,6 +25,6 @@ class LoggerCompanionTest {
 
   @Test
   fun `Logging from companion logger works!`() {
-    log.debug("This is a debug log.")
+    log.error("This is an error log.")
   }
 }

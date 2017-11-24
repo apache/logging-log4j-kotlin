@@ -16,13 +16,107 @@
  */
 package org.apache.logging.log4j.kotlin
 
+import com.nhaarman.mockito_kotlin.*
+import org.apache.logging.log4j.Level
+import org.apache.logging.log4j.MarkerManager
+import org.apache.logging.log4j.junit.LoggerContextRule
+import org.apache.logging.log4j.message.DefaultFlowMessageFactory
+import org.apache.logging.log4j.message.MessageFactory2
+import org.apache.logging.log4j.message.ParameterizedMessage
+import org.apache.logging.log4j.message.ParameterizedMessageFactory
+import org.apache.logging.log4j.spi.ExtendedLogger
+import org.junit.Rule
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyString
+import kotlin.test.assertTrue
+
+data class Custom(val i: Int)
+
+interface Manager {
+  fun fetchValue(): Int
+}
+
+typealias LoggerStubbingFn = KStubbing<ExtendedLogger>.() -> Unit
 
 class LoggerTest {
-  val log = logger()
+  @Rule @JvmField var init = LoggerContextRule("InfoLogger.xml")
+
+  val msg = ParameterizedMessage("msg {}", 17)
+  val entryMsg = DefaultFlowMessageFactory().newEntryMessage(msg)
+  val cseqMsg: CharSequence = StringBuilder().append("cseq msg")
+  val objectMsg = Custom(17)
+  val cause = RuntimeException("cause")
+  val marker = MarkerManager.getMarker("marker")
+  val result = "foo"
+
+  class Fixture(stubbing: LoggerStubbingFn? = null) {
+    val mockLogger = mock<ExtendedLogger> {
+      on { getMessageFactory<MessageFactory2>() } doReturn ParameterizedMessageFactory()
+      if(stubbing != null) stubbing()
+    }
+
+    val manager = mock<Manager> {
+      on { fetchValue() } doReturn 4711
+    }
+  }
 
   @Test
   fun `Logging works!`() {
-    log.debug("This is a debug log.")
+    val f = Fixture {
+      on { isEnabled(Level.ERROR) } doReturn true
+    }
+    whenever(f.mockLogger.isEnabled(Level.ERROR)).thenReturn(true)
+    val logger = FunctionalLogger(f.mockLogger)
+    logger.error("This is an error log.")
+    verify(f.mockLogger).error(anyString())
+  }
+
+  @Test
+  fun `Level fatal enabled with String message`() {
+    val f = Fixture {
+      on { isEnabled(Level.FATAL) } doReturn true
+    }
+    val logger = FunctionalLogger(f.mockLogger)
+    logger.fatal("string msg with value: ${f.manager.fetchValue()}")
+    verify(f.mockLogger).fatal(anyString())
+    verify(f.manager).fetchValue()
+  }
+
+
+  @Test
+  fun `Level fatal disabled with String message`() {
+    // this should fail but it doesn't because unlike Scala, we just delegate, we don't have any extra logic
+    val f = Fixture {
+      on { isEnabled(Level.FATAL) } doReturn false
+    }
+    whenever(f.mockLogger.isEnabled(Level.FATAL)).thenReturn(false)
+    val logger = FunctionalLogger(f.mockLogger)
+    logger.fatal("string msg with value: ${f.manager.fetchValue()}")
+    verify(f.mockLogger).fatal(anyString())
+    verify(f.manager).fetchValue()
+  }
+
+  @Test
+  fun `Lambda functions are evaluated if the level is high enough`() {
+    var count = 0
+    fun lamdaFun(): String {
+      count++
+      return "This should be evaluated."
+    }
+    val log = logger()
+    log.info { lamdaFun() }
+    assertTrue { count == 1 }
+  }
+
+  @Test
+  fun `Lambda functions are not evaluated if the level is low enough`() {
+    var count = 0
+    fun lamdaFun(): String {
+      count++
+      return "This should never be evaluated."
+    }
+    val log = logger()
+    log.debug { lamdaFun() }
+    assertTrue { count == 0 }
   }
 }
