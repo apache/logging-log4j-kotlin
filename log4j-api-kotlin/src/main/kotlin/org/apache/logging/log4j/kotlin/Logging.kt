@@ -15,13 +15,13 @@ import org.apache.logging.log4j.Logger
  *
  * ```
  *
- * A simpler mechanism is to use the delegated property extension directly, like:
+ * A simpler mechanism is to use the class extension directly, like:
  *
  * ```
  * import org.apache.logging.log4j.kotlin.logger
  *
  * class MyClass {
- *   val log by logger()
+ *   val log = logger()
  * }
  *
  * ```
