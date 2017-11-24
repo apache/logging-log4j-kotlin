@@ -27,9 +27,7 @@
   <packaging>jar</packaging>
   <name>Kotlin API samples</name>
   <url>http://http://logging.apache.org/log4j/2.x/</url>
-  <properties>
-    <kotlin.version>1.0.5</kotlin.version>
-  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -41,6 +39,7 @@
       <scope>runtime</scope>
     </dependency>
   </dependencies>
+
   <build>
     <sourceDirectory>src/main/kotlin</sourceDirectory>
     <plugins>
