@@ -18,14 +18,13 @@ package org.apache.logging.log4j.kotlin
 
 import org.junit.Test
 
-class LoggerCompanionTest {
-  companion object {
-    val log = logger()
-  }
+class LoggerMixinCompanionExtendsTest {
+
+  companion object : Logging
 
   @Test
-  fun `Logging from a function instantiation via companion logs the correct class name`() {
-    // this should log from class LoggerCompanionTest
-    log.error("This is an error log.")
+  fun `Logging from an interface mix-in via companion logs the correct class name`() {
+    // this should log from class LoggerMixinCompanionExtendsTest
+    logger.error("This is an error log.")
   }
 }
