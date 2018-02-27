@@ -16,3 +16,8 @@ Issues, bugs, and feature requests should be submitted to the
 
 Pull request on GitHub are welcome, but please open a ticket in the JIRA issue tracker first, and mention the 
 JIRA issue in the Pull Request.
+
+## Status
+
+This is work in progress to integrate Kotlin into log4j2 as a module. See issue
+https://issues.apache.org/jira/browse/LOG4J2-1705 for tracking information.
