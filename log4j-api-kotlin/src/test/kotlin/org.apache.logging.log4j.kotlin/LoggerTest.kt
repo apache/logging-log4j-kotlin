@@ -66,7 +66,7 @@ class LoggerTest {
       on { isEnabled(Level.ERROR) } doReturn true
     }
     whenever(f.mockLogger.isEnabled(Level.ERROR)).thenReturn(true)
-    val logger = FunctionalLogger(f.mockLogger)
+    val logger = KotlinLogger(f.mockLogger)
     val msg = "This is an error log."
     logger.error(msg)
     verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.ERROR), isNull(), eq(msg), isNull<Throwable>())
@@ -77,7 +77,7 @@ class LoggerTest {
     val f = Fixture {
       on { isEnabled(Level.FATAL) } doReturn true
     }
-    val logger = FunctionalLogger(f.mockLogger)
+    val logger = KotlinLogger(f.mockLogger)
     val msg = "string msg with value: ${f.manager.fetchValue()}"
     logger.fatal(msg)
     verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.FATAL), isNull(), eq(msg), isNull<Throwable>())
@@ -92,7 +92,7 @@ class LoggerTest {
       on { isEnabled(Level.FATAL) } doReturn false
     }
     whenever(f.mockLogger.isEnabled(Level.FATAL)).thenReturn(false)
-    val logger = FunctionalLogger(f.mockLogger)
+    val logger = KotlinLogger(f.mockLogger)
     val msg = "string msg with value: ${f.manager.fetchValue()}"
     logger.fatal(msg)
     verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.FATAL), isNull(), eq(msg), isNull<Throwable>())

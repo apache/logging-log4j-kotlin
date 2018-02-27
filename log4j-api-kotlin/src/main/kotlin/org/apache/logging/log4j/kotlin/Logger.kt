@@ -28,13 +28,13 @@ import org.apache.logging.log4j.util.Supplier
 import kotlin.reflect.full.companionObject
 
 /**
- * An adapter supporting cleaner syntax when calling a logger with a Kotlin lambda. A Kotlin lambda can
+ * An adapter supporting cleaner syntax when calling a logger via Kotlin. A Kotlin lambda can
  * easily be passed to Log4j2 as a `Supplier` via Kotlin's automatic conversion from lambda's to
  * SAM types. However, the compiler selects the incorrect overload of the method unless the lambda
  * type is specified explicitly as `Supplier`, resulting in the lambda itself being logged rather than
  * its evaluation.
  *
- * To avoid this, this delegate provides logging methods that explicitly take a Kotlin Lambda, and
+ * To avoid this, this delegate provides logging methods that take a native Kotlin Lambda as argument, and
  * then delegate to the underlying Log4j2 method taking a `Supplier`. Just as the Supplier-methods in
  * Log4j2, this does not evaluate the lambda, if the logging level is not enabled.
  *
@@ -53,20 +53,25 @@ import kotlin.reflect.full.companionObject
  * log.error(exc) { "Unexpected exception evaluating $whatever." }
  * ```
  *
- * The adapter also provides a `runInTrace` utility that avoids having to call traceEnter and traceExit and
- * catch manually. Rather, simply call the `trace` method, passing in an [EntryMessage] and the block to execute
- * within trace enter/exit/catch calls. Location-awareness is currently broken for trace logging with this
+ * Finally, the adapter also provides a `runInTrace` utility that avoids having to call traceEnter and traceExit
+ * and catch manually. Rather, simply call the `trace` method, passing in an [EntryMessage] and the block to
+ * execute within trace enter/exit/catch calls. Location-awareness is currently broken for trace logging with this
  * method as the ExtendedLogger does not expose the enter/exit/catch calls with the FQCN parameter.
  *
- * Lastly, while Kotlin's delegation capabilities would normally allow this implementation to be
+ * An implementation note: while Kotlin's delegation capabilities would normally allow this implementation to be
  * significantly less verbose by automatically delegating most methods to the ExtendedLogger delegate, this
- * would break location-awareness, as the ExtendedLogger delegate assumes its own FQCN is the root of the
- * logging stack.
+ * would break location-awareness, since the ExtendedLogger delegate assumes its own FQCN is the root of the
+ * logging stack. We therefore explicitly delegate to the ExtendedLogger.logIfEnabled method, passing in our own
+ * FQCN for appropriate location awareness.
+ *
+ * TODO: The ExtendedLogger interface does not yet have support for trace entry and exit with FQCN specification.
+ * Therefore, until the Log4j2 API is updated and then this code is updated to match, location awareness will not
+ * work for these calls.
  */
 @Suppress("UNUSED", "MemberVisibilityCanBePrivate")
-class FunctionalLogger(private val log: ExtendedLogger): Logger by log {
+class KotlinLogger(private val log: ExtendedLogger): Logger by log {
   companion object {
-    val FQCN: String = FunctionalLogger::class.java.name
+    val FQCN: String = KotlinLogger::class.java.name
     fun <T: Any?> (() -> T).asLog4jSupplier(): Supplier<T> = Supplier { invoke() }
     fun <T: Any?> (Array<out () -> T>).asLog4jSuppliers(): Array<Supplier<T>> = map { it.asLog4jSupplier() }.toTypedArray()
   }
@@ -1699,8 +1704,8 @@ class FunctionalLogger(private val log: ExtendedLogger): Logger by log {
 @Suppress("unused")
 inline fun <reified T : Any> T.logger() = loggerOf(T::class.java)
 
-fun loggerOf(ofClass: Class<*>): FunctionalLogger {
-  return FunctionalLogger(LogManager.getContext(ofClass.classLoader, false).getLogger(unwrapCompanionClass(ofClass).name))
+fun loggerOf(ofClass: Class<*>): KotlinLogger {
+  return KotlinLogger(LogManager.getContext(ofClass.classLoader, false).getLogger(unwrapCompanionClass(ofClass).name))
 }
 
 // unwrap companion class to enclosing class given a Java Class
