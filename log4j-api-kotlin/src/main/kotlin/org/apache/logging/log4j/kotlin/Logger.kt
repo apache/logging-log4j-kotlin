@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.kotlin
 
+import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.apache.logging.log4j.Marker
@@ -55,99 +56,100 @@ import kotlin.reflect.full.companionObject
 @Suppress("NOTHING_TO_INLINE", "OVERRIDE_BY_INLINE", "UNUSED")
 class FunctionalLogger(val log: ExtendedLogger): Logger by log {
   companion object {
+    val FQCN: String = FunctionalLogger::class.java.name
     inline fun <T: Any?> (() -> T).asLog4jSupplier(): Supplier<T> = Supplier { invoke() }
   }
 
   inline fun trace(t: Throwable, crossinline supplier: () -> Any?) {
-    log.trace(supplier.asLog4jSupplier(), t)
+    log.logIfEnabled(FQCN, Level.TRACE, null, supplier.asLog4jSupplier(), t)
   }
 
   inline fun trace(marker: Marker?, crossinline supplier: () -> Any?) {
-    log.trace(marker, supplier.asLog4jSupplier())
+    log.logIfEnabled(FQCN, Level.TRACE, marker, supplier.asLog4jSupplier(), null)
   }
 
   inline fun trace(marker: Marker?, t: Throwable?, crossinline supplier: () -> Any?) {
-    log.trace(marker, supplier.asLog4jSupplier(), t)
+    log.logIfEnabled(FQCN, Level.TRACE, marker, supplier.asLog4jSupplier(), t)
   }
 
   inline fun debug(crossinline supplier: () -> Any?) {
-    log.debug(supplier.asLog4jSupplier())
+    log.logIfEnabled(FQCN, Level.DEBUG, null, supplier.asLog4jSupplier(), null)
   }
 
   inline fun debug(t: Throwable, crossinline supplier: () -> Any?) {
-    log.debug(supplier.asLog4jSupplier(), t)
+    log.logIfEnabled(FQCN, Level.DEBUG, null, supplier.asLog4jSupplier(), t)
   }
 
   inline fun debug(marker: Marker?, crossinline supplier: () -> Any?) {
-    log.debug(marker, supplier.asLog4jSupplier())
+    log.logIfEnabled(FQCN, Level.DEBUG, marker, supplier.asLog4jSupplier(), null)
   }
 
   inline fun debug(marker: Marker?, t: Throwable?, crossinline supplier: () -> Any?) {
-    log.debug(marker, supplier.asLog4jSupplier(), t)
+    log.logIfEnabled(FQCN, Level.DEBUG, marker, supplier.asLog4jSupplier(), t)
   }
 
   inline fun info(crossinline supplier: () -> Any?) {
-    log.info(supplier.asLog4jSupplier())
+    log.logIfEnabled(FQCN, Level.INFO, null, supplier.asLog4jSupplier(), null)
   }
 
   inline fun info(t: Throwable, crossinline supplier: () -> Any?) {
-    log.info(supplier.asLog4jSupplier(), t)
+    log.logIfEnabled(FQCN, Level.INFO, null, supplier.asLog4jSupplier(), t)
   }
 
   inline fun info(marker: Marker?, crossinline supplier: () -> Any?) {
-    log.info(marker, supplier.asLog4jSupplier())
+    log.logIfEnabled(FQCN, Level.INFO, marker, supplier.asLog4jSupplier(), null)
   }
 
   inline fun info(marker: Marker?, t: Throwable?, crossinline supplier: () -> Any?) {
-    log.info(marker, supplier.asLog4jSupplier(), t)
+    log.logIfEnabled(FQCN, Level.INFO, marker, supplier.asLog4jSupplier(), t)
   }
 
   inline fun warn(crossinline supplier: () -> Any?) {
-    log.warn(supplier.asLog4jSupplier())
+    log.logIfEnabled(FQCN, Level.WARN, null, supplier.asLog4jSupplier(), null)
   }
 
   inline fun warn(t: Throwable, crossinline supplier: () -> Any?) {
-    log.warn(supplier.asLog4jSupplier(), t)
+    log.logIfEnabled(FQCN, Level.WARN, null, supplier.asLog4jSupplier(), t)
   }
 
   inline fun warn(marker: Marker?, crossinline supplier: () -> Any?) {
-    log.warn(marker, supplier.asLog4jSupplier())
+    log.logIfEnabled(FQCN, Level.WARN, marker, supplier.asLog4jSupplier(), null)
   }
 
   inline fun warn(marker: Marker?, t: Throwable?, crossinline supplier: () -> Any?) {
-    log.warn(marker, supplier.asLog4jSupplier(), t)
+    log.logIfEnabled(FQCN, Level.WARN, marker, supplier.asLog4jSupplier(), t)
   }
 
   inline fun error(crossinline supplier: () -> Any?) {
-    log.error(supplier.asLog4jSupplier())
+    log.logIfEnabled(FQCN, Level.ERROR, null, supplier.asLog4jSupplier(), null)
   }
 
   inline fun error(t: Throwable, crossinline supplier: () -> Any?) {
-    log.error(supplier.asLog4jSupplier(), t)
+    log.logIfEnabled(FQCN, Level.ERROR, null, supplier.asLog4jSupplier(), t)
   }
 
   inline fun error(marker: Marker?, crossinline supplier: () -> Any?) {
-    log.error(marker, supplier.asLog4jSupplier())
+    log.logIfEnabled(FQCN, Level.ERROR, marker, supplier.asLog4jSupplier(), null)
   }
 
   inline fun error(marker: Marker?, t: Throwable?, crossinline supplier: () -> Any?) {
-    log.error(marker, supplier.asLog4jSupplier(), t)
+    log.logIfEnabled(FQCN, Level.ERROR, marker, supplier.asLog4jSupplier(), t)
   }
 
   inline fun fatal(crossinline supplier: () -> Any?) {
-    log.fatal(supplier.asLog4jSupplier())
+    log.logIfEnabled(FQCN, Level.FATAL, null, supplier.asLog4jSupplier(), null)
   }
 
   inline fun fatal(t: Throwable, crossinline supplier: () -> Any?) {
-    log.fatal(supplier.asLog4jSupplier(), t)
+    log.logIfEnabled(FQCN, Level.FATAL, null, supplier.asLog4jSupplier(), t)
   }
 
   inline fun fatal(marker: Marker?, crossinline supplier: () -> Any?) {
-    log.fatal(marker, supplier.asLog4jSupplier())
+    log.logIfEnabled(FQCN, Level.FATAL, marker, supplier.asLog4jSupplier(), null)
   }
 
   inline fun fatal(marker: Marker?, t: Throwable?, crossinline supplier: () -> Any?) {
-    log.fatal(marker, supplier.asLog4jSupplier(), t)
+    log.logIfEnabled(FQCN, Level.FATAL, marker, supplier.asLog4jSupplier(), t)
   }
 
   inline fun <R : Any?> trace(block: () -> R): R {
@@ -155,7 +157,7 @@ class FunctionalLogger(val log: ExtendedLogger): Logger by log {
     try {
       val result = block()
       when(result) {
-        is Unit -> traceExit(entry)
+        Unit -> traceExit(entry)
         else -> traceExit(entry, result)
       }
       return result
@@ -170,7 +172,7 @@ class FunctionalLogger(val log: ExtendedLogger): Logger by log {
     try {
       val result = block()
       when(result) {
-        is Unit -> traceExit(entry)
+        Unit -> traceExit(entry)
         else -> traceExit(entry, result)
       }
       return result
@@ -183,27 +185,27 @@ class FunctionalLogger(val log: ExtendedLogger): Logger by log {
   // define overrides for deprecated MessageSupplier methods, otherwise Kotlin dispatches these over our methods (why?)
   @Deprecated("Use lambda methods.", ReplaceWith("log.trace(Supplier<Message>)"))
   override inline fun trace(messageSupplier: MessageSupplier?) {
-    log.debug(messageSupplier)
+    log.logIfEnabled(FQCN, Level.TRACE, null, messageSupplier, null)
   }
   @Deprecated("Use lambda methods.", ReplaceWith("log.debug(Supplier<Message>)"))
   override inline fun debug(messageSupplier: MessageSupplier?) {
-    log.trace(messageSupplier)
+    log.logIfEnabled(FQCN, Level.DEBUG, null, messageSupplier, null)
   }
   @Deprecated("Use lambda methods.", ReplaceWith("log.info(Supplier<Message>)"))
   override inline fun info(messageSupplier: MessageSupplier?) {
-    log.info(messageSupplier)
+    log.logIfEnabled(FQCN, Level.INFO, null, messageSupplier, null)
   }
   @Deprecated("Use lambda methods.", ReplaceWith("log.warn(Supplier<Message>)"))
   override inline fun warn(messageSupplier: MessageSupplier?) {
-    log.warn(messageSupplier)
+    log.logIfEnabled(FQCN, Level.WARN, null, messageSupplier, null)
   }
   @Deprecated("Use lambda methods.", ReplaceWith("log.error(Supplier<Message>)"))
   override inline fun error(messageSupplier: MessageSupplier?) {
-    log.error(messageSupplier)
+    log.logIfEnabled(FQCN, Level.ERROR, null, messageSupplier, null)
   }
   @Deprecated("Use lambda methods.", ReplaceWith("log.fatal(Supplier<Message>)"))
   override inline fun fatal(messageSupplier: MessageSupplier?) {
-    log.fatal(messageSupplier)
+    log.logIfEnabled(FQCN, Level.FATAL, null, messageSupplier, null)
   }
 }
 
