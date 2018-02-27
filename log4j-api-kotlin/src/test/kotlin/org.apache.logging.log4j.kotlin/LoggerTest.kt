@@ -67,8 +67,9 @@ class LoggerTest {
     }
     whenever(f.mockLogger.isEnabled(Level.ERROR)).thenReturn(true)
     val logger = FunctionalLogger(f.mockLogger)
-    logger.error("This is an error log.")
-    verify(f.mockLogger).error(anyString())
+    val msg = "This is an error log."
+    logger.error(msg)
+    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.ERROR), isNull(), eq(msg), isNull<Throwable>())
   }
 
   @Test
@@ -77,8 +78,9 @@ class LoggerTest {
       on { isEnabled(Level.FATAL) } doReturn true
     }
     val logger = FunctionalLogger(f.mockLogger)
-    logger.fatal("string msg with value: ${f.manager.fetchValue()}")
-    verify(f.mockLogger).fatal(anyString())
+    val msg = "string msg with value: ${f.manager.fetchValue()}"
+    logger.fatal(msg)
+    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.FATAL), isNull(), eq(msg), isNull<Throwable>())
     verify(f.manager).fetchValue()
   }
 
@@ -91,8 +93,9 @@ class LoggerTest {
     }
     whenever(f.mockLogger.isEnabled(Level.FATAL)).thenReturn(false)
     val logger = FunctionalLogger(f.mockLogger)
-    logger.fatal("string msg with value: ${f.manager.fetchValue()}")
-    verify(f.mockLogger).fatal(anyString())
+    val msg = "string msg with value: ${f.manager.fetchValue()}"
+    logger.fatal(msg)
+    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.FATAL), isNull(), eq(msg), isNull<Throwable>())
     verify(f.manager).fetchValue()
   }
 

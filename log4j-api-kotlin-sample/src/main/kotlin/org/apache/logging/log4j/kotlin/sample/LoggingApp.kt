@@ -16,7 +16,6 @@
  */
 package org.apache.logging.log4j.kotlin.sample
 
-import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.kotlin.logger
 import java.util.*
 
@@ -27,25 +26,24 @@ object LoggingApp {
   fun main(args: Array<String>) {
     val s1 = "foo"
     val s2 = "bar"
-    val t = RuntimeException("error")
 
     log.info { "Hello, world: $s1 $s2" }
 
     log.trace("Regular trace")
 
-    log.trace {
+    log.runInTrace {
       log.info("Inside trace extension!")
     }
 
-    log.trace({ "Trace extension with entry message." }) {
-      log.info("Inside trace extension with supplier!")
+    log.runInTrace(log.traceEntry({ "param1" }, { "param2" })) {
+      log.info("Inside trace extension with params suppliers!")
     }
 
-    fun getKey(): Int = log.trace {
+    fun getKey(): Int = log.runInTrace {
       Random().nextInt(10)
     }
 
-    fun getKeyError(): Int = log.trace {
+    fun getKeyError(): Int = log.runInTrace {
       throw Exception("Oops!")
     }
 
@@ -53,13 +51,7 @@ object LoggingApp {
     try {
       log.info { "Key was ${getKeyError()}" }
     } catch(e: Exception) {
-      Unit
+      log.info { "Key threw ${e.message}" }
     }
-
-    log.throwing(t)
-    log.throwing(Level.INFO, t)
-
-    log.catching(t)
-
   }
 }
