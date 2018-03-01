@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.kotlin
 
 import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.spi.ExtendedLogger
 import kotlin.reflect.full.companionObject
 
 /**
@@ -25,8 +26,22 @@ import kotlin.reflect.full.companionObject
 @Suppress("unused")
 inline fun <reified T : Any> T.logger() = loggerOf(T::class.java)
 
+/**
+ * Logger instantiation by function. Use: `val log = logger()`.
+ */
+@Suppress("unused")
+inline fun <reified T : Any> T.completeLogger() = completeLoggerOf(T::class.java)
+
+fun loggerDelegateOf(ofClass: Class<*>): ExtendedLogger {
+  return LogManager.getContext(ofClass.classLoader, false).getLogger(unwrapCompanionClass(ofClass).name)
+}
+
 fun loggerOf(ofClass: Class<*>): KotlinLogger {
-  return KotlinLogger(LogManager.getContext(ofClass.classLoader, false).getLogger(unwrapCompanionClass(ofClass).name))
+  return KotlinLogger(loggerDelegateOf(ofClass))
+}
+
+fun completeLoggerOf(ofClass: Class<*>): KotlinCompleteLogger {
+  return KotlinCompleteLogger(loggerDelegateOf(ofClass))
 }
 
 // unwrap companion class to enclosing class given a Java Class
