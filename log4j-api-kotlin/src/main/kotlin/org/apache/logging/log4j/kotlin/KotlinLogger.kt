@@ -21,6 +21,7 @@ import org.apache.logging.log4j.Logger
 import org.apache.logging.log4j.Marker
 import org.apache.logging.log4j.message.EntryMessage
 import org.apache.logging.log4j.message.Message
+import org.apache.logging.log4j.message.SimpleMessage
 import org.apache.logging.log4j.spi.ExtendedLogger
 
 /**
@@ -195,23 +196,21 @@ class KotlinLogger(val delegate: ExtendedLogger) {
   }
 
   // TODO entry with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  // TODO kotlin-ize these
-  fun traceEntry(): EntryMessage {
-    return delegate.traceEntry()
+  fun traceEntry(msg: CharSequence): EntryMessage {
+    return delegate.traceEntry(SimpleMessage(msg))
   }
 
   // TODO entry with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  fun traceEntry(format: String?, vararg params: Any?): EntryMessage {
-    return delegate.traceEntry(format, *params)
+  fun traceEntry(supplier: () -> CharSequence): EntryMessage? {
+    return if(delegate.isTraceEnabled) delegate.traceEntry(SimpleMessage(supplier())) else null
   }
 
   fun traceEntry(vararg paramSuppliers: () -> Any?): EntryMessage {
     return delegate.traceEntry(*paramSuppliers.asLog4jSuppliers())
   }
 
-  // TODO entry with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  fun traceEntry(format: String?, vararg paramSuppliers: () -> Any?): EntryMessage {
-    return delegate.traceEntry(format, *paramSuppliers.asLog4jSuppliers())
+  fun traceEntry(vararg params: Any?): EntryMessage {
+    return delegate.traceEntry(null, params)
   }
 
   // TODO entry with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
@@ -219,46 +218,17 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     return delegate.traceEntry(message)
   }
 
-  // TODO exit with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  fun traceExit() {
-    delegate.traceExit()
-  }
-
-  // TODO exit with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  fun <R : Any?> traceExit(format: String?, result: R): R {
-    return delegate.traceExit(format, result)
-  }
-
-  // TODO exit with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  fun <R : Any?> traceExit(message: Message, result: R): R {
-    return delegate.traceExit(message, result)
-  }
-
-  // TODO exit with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  fun traceExit(message: EntryMessage) {
-    delegate.traceExit(message)
-  }
-
-  // TODO exit with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  fun <R : Any?> traceExit(result: R): R {
-    return delegate.traceExit(result)
-  }
-
-  // TODO exit with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  fun <R : Any?> traceExit(message: EntryMessage, result: R): R {
-    return delegate.traceExit(message, result)
-  }
-
   fun <R : Any?> runInTrace(block: () -> R): R {
-    return runInTrace(traceEntry(), block)
+    return runInTrace(delegate.traceEntry(), block)
   }
 
+  // TODO exit and catching with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
   fun <R : Any?> runInTrace(entryMessage: EntryMessage, block: () -> R): R {
     return try {
       val result = block()
       when(result) {
-        Unit -> traceExit(entryMessage)
-        else -> traceExit(entryMessage, result)
+        Unit -> delegate.traceExit(entryMessage)
+        else -> delegate.traceExit(entryMessage, result)
       }
       result
     } catch (e: Throwable) {
