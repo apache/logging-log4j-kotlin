@@ -69,7 +69,7 @@ class LoggerTest {
     val logger = KotlinLogger(f.mockLogger)
     val msg = "This is an error log."
     logger.error(msg)
-    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.ERROR), isNull(), eq(msg), isNull<Throwable>())
+    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.ERROR), isNull(), eq<CharSequence>(msg), isNull())
   }
 
   @Test
@@ -80,7 +80,7 @@ class LoggerTest {
     val logger = KotlinLogger(f.mockLogger)
     val msg = "string msg with value: ${f.manager.fetchValue()}"
     logger.fatal(msg)
-    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.FATAL), isNull(), eq(msg), isNull<Throwable>())
+    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.FATAL), isNull(), eq<CharSequence>(msg), isNull())
     verify(f.manager).fetchValue()
   }
 
@@ -95,7 +95,7 @@ class LoggerTest {
     val logger = KotlinLogger(f.mockLogger)
     val msg = "string msg with value: ${f.manager.fetchValue()}"
     logger.fatal(msg)
-    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.FATAL), isNull(), eq(msg), isNull<Throwable>())
+    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.FATAL), isNull(), eq<CharSequence>(msg), isNull())
     verify(f.manager).fetchValue()
   }
 

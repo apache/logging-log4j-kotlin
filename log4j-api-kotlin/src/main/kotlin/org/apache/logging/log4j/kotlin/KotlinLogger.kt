@@ -50,6 +50,9 @@ import org.apache.logging.log4j.spi.ExtendedLogger
  * execute within trace enter/exit/catch calls. Location-awareness is currently broken for trace logging with this
  * method as the ExtendedLogger does not expose the enter/exit/catch calls with the FQCN parameter.
  *
+ * We also use Kotlin's nullability features to specify unambiguously which parameters must be non-null
+ * when passed.
+ *
  * Lastly, the ExtendedLogger delegate is available if the underlying Log4j Logger is needed for some reason.
  * Access it via the `delegate` property.
  *
@@ -63,67 +66,51 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     val FQCN: String = KotlinLogger::class.java.name
   }
 
-  fun log(level: Level, marker: Marker?, msg: Message?) {
+  fun log(level: Level, marker: Marker, msg: Message) {
     delegate.logIfEnabled(FQCN, level, marker, msg, null)
   }
 
-  fun log(level: Level, marker: Marker?, msg: Message?, t: Throwable?) {
+  fun log(level: Level, marker: Marker, msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, level, marker, msg, t)
   }
 
-  fun log(level: Level, marker: Marker?, msg: CharSequence?) {
+  fun log(level: Level, marker: Marker, msg: CharSequence) {
     delegate.logIfEnabled(FQCN, level, marker, msg, null)
   }
 
-  fun log(level: Level, marker: Marker?, msg: CharSequence?, t: Throwable?) {
+  fun log(level: Level, marker: Marker, msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, level, marker, msg, t)
   }
 
-  fun log(level: Level, marker: Marker?, msg: Any?) {
+  fun log(level: Level, marker: Marker, msg: Any) {
     delegate.logIfEnabled(FQCN, level, marker, msg, null)
   }
 
-  fun log(level: Level, marker: Marker?, msg: Any?, t: Throwable?) {
+  fun log(level: Level, marker: Marker, msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, level, marker, msg, t)
   }
 
-  fun log(level: Level, marker: Marker?, msg: String?) {
-    delegate.logIfEnabled(FQCN, level, marker, msg, null as Throwable?)
-  }
-
-  fun log(level: Level, marker: Marker?, msg: String?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, level, marker, msg, t)
-  }
-
-  fun log(level: Level, msg: Message?) {
+  fun log(level: Level, msg: Message) {
     delegate.logIfEnabled(FQCN, level, null, msg, null)
   }
 
-  fun log(level: Level, msg: Message?, t: Throwable?) {
+  fun log(level: Level, msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, level, null, msg, t)
   }
 
-  fun log(level: Level, msg: CharSequence?) {
+  fun log(level: Level, msg: CharSequence) {
     delegate.logIfEnabled(FQCN, level, null, msg, null)
   }
 
-  fun log(level: Level, msg: CharSequence?, t: Throwable?) {
+  fun log(level: Level, msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, level, null, msg, t)
   }
 
-  fun log(level: Level, msg: Any?) {
+  fun log(level: Level, msg: Any) {
     delegate.logIfEnabled(FQCN, level, null, msg, null)
   }
 
-  fun log(level: Level, msg: Any?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, level, null, msg, t)
-  }
-
-  fun log(level: Level, msg: String?) {
-    delegate.logIfEnabled(FQCN, level, null, msg, null as Throwable?)
-  }
-
-  fun log(level: Level, msg: String?, t: Throwable?) {
+  fun log(level: Level, msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, level, null, msg, t)
   }
 
@@ -135,75 +122,59 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, level, null, supplier.asLog4jSupplier(), t)
   }
 
-  fun log(level: Level, marker: Marker?, supplier: () -> Any?) {
+  fun log(level: Level, marker: Marker, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, level, marker, supplier.asLog4jSupplier(), null)
   }
 
-  fun log(level: Level, marker: Marker?, t: Throwable?, supplier: () -> Any?) {
+  fun log(level: Level, marker: Marker, t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, level, marker, supplier.asLog4jSupplier(), t)
   }
 
-  fun trace(marker: Marker?, msg: Message?) {
+  fun trace(marker: Marker, msg: Message) {
     delegate.logIfEnabled(FQCN, Level.TRACE, marker, msg, null)
   }
 
-  fun trace(marker: Marker?, msg: Message?, t: Throwable?) {
+  fun trace(marker: Marker, msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.TRACE, marker, msg, t)
   }
 
-  fun trace(marker: Marker?, msg: CharSequence?) {
+  fun trace(marker: Marker, msg: CharSequence) {
     delegate.logIfEnabled(FQCN, Level.TRACE, marker, msg, null)
   }
 
-  fun trace(marker: Marker?, msg: CharSequence?, t: Throwable?) {
+  fun trace(marker: Marker, msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.TRACE, marker, msg, t)
   }
 
-  fun trace(marker: Marker?, msg: Any?) {
+  fun trace(marker: Marker, msg: Any) {
     delegate.logIfEnabled(FQCN, Level.TRACE, marker, msg, null)
   }
 
-  fun trace(marker: Marker?, msg: Any?, t: Throwable?) {
+  fun trace(marker: Marker, msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.TRACE, marker, msg, t)
   }
 
-  fun trace(marker: Marker?, msg: String?) {
-    delegate.logIfEnabled(FQCN, Level.TRACE, marker, msg, null as Throwable?)
-  }
-
-  fun trace(marker: Marker?, msg: String?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, Level.TRACE, marker, msg, t)
-  }
-
-  fun trace(msg: Message?) {
+  fun trace(msg: Message) {
     delegate.logIfEnabled(FQCN, Level.TRACE, null, msg, null)
   }
 
-  fun trace(msg: Message?, t: Throwable?) {
+  fun trace(msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.TRACE, null, msg, t)
   }
 
-  fun trace(msg: CharSequence?) {
+  fun trace(msg: CharSequence) {
     delegate.logIfEnabled(FQCN, Level.TRACE, null, msg, null)
   }
 
-  fun trace(msg: CharSequence?, t: Throwable?) {
+  fun trace(msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.TRACE, null, msg, t)
   }
 
-  fun trace(msg: Any?) {
+  fun trace(msg: Any) {
     delegate.logIfEnabled(FQCN, Level.TRACE, null, msg, null)
   }
 
-  fun trace(msg: Any?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, Level.TRACE, null, msg, t)
-  }
-
-  fun trace(msg: String?) {
-    delegate.logIfEnabled(FQCN, Level.TRACE, null, msg, null as Throwable?)
-  }
-
-  fun trace(msg: String?, t: Throwable?) {
+  fun trace(msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.TRACE, null, msg, t)
   }
 
@@ -215,11 +186,11 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, Level.TRACE, null, supplier.asLog4jSupplier(), t)
   }
 
-  fun trace(marker: Marker?, supplier: () -> Any?) {
+  fun trace(marker: Marker, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.TRACE, marker, supplier.asLog4jSupplier(), null)
   }
 
-  fun trace(marker: Marker?, t: Throwable?, supplier: () -> Any?) {
+  fun trace(marker: Marker, t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.TRACE, marker, supplier.asLog4jSupplier(), t)
   }
 
@@ -244,7 +215,7 @@ class KotlinLogger(val delegate: ExtendedLogger) {
   }
 
   // TODO entry with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  fun traceEntry(message: Message?): EntryMessage {
+  fun traceEntry(message: Message): EntryMessage {
     return delegate.traceEntry(message)
   }
 
@@ -259,12 +230,12 @@ class KotlinLogger(val delegate: ExtendedLogger) {
   }
 
   // TODO exit with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  fun <R : Any?> traceExit(message: Message?, result: R): R {
+  fun <R : Any?> traceExit(message: Message, result: R): R {
     return delegate.traceExit(message, result)
   }
 
   // TODO exit with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  fun traceExit(message: EntryMessage?) {
+  fun traceExit(message: EntryMessage) {
     delegate.traceExit(message)
   }
 
@@ -274,7 +245,7 @@ class KotlinLogger(val delegate: ExtendedLogger) {
   }
 
   // TODO exit with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
-  fun <R : Any?> traceExit(message: EntryMessage?, result: R): R {
+  fun <R : Any?> traceExit(message: EntryMessage, result: R): R {
     return delegate.traceExit(message, result)
   }
 
@@ -296,67 +267,51 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     }
   }
 
-  fun debug(marker: Marker?, msg: Message?) {
+  fun debug(marker: Marker, msg: Message) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, marker, msg, null)
   }
 
-  fun debug(marker: Marker?, msg: Message?, t: Throwable?) {
+  fun debug(marker: Marker, msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, marker, msg, t)
   }
 
-  fun debug(marker: Marker?, msg: CharSequence?) {
+  fun debug(marker: Marker, msg: CharSequence) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, marker, msg, null)
   }
 
-  fun debug(marker: Marker?, msg: CharSequence?, t: Throwable?) {
+  fun debug(marker: Marker, msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, marker, msg, t)
   }
 
-  fun debug(marker: Marker?, msg: Any?) {
+  fun debug(marker: Marker, msg: Any) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, marker, msg, null)
   }
 
-  fun debug(marker: Marker?, msg: Any?, t: Throwable?) {
+  fun debug(marker: Marker, msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, marker, msg, t)
   }
 
-  fun debug(marker: Marker?, msg: String?) {
-    delegate.logIfEnabled(FQCN, Level.DEBUG, marker, msg, null as Throwable?)
-  }
-
-  fun debug(marker: Marker?, msg: String?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, Level.DEBUG, marker, msg, t)
-  }
-
-  fun debug(msg: Message?) {
+  fun debug(msg: Message) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, null, msg, null)
   }
 
-  fun debug(msg: Message?, t: Throwable?) {
+  fun debug(msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, null, msg, t)
   }
 
-  fun debug(msg: CharSequence?) {
+  fun debug(msg: CharSequence) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, null, msg, null)
   }
 
-  fun debug(msg: CharSequence?, t: Throwable?) {
+  fun debug(msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, null, msg, t)
   }
 
-  fun debug(msg: Any?) {
+  fun debug(msg: Any) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, null, msg, null)
   }
 
-  fun debug(msg: Any?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, Level.DEBUG, null, msg, t)
-  }
-
-  fun debug(msg: String?) {
-    delegate.logIfEnabled(FQCN, Level.DEBUG, null, msg, null as Throwable?)
-  }
-
-  fun debug(msg: String?, t: Throwable?) {
+  fun debug(msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, null, msg, t)
   }
 
@@ -368,75 +323,59 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, null, supplier.asLog4jSupplier(), t)
   }
 
-  fun debug(marker: Marker?, supplier: () -> Any?) {
+  fun debug(marker: Marker, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, marker, supplier.asLog4jSupplier(), null)
   }
 
-  fun debug(marker: Marker?, t: Throwable?, supplier: () -> Any?) {
+  fun debug(marker: Marker, t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, marker, supplier.asLog4jSupplier(), t)
   }
 
-  fun info(marker: Marker?, msg: Message?) {
+  fun info(marker: Marker, msg: Message) {
     delegate.logIfEnabled(FQCN, Level.INFO, marker, msg, null)
   }
 
-  fun info(marker: Marker?, msg: Message?, t: Throwable?) {
+  fun info(marker: Marker, msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.INFO, marker, msg, t)
   }
 
-  fun info(marker: Marker?, msg: CharSequence?) {
+  fun info(marker: Marker, msg: CharSequence) {
     delegate.logIfEnabled(FQCN, Level.INFO, marker, msg, null)
   }
 
-  fun info(marker: Marker?, msg: CharSequence?, t: Throwable?) {
+  fun info(marker: Marker, msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.INFO, marker, msg, t)
   }
 
-  fun info(marker: Marker?, msg: Any?) {
+  fun info(marker: Marker, msg: Any) {
     delegate.logIfEnabled(FQCN, Level.INFO, marker, msg, null)
   }
 
-  fun info(marker: Marker?, msg: Any?, t: Throwable?) {
+  fun info(marker: Marker, msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.INFO, marker, msg, t)
   }
 
-  fun info(marker: Marker?, msg: String?) {
-    delegate.logIfEnabled(FQCN, Level.INFO, marker, msg, null as Throwable?)
-  }
-
-  fun info(marker: Marker?, msg: String?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, Level.INFO, marker, msg, t)
-  }
-
-  fun info(msg: Message?) {
+  fun info(msg: Message) {
     delegate.logIfEnabled(FQCN, Level.INFO, null, msg, null)
   }
 
-  fun info(msg: Message?, t: Throwable?) {
+  fun info(msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.INFO, null, msg, t)
   }
 
-  fun info(msg: CharSequence?) {
+  fun info(msg: CharSequence) {
     delegate.logIfEnabled(FQCN, Level.INFO, null, msg, null)
   }
 
-  fun info(msg: CharSequence?, t: Throwable?) {
+  fun info(msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.INFO, null, msg, t)
   }
 
-  fun info(msg: Any?) {
+  fun info(msg: Any) {
     delegate.logIfEnabled(FQCN, Level.INFO, null, msg, null)
   }
 
-  fun info(msg: Any?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, Level.INFO, null, msg, t)
-  }
-
-  fun info(msg: String?) {
-    delegate.logIfEnabled(FQCN, Level.INFO, null, msg, null as Throwable?)
-  }
-
-  fun info(msg: String?, t: Throwable?) {
+  fun info(msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.INFO, null, msg, t)
   }
 
@@ -448,75 +387,59 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, Level.INFO, null, supplier.asLog4jSupplier(), t)
   }
 
-  fun info(marker: Marker?, supplier: () -> Any?) {
+  fun info(marker: Marker, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.INFO, marker, supplier.asLog4jSupplier(), null)
   }
 
-  fun info(marker: Marker?, t: Throwable?, supplier: () -> Any?) {
+  fun info(marker: Marker, t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.INFO, marker, supplier.asLog4jSupplier(), t)
   }
 
-  fun warn(marker: Marker?, msg: Message?) {
+  fun warn(marker: Marker, msg: Message) {
     delegate.logIfEnabled(FQCN, Level.WARN, marker, msg, null)
   }
 
-  fun warn(marker: Marker?, msg: Message?, t: Throwable?) {
+  fun warn(marker: Marker, msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.WARN, marker, msg, t)
   }
 
-  fun warn(marker: Marker?, msg: CharSequence?) {
+  fun warn(marker: Marker, msg: CharSequence) {
     delegate.logIfEnabled(FQCN, Level.WARN, marker, msg, null)
   }
 
-  fun warn(marker: Marker?, msg: CharSequence?, t: Throwable?) {
+  fun warn(marker: Marker, msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.WARN, marker, msg, t)
   }
 
-  fun warn(marker: Marker?, msg: Any?) {
+  fun warn(marker: Marker, msg: Any) {
     delegate.logIfEnabled(FQCN, Level.WARN, marker, msg, null)
   }
 
-  fun warn(marker: Marker?, msg: Any?, t: Throwable?) {
+  fun warn(marker: Marker, msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.WARN, marker, msg, t)
   }
 
-  fun warn(marker: Marker?, msg: String?) {
-    delegate.logIfEnabled(FQCN, Level.WARN, marker, msg, null as Throwable?)
-  }
-
-  fun warn(marker: Marker?, msg: String?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, Level.WARN, marker, msg, t)
-  }
-
-  fun warn(msg: Message?) {
+  fun warn(msg: Message) {
     delegate.logIfEnabled(FQCN, Level.WARN, null, msg, null)
   }
 
-  fun warn(msg: Message?, t: Throwable?) {
+  fun warn(msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.WARN, null, msg, t)
   }
 
-  fun warn(msg: CharSequence?) {
+  fun warn(msg: CharSequence) {
     delegate.logIfEnabled(FQCN, Level.WARN, null, msg, null)
   }
 
-  fun warn(msg: CharSequence?, t: Throwable?) {
+  fun warn(msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.WARN, null, msg, t)
   }
 
-  fun warn(msg: Any?) {
+  fun warn(msg: Any) {
     delegate.logIfEnabled(FQCN, Level.WARN, null, msg, null)
   }
 
-  fun warn(msg: Any?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, Level.WARN, null, msg, t)
-  }
-
-  fun warn(msg: String?) {
-    delegate.logIfEnabled(FQCN, Level.WARN, null, msg, null as Throwable?)
-  }
-
-  fun warn(msg: String?, t: Throwable?) {
+  fun warn(msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.WARN, null, msg, t)
   }
 
@@ -528,75 +451,59 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, Level.WARN, null, supplier.asLog4jSupplier(), t)
   }
 
-  fun warn(marker: Marker?, supplier: () -> Any?) {
+  fun warn(marker: Marker, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.WARN, marker, supplier.asLog4jSupplier(), null)
   }
 
-  fun warn(marker: Marker?, t: Throwable?, supplier: () -> Any?) {
+  fun warn(marker: Marker, t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.WARN, marker, supplier.asLog4jSupplier(), t)
   }
 
-  fun error(marker: Marker?, msg: Message?) {
+  fun error(marker: Marker, msg: Message) {
     delegate.logIfEnabled(FQCN, Level.ERROR, marker, msg, null)
   }
 
-  fun error(marker: Marker?, msg: Message?, t: Throwable?) {
+  fun error(marker: Marker, msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.ERROR, marker, msg, t)
   }
 
-  fun error(marker: Marker?, msg: CharSequence?) {
+  fun error(marker: Marker, msg: CharSequence) {
     delegate.logIfEnabled(FQCN, Level.ERROR, marker, msg, null)
   }
 
-  fun error(marker: Marker?, msg: CharSequence?, t: Throwable?) {
+  fun error(marker: Marker, msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.ERROR, marker, msg, t)
   }
 
-  fun error(marker: Marker?, msg: Any?) {
+  fun error(marker: Marker, msg: Any) {
     delegate.logIfEnabled(FQCN, Level.ERROR, marker, msg, null)
   }
 
-  fun error(marker: Marker?, msg: Any?, t: Throwable?) {
+  fun error(marker: Marker, msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.ERROR, marker, msg, t)
   }
 
-  fun error(marker: Marker?, msg: String?) {
-    delegate.logIfEnabled(FQCN, Level.ERROR, marker, msg, null as Throwable?)
-  }
-
-  fun error(marker: Marker?, msg: String?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, Level.ERROR, marker, msg, t)
-  }
-
-  fun error(msg: Message?) {
+  fun error(msg: Message) {
     delegate.logIfEnabled(FQCN, Level.ERROR, null, msg, null)
   }
 
-  fun error(msg: Message?, t: Throwable?) {
+  fun error(msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.ERROR, null, msg, t)
   }
 
-  fun error(msg: CharSequence?) {
+  fun error(msg: CharSequence) {
     delegate.logIfEnabled(FQCN, Level.ERROR, null, msg, null)
   }
 
-  fun error(msg: CharSequence?, t: Throwable?) {
+  fun error(msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.ERROR, null, msg, t)
   }
 
-  fun error(msg: Any?) {
+  fun error(msg: Any) {
     delegate.logIfEnabled(FQCN, Level.ERROR, null, msg, null)
   }
 
-  fun error(msg: Any?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, Level.ERROR, null, msg, t)
-  }
-
-  fun error(msg: String?) {
-    delegate.logIfEnabled(FQCN, Level.ERROR, null, msg, null as Throwable?)
-  }
-
-  fun error(msg: String?, t: Throwable?) {
+  fun error(msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.ERROR, null, msg, t)
   }
 
@@ -608,75 +515,59 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, Level.ERROR, null, supplier.asLog4jSupplier(), t)
   }
 
-  fun error(marker: Marker?, supplier: () -> Any?) {
+  fun error(marker: Marker, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.ERROR, marker, supplier.asLog4jSupplier(), null)
   }
 
-  fun error(marker: Marker?, t: Throwable?, supplier: () -> Any?) {
+  fun error(marker: Marker, t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.ERROR, marker, supplier.asLog4jSupplier(), t)
   }
 
-  fun fatal(marker: Marker?, msg: Message?) {
+  fun fatal(marker: Marker, msg: Message) {
     delegate.logIfEnabled(FQCN, Level.FATAL, marker, msg, null)
   }
 
-  fun fatal(marker: Marker?, msg: Message?, t: Throwable?) {
+  fun fatal(marker: Marker, msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.FATAL, marker, msg, t)
   }
 
-  fun fatal(marker: Marker?, msg: CharSequence?) {
+  fun fatal(marker: Marker, msg: CharSequence) {
     delegate.logIfEnabled(FQCN, Level.FATAL, marker, msg, null)
   }
 
-  fun fatal(marker: Marker?, msg: CharSequence?, t: Throwable?) {
+  fun fatal(marker: Marker, msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.FATAL, marker, msg, t)
   }
 
-  fun fatal(marker: Marker?, msg: Any?) {
+  fun fatal(marker: Marker, msg: Any) {
     delegate.logIfEnabled(FQCN, Level.FATAL, marker, msg, null)
   }
 
-  fun fatal(marker: Marker?, msg: Any?, t: Throwable?) {
+  fun fatal(marker: Marker, msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.FATAL, marker, msg, t)
   }
 
-  fun fatal(marker: Marker?, msg: String?) {
-    delegate.logIfEnabled(FQCN, Level.FATAL, marker, msg, null as Throwable?)
-  }
-
-  fun fatal(marker: Marker?, msg: String?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, Level.FATAL, marker, msg, t)
-  }
-
-  fun fatal(msg: Message?) {
+  fun fatal(msg: Message) {
     delegate.logIfEnabled(FQCN, Level.FATAL, null, msg, null)
   }
 
-  fun fatal(msg: Message?, t: Throwable?) {
+  fun fatal(msg: Message, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.FATAL, null, msg, t)
   }
 
-  fun fatal(msg: CharSequence?) {
+  fun fatal(msg: CharSequence) {
     delegate.logIfEnabled(FQCN, Level.FATAL, null, msg, null)
   }
 
-  fun fatal(msg: CharSequence?, t: Throwable?) {
+  fun fatal(msg: CharSequence, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.FATAL, null, msg, t)
   }
 
-  fun fatal(msg: Any?) {
+  fun fatal(msg: Any) {
     delegate.logIfEnabled(FQCN, Level.FATAL, null, msg, null)
   }
 
-  fun fatal(msg: Any?, t: Throwable?) {
-    delegate.logIfEnabled(FQCN, Level.FATAL, null, msg, t)
-  }
-
-  fun fatal(msg: String?) {
-    delegate.logIfEnabled(FQCN, Level.FATAL, null, msg, null as Throwable?)
-  }
-
-  fun fatal(msg: String?, t: Throwable?) {
+  fun fatal(msg: Any, t: Throwable?) {
     delegate.logIfEnabled(FQCN, Level.FATAL, null, msg, t)
   }
 
@@ -688,11 +579,11 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, Level.FATAL, null, supplier.asLog4jSupplier(), t)
   }
 
-  fun fatal(marker: Marker?, supplier: () -> Any?) {
+  fun fatal(marker: Marker, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.FATAL, marker, supplier.asLog4jSupplier(), null)
   }
 
-  fun fatal(marker: Marker?, t: Throwable?, supplier: () -> Any?) {
+  fun fatal(marker: Marker, t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.FATAL, marker, supplier.asLog4jSupplier(), t)
   }
 
