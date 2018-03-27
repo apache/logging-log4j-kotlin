@@ -25,11 +25,13 @@ import org.apache.logging.log4j.message.SimpleMessage
 import org.apache.logging.log4j.spi.ExtendedLogger
 
 /**
- * An adapter supporting cleaner syntax when calling a logger via Kotlin. This differs from
- * [KotlinCompleteLogger] in that it does not implement the Log4j2 [Logger] interface, but instead
- * limits logging methods to those that would be natural to use from Kotlin. For example,
- * the various logging-parameter methods necessary for Java are eschewed in favor of Kotlin
- * lambdas and String interpolation.
+ * An adapter supporting cleaner syntax when calling a logger via Kotlin. This does not implement
+ * the Log4j2 [Logger] interface, but instead limits logging methods to those that would be natural
+ * to use from Kotlin. For example, the various logging-parameter methods necessary for Java are
+ * eschewed in favor of Kotlin lambdas and String interpolation.
+ *
+ * If you do need access to the underlying [Logger] or [ExtendedLogger], it may be accessed via the
+ * `delegate` property.
  *
  * One can use Kotlin's String interpolation for logging without the performance impact of
  * evaluating the parameters if the level is not enabled e.g.:
