@@ -16,15 +16,31 @@
  */
 package org.apache.logging.log4j.kotlin
 
+import org.apache.logging.log4j.Level
+import org.apache.logging.log4j.kotlin.support.withListAppender
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class LoggerMixinCompanionExtendsTest {
 
   companion object : Logging
 
+  // note: using LoggerContextRule here to init the config does nothing as the initialization happens in the companion
+  // log4j will fall back to the default config
+
   @Test
   fun `Logging from an interface mix-in via companion logs the correct class name`() {
-    // this should log from class LoggerMixinCompanionExtendsTest
-    logger.error("This is an error log.")
+    val msg = "This is an error log."
+    val msgs = withListAppender { _, _ ->
+      logger.error(msg)
+    }
+
+    assertEquals(1, msgs.size.toLong())
+
+    msgs.first().also {
+      assertEquals(Level.ERROR, it.level)
+      assertEquals(msg, it.message.format)
+      assertEquals(LoggerMixinCompanionExtendsTest::class.qualifiedName, it.loggerName)
+    }
   }
 }

@@ -16,13 +16,30 @@
  */
 package org.apache.logging.log4j.kotlin
 
+import org.apache.logging.log4j.Level.ERROR
+import org.apache.logging.log4j.junit.LoggerContextRule
+import org.apache.logging.log4j.kotlin.support.withListAppender
+import org.junit.Rule
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class LoggerMixinExtendsTest : Logging {
 
+  @Rule @JvmField var init = LoggerContextRule("InfoLogger.xml")
+
   @Test
   fun `Logging using an interface mix-in logs the correct class name`() {
-    // this should log from class LoggerMixinExtendsTest
-    logger.error("This is an error log.")
+    val msg = "This is an error log."
+    val msgs = withListAppender { _, _ ->
+      logger.error(msg)
+    }
+
+    assertEquals(1, msgs.size.toLong())
+
+    msgs.first().also {
+      assertEquals(ERROR, it.level)
+      assertEquals(msg, it.message.format)
+      assertEquals(LoggerMixinExtendsTest::class.qualifiedName, it.loggerName)
+    }
   }
 }

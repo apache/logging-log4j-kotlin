@@ -16,16 +16,32 @@
  */
 package org.apache.logging.log4j.kotlin
 
+import org.apache.logging.log4j.Level
+import org.apache.logging.log4j.kotlin.support.withListAppender
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class LoggerCompanionTest {
   companion object {
     val log = logger()
   }
 
+  // note: using LoggerContextRule here to init the config does nothing as the initialization happens in the companion
+  // log4j will fall back to the default config
+
   @Test
   fun `Logging from a function instantiation via companion logs the correct class name`() {
-    // this should log from class LoggerCompanionTest
-    log.error("This is an error log.")
+    val msg = "This is an error log."
+    val msgs = withListAppender { _, _ ->
+      log.error(msg)
+    }
+
+    assertEquals(1, msgs.size.toLong())
+
+    msgs.first().also {
+      assertEquals(Level.ERROR, it.level)
+      assertEquals(msg, it.message.format)
+      assertEquals(LoggerCompanionTest::class.qualifiedName, it.loggerName)
+    }
   }
 }
