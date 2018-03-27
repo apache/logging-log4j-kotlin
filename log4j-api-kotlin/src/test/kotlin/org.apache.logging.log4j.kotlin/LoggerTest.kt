@@ -28,6 +28,7 @@ import org.apache.logging.log4j.spi.ExtendedLogger
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
+import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 data class Custom(val i: Int)
@@ -39,15 +40,18 @@ interface Manager {
 typealias LoggerStubbingFn = KStubbing<ExtendedLogger>.() -> Unit
 
 class LoggerTest {
-  @Rule @JvmField var init = LoggerContextRule("InfoLogger.xml")
+  companion object {
+    val msg = ParameterizedMessage("msg {}", 17)
+    val entryMsg = DefaultFlowMessageFactory().newEntryMessage(msg)
+    val cseqMsg: CharSequence = StringBuilder().append("cseq msg")
+    val objectMsg = Custom(17)
+    val cause = RuntimeException("cause")
+    val marker = MarkerManager.getMarker("marker")
+    val result = "foo"
+    val managerValue: Int = 4711
+  }
 
-  val msg = ParameterizedMessage("msg {}", 17)
-  val entryMsg = DefaultFlowMessageFactory().newEntryMessage(msg)
-  val cseqMsg: CharSequence = StringBuilder().append("cseq msg")
-  val objectMsg = Custom(17)
-  val cause = RuntimeException("cause")
-  val marker = MarkerManager.getMarker("marker")
-  val result = "foo"
+  @Rule @JvmField var init = LoggerContextRule("InfoLogger.xml")
 
   class Fixture(stubbing: LoggerStubbingFn? = null) {
     val mockLogger = mock<ExtendedLogger> {
@@ -56,47 +60,52 @@ class LoggerTest {
     }
 
     val manager = mock<Manager> {
-      on { fetchValue() } doReturn 4711
+      on { fetchValue() } doReturn managerValue
     }
+  }
+
+  fun withFixture(stubbing: LoggerStubbingFn?, level: Level, returning: Boolean, block: Fixture.(KotlinLogger) -> Unit): Fixture {
+    val f = Fixture(stubbing)
+    whenever(f.mockLogger.isEnabled(level)).thenReturn(returning)
+    val logger = KotlinLogger(f.mockLogger)
+    block(f, logger)
+    return f
+  }
+
+  fun withLevelFixture(level: Level, returning: Boolean, block: Fixture.(KotlinLogger) -> Unit): Fixture {
+    return withFixture({
+      on { isEnabled(level) } doReturn returning
+    }, level, returning, block)
   }
 
   @Test
   fun `Logging works!`() {
-    val f = Fixture {
-      on { isEnabled(Level.ERROR) } doReturn true
+    val f = withLevelFixture(Level.ERROR, true) {
+      it.error(result)
     }
-    whenever(f.mockLogger.isEnabled(Level.ERROR)).thenReturn(true)
-    val logger = KotlinLogger(f.mockLogger)
-    val msg = "This is an error log."
-    logger.error(msg)
-    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.ERROR), isNull(), eq<CharSequence>(msg), isNull())
+    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.ERROR), isNull(), eq<CharSequence>(result), isNull())
   }
 
   @Test
   fun `Level fatal enabled with String message`() {
-    val f = Fixture {
-      on { isEnabled(Level.FATAL) } doReturn true
+    val f = withLevelFixture(Level.FATAL, true) {
+      it.fatal("string msg with value: ${manager.fetchValue()}")
     }
-    val logger = KotlinLogger(f.mockLogger)
-    val msg = "string msg with value: ${f.manager.fetchValue()}"
-    logger.fatal(msg)
-    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.FATAL), isNull(), eq<CharSequence>(msg), isNull())
+    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.FATAL), isNull(), eq<CharSequence>("string msg with value: $managerValue"), isNull())
     verify(f.manager).fetchValue()
   }
 
 
   @Test
   fun `Level fatal disabled with String message`() {
-    // this should fail but it doesn't because unlike Scala, we just delegate, we don't have any extra logic
-    val f = Fixture {
-      on { isEnabled(Level.FATAL) } doReturn false
+    val f = withLevelFixture(Level.FATAL, false) {
+      it.fatal("string msg with value: ${manager.fetchValue()}")
     }
-    whenever(f.mockLogger.isEnabled(Level.FATAL)).thenReturn(false)
-    val logger = KotlinLogger(f.mockLogger)
-    val msg = "string msg with value: ${f.manager.fetchValue()}"
-    logger.fatal(msg)
-    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.FATAL), isNull(), eq<CharSequence>(msg), isNull())
-    verify(f.manager).fetchValue()
+
+    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.FATAL), isNull(), eq<CharSequence>("string msg with value: $managerValue"), isNull())
+    // one might expect times(0), but we just delegate so times(1), we don't have any extra macro-based logic like the Scala api
+    // use the lambda approach to not evaluate the message if the level is not enabled
+    verify(f.manager, times(1)).fetchValue()
   }
 
   @Test
@@ -104,7 +113,7 @@ class LoggerTest {
     var count = 0
     fun lamdaFun(): String {
       count++
-      return "This should be evaluated."
+      return result
     }
     val log = logger()
     log.info { lamdaFun() }
@@ -116,10 +125,75 @@ class LoggerTest {
     var count = 0
     fun lamdaFun(): String {
       count++
-      return "This should never be evaluated."
+      return result
     }
     val log = logger()
     log.debug { lamdaFun() }
     assertTrue { count == 0 }
+  }
+
+  @Test
+  fun `CharSequence messages are logged`() {
+    val f = withLevelFixture(Level.INFO, true) {
+      it.info(cseqMsg)
+    }
+    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.INFO), isNull(), eq(cseqMsg), isNull())
+  }
+
+  @Test
+  fun `Object messages are logged`() {
+    val f = withLevelFixture(Level.INFO, true) {
+      it.info(objectMsg)
+    }
+    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.INFO), isNull(), eq(objectMsg), isNull())
+  }
+
+  @Test
+  fun `Markers are logged`() {
+    val f = withLevelFixture(Level.INFO, true) {
+      it.info(marker, result)
+    }
+    verify(f.mockLogger).logIfEnabled(anyString(), eq(Level.INFO), eq(marker), eq<CharSequence>(result), isNull())
+  }
+
+  @Test
+  fun `Run in trace with no result`() {
+    var count = 0
+    val f = withLevelFixture(Level.INFO, true) {
+      it.runInTrace(entryMsg) {
+        ++count
+        Unit
+      }
+    }
+    assertTrue { count == 1 }
+    verify(f.mockLogger).traceExit(eq(entryMsg))
+  }
+
+  @Test
+  fun `Run in trace with result`() {
+    var count = 0
+    val f = withLevelFixture(Level.INFO, true) {
+      it.runInTrace(entryMsg) {
+        ++count
+      }
+    }
+    assertTrue { count == 1 }
+    verify(f.mockLogger).traceExit(eq(entryMsg), eq(1))
+  }
+
+  @Test
+  fun `Run in trace with Exception`() {
+    var count = 0
+    val f = withLevelFixture(Level.INFO, true) {
+      assertFailsWith<RuntimeException> {
+        it.runInTrace(entryMsg) {
+          ++count
+          throw cause
+        }
+      }
+    }
+    assertTrue { count == 1 }
+    verify(f.mockLogger, times(0)).traceExit(any())
+    verify(f.mockLogger).catching(argThat { message == "cause" })
   }
 }
