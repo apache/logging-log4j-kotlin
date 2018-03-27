@@ -19,18 +19,16 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.logging.log4j</groupId>
-    <artifactId>log4j-kotlin</artifactId>
-    <version>2.10.1-SNAPSHOT</version>
+    <artifactId>log4j-api-kotlin-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
-  <artifactId>log4j-api-kotlin</artifactId>
-  <packaging>jar</packaging>
-  <name>Kotlin wrapper for Log4j API</name>
-  <description>Kotlin wrapper for Log4j API</description>
 
-  <properties>
-    <log4jParentDir>${basedir}/..</log4jParentDir>
-  </properties>
+  <artifactId>log4j-api-kotlin</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>Apache Log4j Kotlin API</name>
+  <description>Kotlin wrapper for Log4j API</description>
 
   <dependencies>
     <dependency>
@@ -67,6 +65,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -100,58 +99,11 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-      </plugin>
-      <!-- Include the standard NOTICE and LICENSE -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-remote-resources-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>process</goal>
-            </goals>
-            <configuration>
-              <skip>false</skip>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-      </plugin>
     </plugins>
   </build>
 
   <reporting>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-changes-plugin</artifactId>
-        <version>${changes.plugin.version}</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>changes-report</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-        <configuration>
-          <issueLinkTemplate>%URL%/show_bug.cgi?id=%ISSUE%</issueLinkTemplate>
-          <useJql>true</useJql>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>${pmd.plugin.version}</version>
-        <configuration>
-          <targetJdk>${maven.compile.target}</targetJdk>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>

@@ -17,26 +17,30 @@
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>log4j-kotlin</artifactId>
-  <packaging>pom</packaging>
-  <name>Apache Log4j 2 Kotlin API</name>
-  <version>2.10.1-SNAPSHOT</version>
   <parent>
-    <groupId>org.apache.logging.log4j</groupId>
-    <artifactId>log4j</artifactId>
-    <version>2.10.1-SNAPSHOT</version>
+    <groupId>org.apache.logging</groupId>
+    <artifactId>logging-parent</artifactId>
+    <version>2</version>
   </parent>
-  <description>Apache Log4j 2 Kotlin API</description>
-  <url>http://logging.apache.org/log4j/2.x/</url>
+
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-api-kotlin-parent</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Apache Log4j Kotlin API</name>
+  <description>Apache Log4j Kotlin API parent project</description>
+
+  <!-- TODO: website publishing -->
+  <url>https://logging.apache.org/log4j/kotlin/</url>
   <scm>
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/logging-log4j-kotlin.git</connection>
     <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/logging-log4j-kotlin.git</developerConnection>
     <url>https://git-wip-us.apache.org/repos/asf?p=logging-log4j-kotlin.git;a=summary</url>
-    <tag>log4j-${Log4jReleaseVersion}</tag>
   </scm>
 
   <properties>
-    <kotlin.version>1.2.21</kotlin.version>
+    <kotlin.version>1.2.31</kotlin.version>
+    <log4j.version>2.11.0</log4j.version>
   </properties>
 
   <dependencyManagement>
@@ -45,6 +49,30 @@
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-api-kotlin</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>${log4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>${log4j.version}</version>
+        <type>test-jar</type>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j.version}</version>
+        <type>test-jar</type>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
