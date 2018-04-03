@@ -39,9 +39,7 @@ The `Logging` interface can also be mixed into `object` declarations, including 
 import org.apache.logging.log4j.kotlin.Logging
 
 class MyClass: BaseClass {
-  companion object : Logging {
-    // other declarations
-  }
+  companion object : Logging
 
   ...
 }
