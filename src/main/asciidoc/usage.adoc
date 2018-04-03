@@ -32,7 +32,7 @@ class MyClass: BaseClass, Logging {
 }
 ----
 
-The `Logging` interface can also be mixed into `object` declarations, including companions.
+The `Logging` interface can also be mixed into `object` declarations, including companions. This is generally preferable over the previous approach as there is a single logger created for every instance of the class.
 
 [source,kotlin]
 ----
@@ -99,6 +99,21 @@ import org.apache.logging.log4j.kotlin
 
 class MyClass: BaseClass {
   val logger = SomeOtherClass.logger()
+
+  ...
+}
+----
+
+==== Explicitly Named Loggers
+
+An explicitly-named logger may be obtained via the `namedLogger` function:
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin
+
+class MyClass: BaseClass {
+  val logger = namedLogger("MyCustomLoggerName")
 
   ...
 }

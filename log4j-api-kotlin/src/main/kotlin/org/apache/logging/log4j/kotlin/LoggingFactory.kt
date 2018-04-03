@@ -21,10 +21,18 @@ import org.apache.logging.log4j.spi.ExtendedLogger
 import kotlin.reflect.full.companionObject
 
 /**
- * Logger instantiation by function. Use: `val log = logger()`.
+ * Logger instantiation by function. Use: `val log = logger()`. The logger will be named according to the
+ * receiver of the function, which can be a class or object. An alternative for explicitly named loggers is
+ * the `namedLogger` function.
  */
 @Suppress("unused")
 inline fun <reified T : Any> T.logger() = loggerOf(T::class.java)
+
+/**
+ * Named logger instantiation by function. Use: `val log = namedLogger('MyLoggerName')`. Generally one should
+ * prefer the `logger` function to create automatically named loggers.
+ */
+fun namedLogger(name: String): KotlinLogger = KotlinLogger(LogManager.getContext(false).getLogger(name))
 
 fun loggerDelegateOf(ofClass: Class<*>): ExtendedLogger {
   return LogManager.getContext(ofClass.classLoader, false).getLogger(unwrapCompanionClass(ofClass).name)
