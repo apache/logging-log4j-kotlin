@@ -1,0 +1,105 @@
+////
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+////
+== Usage
+
+Using the Kotlin API is as simple as mixing in the https://github.com/apache/logging-log4j-kotlin/blob/master/log4j-api-kotlin/src/main/kotlin/org/apache/logging/log4j/kotlin/Logging.kt[`Logging`] interface to your class. Example:
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin.Logging
+
+class MyClass: BaseClass, Logging {
+  fun doStuff() {
+    logger.info("Doing stuff")
+  }
+  fun doStuffWithUser(user: User) {
+    logger.info { "Doing stuff with ${user.name}." }
+  }
+}
+----
+
+The `Logging` interface can also be mixed into `object` declarations, including companions.
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin.Logging
+
+class MyClass: BaseClass {
+  companion object : Logging
+
+  ...
+}
+----
+
+Alternatively, a more traditional style can be used to instantiate a logger instance:
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin
+
+class MyClass: BaseClass {
+  val logger = logger()
+
+  ...
+}
+----
+
+The function `logger()` is an extension function on the `Any` type (or more specifically, any type `T` that extends `Any`).
+
+=== API Documentation
+
+See https://logging.apache.org/TODO[KDocs].
+
+=== Configuration
+
+Log4j Kotlin API uses https://logging.apache.org/log4j/2.x/manual/configuration.html[Log4j configuration] by default.
+
+This supports XML, properties files, and Java-based builders, as well as JSON and YAML with additional dependencies.
+
+=== Substituting Parameters
+
+Unlike Java, Kotlin provides native functionality for https://kotlinlang.org/docs/reference/basic-syntax.html#using-string-templates[string templates].
+
+However, using a string template still incurs the message construction cost if the logger level is not enabled. To avoid this, prefer passing a lambda which won't be evaluated until necessary.
+
+For example:
+
+[source,kotlin]
+----
+logger.debug { "Logging in user ${user.name} with birthday ${user.calcBirthday()}" }
+----
+
+=== Logger Names
+
+Most logging implementations use a hierarchical scheme for matching logger names with logging configuration.
+
+In this scheme the logger name hierarchy is represented by '.' characters in the logger name, in a fashion very similar to the hierarchy used for Java/Kotlin package names.
+
+The `Logger` property added by the `Logging` interface follows this convention: the interface ensures the `Logger` is automatically named according to the class it is being used in.
+
+The value returned when calling the `logger()` extension method depends on the receiver of the extension. When called within an Object as shown above, the receiver is `this` and therefore the logger will again be named according to the class it is being used in. However, a logger named via another class can be obtained as well:
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin
+
+class MyClass: BaseClass {
+  val logger = SomeOtherClass.logger()
+
+  ...
+}
+----
