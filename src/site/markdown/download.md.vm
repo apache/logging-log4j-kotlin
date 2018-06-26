@@ -1,0 +1,68 @@
+<!-- vim: set syn=markdown : -->
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+#set($h1='#')
+#set($h2='##')
+
+$h1 Download Apache Log4j Audit
+
+Apache Log4j Audit is distributed under the [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).
+
+The link in the Mirrors column should display a list of available mirrors with a default selection based on your
+inferred location. If you do not see that page, try a different browser. The checksum and signature are links to
+the originals on the main distribution server.
+
+| Distribution                       | Mirrors                                                      | Checksum                                                            | Signature                                                           |
+| ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Apache Log4j Audit binary (tar.gz) | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz][bintar] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.md5][bintarmd5] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.asc][bintarasc] |
+| Apache Log4j Audit binary (zip)    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip][binzip]    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip.md5][binzipmd5]    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip.asc][binzipasc]    |
+| Apache Log4j Audit source (tar.gz) | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz][srctar] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.md5][srctarmd5] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.asc][srctarasc] |
+| Apache Log4j Audit source (zip)    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip][srczip]    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip.md5][srczipmd5]    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip.asc][srczipasc]    |
+
+[bintar]: https://www.apache.org/dyn/closer.lua/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz
+[bintarmd5]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.md5
+[bintarasc]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.asc
+[binzip]: https://www.apache.org/dyn/closer.lua/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip
+[binzipmd5]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip.md5
+[binzipasc]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip.asc
+[srctar]: https://www.apache.org/dyn/closer.lua/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz
+[srctarmd5]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.md5
+[srctarasc]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.asc
+[srczip]: https://www.apache.org/dyn/closer.lua/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip
+[srczipmd5]: https://www.apache.org/dist/logging/log4j/log4j-aduit/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip.md5
+[srczipasc]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip.asc
+
+It is essential that you verify the integrity of the downloaded files using the PGP or MD5 signatures.
+Please read [Verifying Apache HTTP Server Releases](https://httpd.apache.org/dev/verification.html) for more
+information on why you should verify our releases.
+
+The PGP signatures can be verified using PGP or GPG. First download the
+[KEYS](https://www.apache.org/dist/logging/KEYS) as well as the asc signature file for the relevant distribution.
+Make sure you get these files from the [main distribution directory](https://www.apache.org/dist/logging/), rather
+than from a mirror. Then verify the signatures using
+
+    gpg --import KEYS
+    gpg --verify apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.asc
+
+Apache Log4j ${Log4jKotlinVersion} is signed by ${Log4jReleaseManager} (${Log4jReleaseKey})
+
+Alternatively, you can verify the MD5 signature on the files. A unix program called md5 or md5sum is included
+in many unix distributions.
+
+All previous releases of Apache log4j-Audit can be found in the
+[archive repository](https://archive.apache.org/dist/logging/log4j/log4j-api-kotlin/).
+

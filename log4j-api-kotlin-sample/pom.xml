@@ -31,6 +31,10 @@
   <description>Sample usage of the Log4j Kotlin API</description>
   <url>http://http://logging.apache.org/log4j/2.x/</url>
 
+  <properties>
+    <log4jParentDir>${basedir}/..</log4jParentDir>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>

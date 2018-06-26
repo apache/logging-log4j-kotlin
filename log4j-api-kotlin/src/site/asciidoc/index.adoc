@@ -14,14 +14,22 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 ////
-== ChangeLog
+= Apache Log4j Kotlin API
+:toc: left
 
-=== Version 1.0
+Log4j Kotlin API is a https://kotlinlang.org/[Kotlin] logging facade based on https://logging.apache.org/log4j/2.x/[Log4j 2].
 
-[vertical]
-New Features::
-[horizontal]
-LOG4J2-1705::: Initial release
+Log4j Kotlin API uses Log4j 2.x as its logging backend.
 
-[vertical]
-Bug Fixes:: None.
+Log4j Kotlin API uses Log4j 2.x as its logging backend by default, but this can also be replaced with compatible libraries (e.g., https://logback.qos.ch/[Logback]).
+
+While this library is not required to use Log4j API in Kotlin, it does provide idiomatic Kotlin APIs which are friendlier to use in Kotlin programs than the Java APIs.
+
+
+////
+TODO:
+* Apache logo
+* License report
+* Project links
+* Dependency report
+////

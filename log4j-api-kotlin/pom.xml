@@ -30,6 +30,10 @@
   <name>Apache Log4j Kotlin API</name>
   <description>Kotlin wrapper for Log4j API</description>
 
+  <properties>
+    <log4jParentDir>${basedir}/..</log4jParentDir>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
