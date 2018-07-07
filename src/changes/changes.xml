@@ -30,7 +30,10 @@
          - "update" - Change
          - "remove" - Removed
     -->
-    <release version="1.0.0" date="2018-06-10" description="Release 1.0.0">
+    <release version="1.0.0" date="2018-07-07" description="Release 1.0.0">
+      <action issue="LOG4J2-1705" dev="mattsicker" type="add" due-to="Raman Gupta">
+        Create Kotlin wrapper API for Log4j.
+      </action>
     </release>
   </body>
 </document>
