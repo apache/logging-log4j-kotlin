@@ -47,8 +47,8 @@
 
   <properties>
     <Log4jKotlinVersion>1.0.0</Log4jKotlinVersion>
-    <Log4jReleaseManager>John Doe</Log4jReleaseManager>
-    <Log4jReleaseKey>12345678</Log4jReleaseKey>
+    <Log4jReleaseManager>Matt Sicker</Log4jReleaseManager>
+    <Log4jReleaseKey>748F15B2CF9BA8F024155E6ED7C92B70FA1C814D</Log4jReleaseKey>
     <changes.plugin.version>2.12</changes.plugin.version>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
     <findbugs.plugin.version>3.0.5</findbugs.plugin.version>
@@ -217,7 +217,7 @@
         <configuration>
           <statusIds>Resolved, Closed</statusIds>
           <columnNames>Type,Key,Summary,Assignee,Status,Resolution,Fix Version</columnNames>
-          <component>Log4j-Audit</component>
+          <component>Kotlin API</component>
           <useJql>true</useJql>
         </configuration>
       </plugin>
