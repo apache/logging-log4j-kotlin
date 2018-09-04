@@ -106,15 +106,17 @@ class MyClass: BaseClass {
 
 ==== Explicitly Named Loggers
 
-An explicitly-named logger may be obtained via the `namedLogger` function:
+An explicitly-named logger may be obtained via the `logger` function that takes a `name` parameter:
 
 [source,kotlin]
 ----
 import org.apache.logging.log4j.kotlin
 
 class MyClass: BaseClass {
-  val logger = namedLogger("MyCustomLoggerName")
+  val logger = logger("MyCustomLoggerName")
 
   ...
 }
 ----
+
+This is also needed in scopes that do not have a `this` Object, such as top-level functions.

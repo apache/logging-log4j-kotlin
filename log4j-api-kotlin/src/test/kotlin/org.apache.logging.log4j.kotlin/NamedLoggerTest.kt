@@ -28,7 +28,7 @@ const val loggerName = "Foo"
 class NamedLoggerTest {
   @Rule @JvmField var init = LoggerContextRule("InfoLogger.xml")
 
-  val log = namedLogger(loggerName)
+  val log = logger(loggerName)
 
   @Test
   fun `Logging from an explicitly named logger logs with the correct name`() {
