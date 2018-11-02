@@ -52,6 +52,7 @@
     <Log4jReleaseKey>748F15B2CF9BA8F024155E6ED7C92B70FA1C814D</Log4jReleaseKey>
     <changes.plugin.version>2.12</changes.plugin.version>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
+    <dokka.plugin.version>0.9.17</dokka.plugin.version>
     <findbugs.plugin.version>3.0.5</findbugs.plugin.version>
     <javadoc.plugin.version>2.10.3</javadoc.plugin.version>
     <jxr.plugin.version>2.5</jxr.plugin.version>
@@ -136,6 +137,11 @@
             </execution>
           </executions>
         </plugin>
+        <plugin>
+          <groupId>org.jetbrains.dokka</groupId>
+          <artifactId>dokka-maven-plugin</artifactId>
+          <version>${dokka.plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -217,6 +223,13 @@
               <Log4jReleaseKey>${Log4jReleaseKey}</Log4jReleaseKey>
             </attributes>
           </asciidoc>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jetbrains.dokka</groupId>
+        <artifactId>dokka-maven-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
         </configuration>
       </plugin>
     </plugins>
@@ -371,6 +384,13 @@
       </plugin>
     </plugins>
   </reporting>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jcenter</id>
+      <name>JCenter</name>
+      <url>https://jcenter.bintray.com/</url>
+    </pluginRepository>
+  </pluginRepositories>
   <repositories>
     <repository>
       <id>apache.snapshots</id>
