@@ -16,7 +16,7 @@
  */
 package org.apache.logging.log4j.kotlin
 
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockitokotlin2.*
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.MarkerManager
 import org.apache.logging.log4j.junit.LoggerContextRule
