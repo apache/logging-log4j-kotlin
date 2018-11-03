@@ -118,6 +118,24 @@
           <skip>false</skip>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <finalName>apache-${project.artifactId}-${Log4jKotlinVersion}</finalName>
+              <descriptorRefs>
+                <descriptorRef>src</descriptorRef>
+                <descriptorRef>bin</descriptorRef>
+              </descriptorRefs>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
