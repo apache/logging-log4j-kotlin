@@ -18,9 +18,9 @@
 #set($h1='#')
 #set($h2='##')
 
-$h1 Download Apache Log4j Audit
+$h1 Download Apache Log4j Kotlin API
 
-Apache Log4j Audit is distributed under the [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).
+Apache Log4j Kotlin API is distributed under the [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).
 
 The link in the Mirrors column should display a list of available mirrors with a default selection based on your
 inferred location. If you do not see that page, try a different browser. The checksum and signature are links to
@@ -28,23 +28,31 @@ the originals on the main distribution server.
 
 | Distribution                       | Mirrors                                                      | Checksum                                                            | Signature                                                           |
 | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Apache Log4j Audit binary (tar.gz) | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz][bintar] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.md5][bintarmd5] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.asc][bintarasc] |
-| Apache Log4j Audit binary (zip)    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip][binzip]    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip.md5][binzipmd5]    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip.asc][binzipasc]    |
-| Apache Log4j Audit source (tar.gz) | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz][srctar] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.md5][srctarmd5] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.asc][srctarasc] |
-| Apache Log4j Audit source (zip)    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip][srczip]    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip.md5][srczipmd5]    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip.asc][srczipasc]    |
+| Apache Log4j Kotlin API binary (tar.gz) | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz][bintar] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.md5][bintarmd5] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.asc][bintarasc] |
+| Apache Log4j Kotlin API binary (tar.bz2) | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.bz2][bintar2] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.bz2.md5][bintar2md5] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.bz2.asc][bintar2asc] |
+| Apache Log4j Kotlin API binary (zip)    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip][binzip]    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip.md5][binzipmd5]    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip.asc][binzipasc]    |
+| Apache Log4j Kotlin API source (tar.gz) | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz][srctar] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.md5][srctarmd5] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.asc][srctarasc] |
+| Apache Log4j Kotlin API source (tar.bz2) | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.bz2][src2tar] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.bz2.md5][srctar2md5] | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.bz2.asc][srctar2asc] |
+| Apache Log4j Kotlin API source (zip)    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip][srczip]    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip.md5][srczipmd5]    | [apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip.asc][srczipasc]    |
 
-[bintar]: https://www.apache.org/dyn/closer.lua/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz
-[bintarmd5]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.md5
-[bintarasc]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.asc
-[binzip]: https://www.apache.org/dyn/closer.lua/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip
-[binzipmd5]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip.md5
-[binzipasc]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip.asc
-[srctar]: https://www.apache.org/dyn/closer.lua/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz
-[srctarmd5]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.md5
-[srctarasc]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.asc
-[srczip]: https://www.apache.org/dyn/closer.lua/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip
-[srczipmd5]: https://www.apache.org/dist/logging/log4j/log4j-aduit/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip.md5
-[srczipasc]: https://www.apache.org/dist/logging/log4j/log4j-api-kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip.asc
+[bintar]: https://www.apache.org/dyn/closer.lua/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz
+[bintarmd5]: https://www.apache.org/dist/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.md5
+[bintarasc]: https://www.apache.org/dist/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.asc
+[bintar2]: https://www.apache.org/dyn/closer.lua/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz
+[bintar2md5]: https://www.apache.org/dist/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.md5
+[bintar2asc]: https://www.apache.org/dist/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.tar.gz.asc
+[binzip]: https://www.apache.org/dyn/closer.lua/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip
+[binzipmd5]: https://www.apache.org/dist/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip.md5
+[binzipasc]: https://www.apache.org/dist/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-bin.zip.asc
+[srctar]: https://www.apache.org/dyn/closer.lua/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz
+[srctarmd5]: https://www.apache.org/dist/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.md5
+[srctarasc]: https://www.apache.org/dist/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.asc
+[srctar2]: https://www.apache.org/dyn/closer.lua/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz
+[srctar2md5]: https://www.apache.org/dist/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.md5
+[srctar2asc]: https://www.apache.org/dist/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.tar.gz.asc
+[srczip]: https://www.apache.org/dyn/closer.lua/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip
+[srczipmd5]: https://www.apache.org/dist/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip.md5
+[srczipasc]: https://www.apache.org/dist/logging/log4j/kotlin/${Log4jKotlinVersion}/apache-log4j-api-kotlin-${Log4jKotlinVersion}-src.zip.asc
 
 It is essential that you verify the integrity of the downloaded files using the PGP or MD5 signatures.
 Please read [Verifying Apache HTTP Server Releases](https://httpd.apache.org/dev/verification.html) for more
@@ -63,6 +71,6 @@ Apache Log4j ${Log4jKotlinVersion} is signed by ${Log4jReleaseManager} (${Log4jR
 Alternatively, you can verify the MD5 signature on the files. A unix program called md5 or md5sum is included
 in many unix distributions.
 
-All previous releases of Apache log4j-Audit can be found in the
-[archive repository](https://archive.apache.org/dist/logging/log4j/log4j-api-kotlin/).
+All previous releases of Apache log4j-Kotlin API can be found in the
+[archive repository](https://archive.apache.org/dist/logging/log4j/kotlin/).
 
