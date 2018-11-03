@@ -128,10 +128,7 @@
             </goals>
             <configuration>
               <finalName>apache-${project.artifactId}-${Log4jKotlinVersion}</finalName>
-              <descriptorRefs>
-                <descriptorRef>src</descriptorRef>
-                <descriptorRef>bin</descriptorRef>
-              </descriptorRefs>
+              <descriptorSourceDirectory>src/assembly</descriptorSourceDirectory>
             </configuration>
           </execution>
         </executions>
