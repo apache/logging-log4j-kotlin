@@ -25,7 +25,7 @@
 
   <groupId>org.apache.logging.log4j</groupId>
   <artifactId>log4j-api-kotlin-parent</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Apache Log4j Kotlin API Parent</name>
   <description>Apache Log4j Kotlin API parent project</description>
@@ -36,7 +36,7 @@
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/logging-log4j-kotlin.git</connection>
     <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/logging-log4j-kotlin.git</developerConnection>
     <url>https://git-wip-us.apache.org/repos/asf?p=logging-log4j-kotlin.git;a=summary</url>
-    <tag>log4j-api-kotlin-1.0.0-rc2</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
