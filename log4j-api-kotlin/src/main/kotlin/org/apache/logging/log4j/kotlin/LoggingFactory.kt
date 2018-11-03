@@ -23,15 +23,22 @@ import kotlin.reflect.full.companionObject
 /**
  * Logger instantiation by function. Use: `val log = logger()`. The logger will be named according to the
  * receiver of the function, which can be a class or object. An alternative for explicitly named loggers is
- * the `namedLogger` function.
+ * the [logger(String)] function.
  */
 @Suppress("unused")
 inline fun <reified T : Any> T.logger() = loggerOf(T::class.java)
 
 /**
- * Named logger instantiation by function. Use: `val log = namedLogger('MyLoggerName')`. Generally one should
- * prefer the `logger` function to create automatically named loggers.
+ * Named logger instantiation by function. Use: `val log = logger('MyLoggerName')`. Generally one should
+ * prefer the `logger` function to create automatically named loggers, but this is useful outside of objects,
+ * such as in top-level functions.
  */
+fun logger(name: String): KotlinLogger = KotlinLogger(LogManager.getContext(false).getLogger(name))
+
+/**
+ * @see [logger]
+ */
+@Deprecated("Replaced with logger(name)", replaceWith = ReplaceWith("logger"), level = DeprecationLevel.WARNING)
 fun namedLogger(name: String): KotlinLogger = KotlinLogger(LogManager.getContext(false).getLogger(name))
 
 fun loggerDelegateOf(ofClass: Class<*>): ExtendedLogger {
