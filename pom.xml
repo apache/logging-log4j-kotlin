@@ -57,6 +57,7 @@
     <javadoc.plugin.version>2.10.3</javadoc.plugin.version>
     <jxr.plugin.version>2.5</jxr.plugin.version>
     <kotlin.version>1.3.10</kotlin.version>
+    <kotlinx.coroutines.version>1.0.1</kotlinx.coroutines.version>
     <log4j.version>2.11.0</log4j.version>
     <pmd.plugin.version>3.8</pmd.plugin.version>
     <rat.plugin.version>0.12</rat.plugin.version>
