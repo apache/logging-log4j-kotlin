@@ -5,7 +5,7 @@ default logging implementation, but this is not strictly required (e.g., this AP
 or other Log4j 2 API provider implementations). Idiomatic Kotlin features are provided as an alternative to using
 the Log4j 2 Java API.
 
-[![Build Status](https://builds.apache.org/buildStatus/icon?job=Log4jKotlin)](https://builds.apache.org/job/Log4jKotlin)
+[![Build Status](https://builds.apache.org/job/Log4jKotlin/job/master/badge/icon)](https://builds.apache.org/job/Log4jKotlin/job/master/)
 
 ## Usage
 
