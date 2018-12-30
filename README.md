@@ -14,7 +14,7 @@ Gradle users can add the following dependencies to their `build.gradle` file:
 TODO
 
 ```groovy
-compile "org.apache.logging.log4j:log4j-api-kotlin:1.0"
+compile "org.apache.logging.log4j:log4j-api-kotlin:1.0.0"
 compile "org.apache.logging.log4j:log4j-api:2.8.2"
 compile "org.apache.logging.log4j:log4j-core:2.8.2"
 ```
