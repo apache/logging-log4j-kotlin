@@ -36,6 +36,28 @@ inline fun <reified T : Any> T.logger() = loggerOf(T::class.java)
 fun logger(name: String): KotlinLogger = KotlinLogger(LogManager.getContext(false).getLogger(name))
 
 /**
+ * Named logger instantiation. Useful outside of objects to create static loggers.
+ *
+ * **Usage**
+ * ```
+ * private val LOGGER = logger {}
+ * class X {
+ *     // LOGGER.info("helo world")
+ * }
+ * ```
+ * ```
+ */
+fun logger(_context: () -> Unit) = logger(
+    with(_context::class.java.name) {
+        when {
+            contains("Kt$") -> substringBefore("Kt$")
+            contains("$") -> substringBefore("$")
+            else -> this
+        }
+    }
+)
+
+/**
  * @see [logger]
  */
 @Deprecated("Replaced with logger(name)", replaceWith = ReplaceWith("logger"), level = DeprecationLevel.WARNING)
