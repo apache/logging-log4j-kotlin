@@ -36,13 +36,14 @@ inline fun <reified T : Any> T.logger() = loggerOf(T::class.java)
 fun logger(name: String): KotlinLogger = KotlinLogger(LogManager.getContext(false).getLogger(name))
 
 /**
- * Named logger instantiation. Useful outside of objects to create static loggers.
+ * Named logger instantiation by function. Use: `private val LOG = logger {}`.
+ * This is useful to create static loggers at top-level.
  *
  * **Usage**
  * ```
- * private val LOGGER = logger {}
+ * private val LOG = logger {}
  * class X {
- *     // LOGGER.info("helo world")
+ *     // LOGGER.info("hello world")
  * }
  * ```
  * ```
