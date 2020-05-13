@@ -16,28 +16,33 @@
  */
 package org.apache.logging.log4j.kotlin
 
-import org.apache.logging.log4j.Level
-import org.apache.logging.log4j.kotlin.support.withListAppender
 import org.junit.Test
 import kotlin.test.assertEquals
 
-val LOG = logger {}
+private val CONTEXT_NAME = contextName {}
 
-class LoggerTopLevelTest {
+private class FooClass {
+  val contextName = contextName {}
+
+  companion object {
+    val CONTEXT_NAME = contextName {}
+  }
+}
+
+class LoggerContextNameTest {
 
     @Test
-    fun `Logging from a top level instantiation the correct class name`() {
-        val msg = "This is an error log."
-        val msgs = withListAppender { _, _ ->
-          LOG.error(msg)
-        }
+    fun `contextName on top level return full qualified file name`() {
+      assertEquals("org.apache.logging.log4j.kotlin.LoggerContextNameTest", CONTEXT_NAME)
+    }
 
-        assertEquals(1, msgs.size.toLong())
+    @Test
+    fun `contextName within class return full qualified class name`() {
+      assertEquals(FooClass::class.java.name, FooClass().contextName)
+    }
 
-        msgs.first().also {
-            assertEquals(Level.ERROR, it.level)
-            assertEquals(msg, it.message.format)
-            assertEquals(LoggerTopLevelTest::class.qualifiedName, it.loggerName)
-        }
+    @Test
+    fun `contextName within companion object return full qualified class name of enclosing class`() {
+      assertEquals(FooClass::class.java.name, FooClass.CONTEXT_NAME)
     }
 }

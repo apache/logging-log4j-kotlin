@@ -36,27 +36,22 @@ inline fun <reified T : Any> T.logger() = loggerOf(T::class.java)
 fun logger(name: String): KotlinLogger = KotlinLogger(LogManager.getContext(false).getLogger(name))
 
 /**
- * Named logger instantiation by function. Use: `private val LOG = logger {}`.
- * This is useful to create static loggers at top-level.
+ * Returns normalized context name.
+ * * Execution within a class/object will return the full qualified class/object name,
+ *   in case of nested classes/objects the most outer class/object is used.
+ * * Execution outside of any class/object will return the full qualified file name without `.kt suffix.
  *
- * **Usage**
- * ```
- * private val LOG = logger {}
- * class X {
- *     // LOGGER.info("hello world")
- * }
- * ```
- * ```
+ * Usage: `val LOG = logger(contextName {})`
+ * @param context should always be `{}`
+ * @return normalized context name
  */
-fun logger(_context: () -> Unit) = logger(
-    with(_context::class.java.name) {
-        when {
-            contains("Kt$") -> substringBefore("Kt$")
-            contains("$") -> substringBefore("$")
-            else -> this
-        }
-    }
-)
+fun contextName(context: () -> Unit) = with(context::class.java.name) {
+  when {
+    contains("Kt$") -> substringBefore("Kt$")
+    contains("$") -> substringBefore("$")
+    else -> this
+  }
+}
 
 /**
  * @see [logger]
