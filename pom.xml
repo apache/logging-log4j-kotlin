@@ -21,6 +21,7 @@
     <groupId>org.apache.logging</groupId>
     <artifactId>logging-parent</artifactId>
     <version>2</version>
+    <relativePath/>
   </parent>
 
   <groupId>org.apache.logging.log4j</groupId>
