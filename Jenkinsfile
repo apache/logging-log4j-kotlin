@@ -24,22 +24,38 @@ pipeline {
         maven 'Maven 3 (latest)'
         jdk 'JDK 1.8 (latest)'
     }
+    options {
+        ansiColor 'xterm'
+        buildDiscarder logRotator(numToKeepStr: '25')
+        timeout time: 1, unit: 'HOURS'
+    }
     stages {
         stage('Build') {
             steps {
-                ansiColor('xterm') {
-                    sh 'mvn install'
-                }
+                sh 'mvn install'
             }
         }
         stage('Deploy') {
-            when { branch 'master' }
+            when {
+                branch 'master'
+            }
             steps {
-                ansiColor('xterm') {
-                    sh 'mvn deploy'
-                }
+                sh 'mvn deploy'
+            }
+        }
+        post {
+            fixed {
+                emailext to: 'notifications@logging.apache.org',
+                    from: 'Mr. Jenkins <jenkins@ci-builds.apache.org>',
+                    subject: "[CI][SUCCESS] ${env.JOB_NAME}#${env.BUILD_NUMBER} back to normal",
+                    body: '${SCRIPT, template="groovy-text.template"}'
+            }
+            failure {
+                emailext to: 'notifications@logging.apache.org',
+                    from: 'Mr. Jenkins <jenkins@ci-builds.apache.org>',
+                    subject: "[CI][FAILURE] ${env.JOB_NAME}#${env.BUILD_NUMBER} has potential issues",
+                    body: '${SCRIPT, template="groovy-text.template"}'
             }
         }
     }
 }
-
