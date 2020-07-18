@@ -42,19 +42,19 @@ pipeline {
             steps {
                 sh 'mvn deploy'
             }
-        }
-        post {
-            fixed {
-                emailext to: 'notifications@logging.apache.org',
-                    from: 'Mr. Jenkins <jenkins@ci-builds.apache.org>',
-                    subject: "[CI][SUCCESS] ${env.JOB_NAME}#${env.BUILD_NUMBER} back to normal",
-                    body: '${SCRIPT, template="groovy-text.template"}'
-            }
-            failure {
-                emailext to: 'notifications@logging.apache.org',
-                    from: 'Mr. Jenkins <jenkins@ci-builds.apache.org>',
-                    subject: "[CI][FAILURE] ${env.JOB_NAME}#${env.BUILD_NUMBER} has potential issues",
-                    body: '${SCRIPT, template="groovy-text.template"}'
+            post {
+                fixed {
+                    emailext to: 'notifications@logging.apache.org',
+                        from: 'Mr. Jenkins <jenkins@ci-builds.apache.org>',
+                        subject: "[CI][SUCCESS] ${env.JOB_NAME}#${env.BUILD_NUMBER} back to normal",
+                        body: '${SCRIPT, template="groovy-text.template"}'
+                }
+                failure {
+                    emailext to: 'notifications@logging.apache.org',
+                        from: 'Mr. Jenkins <jenkins@ci-builds.apache.org>',
+                        subject: "[CI][FAILURE] ${env.JOB_NAME}#${env.BUILD_NUMBER} has potential issues",
+                        body: '${SCRIPT, template="groovy-text.template"}'
+                }
             }
         }
     }
