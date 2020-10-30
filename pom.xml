@@ -407,5 +407,6 @@
   <modules>
     <module>log4j-api-kotlin</module>
     <module>log4j-api-kotlin-sample</module>
+    <module>log4j-api-kotlin-benchmark</module>
   </modules>
 </project>

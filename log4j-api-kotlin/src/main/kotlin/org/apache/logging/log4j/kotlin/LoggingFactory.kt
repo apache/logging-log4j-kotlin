@@ -45,7 +45,7 @@ fun logger(name: String): KotlinLogger = KotlinLogger(LogManager.getContext(fals
  * @param context should always be `{}`
  * @return normalized context name
  */
-fun contextName(context: () -> Unit) = with(context::class.java.name) {
+fun contextName(context: () -> Unit): String = with(context::class.java.name) {
   when {
     contains("Kt$") -> substringBefore("Kt$")
     contains("$") -> substringBefore("$")
