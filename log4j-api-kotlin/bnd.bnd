@@ -1,0 +1,11 @@
+Bundle-SymbolicName: org.apache.logging.log4j.kotlin
+Bundle-Name: ${project.name}
+Bundle-Description: ${project.description}
+Bundle-Vendor: Apache Log4j Kotlin Project
+Bundle-ContactAddress: ${project.parent.url}
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version>=1.6))"
+
+-removeheaders: Private-Package
+
+-exportcontents:\
+    org.apache.logging.log4j.kotlin
