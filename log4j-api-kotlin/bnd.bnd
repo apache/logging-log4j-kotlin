@@ -5,6 +5,12 @@ Bundle-Vendor: Apache Log4j Kotlin Project
 Bundle-ContactAddress: ${project.parent.url}
 Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version>=1.6))"
 
+Import-Package: \
+    kotlin, \
+    kotlin.*, \
+    kotlinx.*;resolution:=optional, \
+    *
+
 -removeheaders: Private-Package
 
 -exportcontents:\
