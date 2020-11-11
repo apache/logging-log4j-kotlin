@@ -132,7 +132,7 @@
               <goal>bnd-process</goal>
             </goals>
             <configuration>
-              <bndfile>bnd/log4j-kotlin-api.bnd</bndfile>
+              <bndfile>bnd/${project.artifactId}.bnd</bndfile>
             </configuration>
           </execution>
         </executions>
