@@ -54,6 +54,7 @@
     <changes.plugin.version>2.12</changes.plugin.version>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
     <dokka.plugin.version>0.9.17</dokka.plugin.version>
+    <bnd.plugin.version>5.2.0</bnd.plugin.version>
     <findbugs.plugin.version>3.0.5</findbugs.plugin.version>
     <javadoc.plugin.version>2.10.3</javadoc.plugin.version>
     <jxr.plugin.version>2.5</jxr.plugin.version>
@@ -143,6 +144,11 @@
           <groupId>org.jetbrains.dokka</groupId>
           <artifactId>dokka-maven-plugin</artifactId>
           <version>${dokka.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>biz.aQute.bnd</groupId>
+          <artifactId>bnd-maven-plugin</artifactId>
+          <version>${bnd.plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
