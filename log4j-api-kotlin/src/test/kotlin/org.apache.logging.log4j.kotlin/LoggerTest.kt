@@ -173,7 +173,8 @@ class LoggerTest {
   fun `Run in trace with result`() {
     var count = 0
     val f = withLevelFixture(Level.INFO, true) {
-      it.runInTrace(entryMsg) {
+      @SuppressWarnings("unused")
+      val mustBeHere = it.runInTrace(entryMsg) {
         ++count
       }
     }
