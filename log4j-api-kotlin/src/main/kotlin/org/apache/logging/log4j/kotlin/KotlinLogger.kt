@@ -121,7 +121,7 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, level, null, supplier.asLog4jSupplier(), null)
   }
 
-  fun log(level: Level, t: Throwable, supplier: () -> Any?) {
+  fun log(level: Level, t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, level, null, supplier.asLog4jSupplier(), t)
   }
 
@@ -185,7 +185,7 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, Level.TRACE, null, supplier.asLog4jSupplier(), null)
   }
 
-  fun trace(t: Throwable, supplier: () -> Any?) {
+  fun trace(t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.TRACE, null, supplier.asLog4jSupplier(), t)
   }
 
@@ -291,7 +291,7 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, null, supplier.asLog4jSupplier(), null)
   }
 
-  fun debug(t: Throwable, supplier: () -> Any?) {
+  fun debug(t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.DEBUG, null, supplier.asLog4jSupplier(), t)
   }
 
@@ -355,7 +355,7 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, Level.INFO, null, supplier.asLog4jSupplier(), null)
   }
 
-  fun info(t: Throwable, supplier: () -> Any?) {
+  fun info(t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.INFO, null, supplier.asLog4jSupplier(), t)
   }
 
@@ -419,7 +419,7 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, Level.WARN, null, supplier.asLog4jSupplier(), null)
   }
 
-  fun warn(t: Throwable, supplier: () -> Any?) {
+  fun warn(t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.WARN, null, supplier.asLog4jSupplier(), t)
   }
 
@@ -483,7 +483,7 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, Level.ERROR, null, supplier.asLog4jSupplier(), null)
   }
 
-  fun error(t: Throwable, supplier: () -> Any?) {
+  fun error(t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.ERROR, null, supplier.asLog4jSupplier(), t)
   }
 
@@ -547,7 +547,7 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, Level.FATAL, null, supplier.asLog4jSupplier(), null)
   }
 
-  fun fatal(t: Throwable, supplier: () -> Any?) {
+  fun fatal(t: Throwable?, supplier: () -> Any?) {
     delegate.logIfEnabled(FQCN, Level.FATAL, null, supplier.asLog4jSupplier(), t)
   }
 
