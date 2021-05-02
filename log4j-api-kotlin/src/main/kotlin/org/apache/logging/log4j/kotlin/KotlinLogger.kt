@@ -226,6 +226,7 @@ class KotlinLogger(val delegate: ExtendedLogger) {
 
   // TODO exit and catching with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
   fun <R : Any?> runInTrace(entryMessage: EntryMessage, block: () -> R): R {
+    delegate.traceEntry(entryMessage)
     return try {
       val result = block()
       when(result) {

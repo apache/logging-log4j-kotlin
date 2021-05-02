@@ -20,10 +20,7 @@ import com.nhaarman.mockitokotlin2.*
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.MarkerManager
 import org.apache.logging.log4j.junit.LoggerContextRule
-import org.apache.logging.log4j.message.DefaultFlowMessageFactory
-import org.apache.logging.log4j.message.MessageFactory2
-import org.apache.logging.log4j.message.ParameterizedMessage
-import org.apache.logging.log4j.message.ParameterizedMessageFactory
+import org.apache.logging.log4j.message.*
 import org.apache.logging.log4j.spi.ExtendedLogger
 import org.junit.Rule
 import org.junit.Test
@@ -172,12 +169,15 @@ class LoggerTest {
   @Test
   fun `Run in trace with result`() {
     var count = 0
+    var returnedCount = 0
     val f = withLevelFixture(Level.INFO, true) {
-      it.runInTrace(entryMsg) {
+      returnedCount = it.runInTrace(entryMsg) {
         ++count
       }
     }
     assertTrue { count == 1 }
+    assertTrue { returnedCount == 1 }
+    verify(f.mockLogger).traceEntry(eq(entryMsg))
     verify(f.mockLogger).traceExit(eq(entryMsg), eq(1))
   }
 
@@ -193,6 +193,7 @@ class LoggerTest {
       }
     }
     assertTrue { count == 1 }
+    verify(f.mockLogger, times(1)).traceEntry(any<EntryMessage>())
     verify(f.mockLogger, times(0)).traceExit(any())
     verify(f.mockLogger).catching(argThat { message == "cause" })
   }
