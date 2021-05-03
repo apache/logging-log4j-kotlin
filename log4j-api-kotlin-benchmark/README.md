@@ -3,6 +3,6 @@
 ## Usage
 
 ```sh
-mvn install
+mvn package
 java -jar log4j-api-kotlin-benchmark/target/benchmarks.jar
 ```
