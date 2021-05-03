@@ -18,6 +18,8 @@ package org.apache.logging.log4j.kotlin
 
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.spi.ExtendedLogger
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentMap
 import kotlin.reflect.full.companionObject
 
 /**
@@ -67,6 +69,10 @@ fun loggerOf(ofClass: Class<*>): KotlinLogger {
   return KotlinLogger(loggerDelegateOf(ofClass))
 }
 
+fun cachedLoggerOf(ofClass: Class<*>): KotlinLogger {
+  return loggerCache.getOrPut(ofClass) { loggerOf(ofClass) }
+}
+
 // unwrap companion class to enclosing class given a Java Class
 private fun <T : Any> unwrapCompanionClass(ofClass: Class<T>): Class<*> {
   return if (ofClass.enclosingClass?.kotlin?.companionObject?.java == ofClass) {
@@ -75,3 +81,5 @@ private fun <T : Any> unwrapCompanionClass(ofClass: Class<T>): Class<*> {
     ofClass
   }
 }
+
+private val loggerCache = ConcurrentHashMap<Class<*>, KotlinLogger>()
