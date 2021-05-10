@@ -18,8 +18,7 @@ package org.apache.logging.log4j.kotlin
 
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.spi.ExtendedLogger
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.ConcurrentMap
+import java.util.*
 import kotlin.reflect.full.companionObject
 
 /**
@@ -82,4 +81,13 @@ private fun <T : Any> unwrapCompanionClass(ofClass: Class<T>): Class<*> {
   }
 }
 
-private val loggerCache = ConcurrentHashMap<Class<*>, KotlinLogger>()
+private val loggerCache = Collections.synchronizedMap(SimpleLoggerLruCache(100))
+
+/**
+ * A very simple cache for loggers, to be used with [cachedLoggerOf].
+ */
+private class SimpleLoggerLruCache(private val maxEntries: Int): LinkedHashMap<Class<*>, KotlinLogger>(maxEntries, 1f) {
+  override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Class<*>, KotlinLogger>): Boolean {
+    return size > maxEntries
+  }
+}
