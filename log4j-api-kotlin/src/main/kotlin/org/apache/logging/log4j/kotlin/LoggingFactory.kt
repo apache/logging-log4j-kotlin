@@ -18,6 +18,7 @@ package org.apache.logging.log4j.kotlin
 
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.spi.ExtendedLogger
+import java.util.*
 import kotlin.reflect.full.companionObject
 
 /**
@@ -67,11 +68,26 @@ fun loggerOf(ofClass: Class<*>): KotlinLogger {
   return KotlinLogger(loggerDelegateOf(ofClass))
 }
 
+fun cachedLoggerOf(ofClass: Class<*>): KotlinLogger {
+  return loggerCache.getOrPut(ofClass) { loggerOf(ofClass) }
+}
+
 // unwrap companion class to enclosing class given a Java Class
 private fun <T : Any> unwrapCompanionClass(ofClass: Class<T>): Class<*> {
   return if (ofClass.enclosingClass?.kotlin?.companionObject?.java == ofClass) {
     ofClass.enclosingClass
   } else {
     ofClass
+  }
+}
+
+private val loggerCache = Collections.synchronizedMap(SimpleLoggerLruCache(100))
+
+/**
+ * A very simple cache for loggers, to be used with [cachedLoggerOf].
+ */
+private class SimpleLoggerLruCache(private val maxEntries: Int): LinkedHashMap<Class<*>, KotlinLogger>(maxEntries, 1f) {
+  override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Class<*>, KotlinLogger>): Boolean {
+    return size > maxEntries
   }
 }

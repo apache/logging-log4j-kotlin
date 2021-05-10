@@ -41,9 +41,15 @@ package org.apache.logging.log4j.kotlin
  * }
  *
  * ```
+ *
+ * Note that this is significantly slower than creating a logger explicitly, as it requires a lookup of the
+ * logger on each call via the property getter, since we cannot store any state in an interface. We attempt to
+ * minimize the overhead of this by caching the loggers, but according to microbenchmarks, it is still about
+ * 3.5 times slower than creating a logger once and using it (about 4.2 nanoseconds per call instead of 1.2
+ * nanoseconds).
  */
 interface Logging {
   @Suppress("unused")
   val logger
-    get() = loggerOf(this.javaClass)
+    get() = cachedLoggerOf(this.javaClass)
 }

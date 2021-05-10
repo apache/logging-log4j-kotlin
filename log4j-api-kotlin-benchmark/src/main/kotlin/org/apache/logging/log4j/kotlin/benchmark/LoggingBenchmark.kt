@@ -18,9 +18,9 @@ package org.apache.logging.log4j.kotlin.benchmark
 
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import org.apache.logging.log4j.kotlin.Logging
 import org.apache.logging.log4j.kotlin.contextName
 import org.apache.logging.log4j.kotlin.logger
-//import org.apache.logging.log4j.kotlin.logger1
 import org.apache.logging.log4j.util.Supplier
 import org.openjdk.jmh.annotations.*
 import java.util.concurrent.TimeUnit
@@ -34,7 +34,7 @@ val LOGGER2 = logger(contextName {})
 @Warmup(iterations = 3, time = 5)
 @Measurement(iterations = 5, time = 1)
 open class LoggingBenchmark {
-  companion object {
+  companion object: Logging {
     @JvmStatic
     val LOGGER3 = logger()
     val LOGGER4: Logger = LogManager.getLogger()
@@ -78,5 +78,15 @@ open class LoggingBenchmark {
   @Benchmark
   fun companionObjectLog4jLoggerDirect() {
     LOGGER4.info("Test")
+  }
+
+  @Benchmark
+  fun companionObjectLookupInterfaceFunctional() {
+    logger.info {"Test" }
+  }
+
+  @Benchmark
+  fun companionObjectLookupInterfaceDirect() {
+    logger.info("Test")
   }
 }
