@@ -34,6 +34,14 @@ requires Log4j 2 Core (or possibly an other implementation of Log4j 2 API) as a 
 Log4j 2 Core features require optional dependencies which are documented in the 
 [Log4j 2 manual](https://logging.apache.org/log4j/2.x/manual/index.html).
 
+The Kotlin API requires the full `kotlin-reflect` dependency in order to name loggers appropriately, and
+optionally `kotlinx-coroutines-core` to set the mapped diagnostic context for a coroutine.
+
+The Kotlin dependencies are not exposed transitively -- for maximum compatibility logging-log4j-kotlin is built
+with Kotlin 1.3, producing binaries that should be forward compatible. For maximum compat, the Kotlin dependencies
+are "provided" i.e. consumers of this library need to depend on them directly rather than transitively, thus
+avoiding version clashes.
+
 ## License
 
 Apache Log4j 2 is distributed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
