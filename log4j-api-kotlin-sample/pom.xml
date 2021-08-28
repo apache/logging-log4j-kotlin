@@ -20,12 +20,12 @@
   <parent>
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-api-kotlin-parent</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <relativePath>../</relativePath>
   </parent>
 
   <artifactId>log4j-api-kotlin-sample</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
   <name>Apache Log4j Kotlin API Samples</name>
   <description>Sample usage of the Log4j Kotlin API</description>
