@@ -48,7 +48,7 @@
   </distributionManagement>
 
   <properties>
-    <Log4jKotlinVersion>1.0.1</Log4jKotlinVersion>
+    <Log4jKotlinVersion>1.1.0</Log4jKotlinVersion>
     <Log4jReleaseManager>Matt Sicker</Log4jReleaseManager>
     <Log4jReleaseKey>748F15B2CF9BA8F024155E6ED7C92B70FA1C814D</Log4jReleaseKey>
     <changes.plugin.version>2.12</changes.plugin.version>
