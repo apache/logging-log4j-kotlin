@@ -34,9 +34,9 @@
   <!-- TODO: website publishing -->
   <url>https://logging.apache.org/log4j/kotlin/</url>
   <scm>
-    <connection>scm:git:http://git-wip-us.apache.org/repos/asf/logging-log4j-kotlin.git</connection>
-    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/logging-log4j-kotlin.git</developerConnection>
-    <url>https://git-wip-us.apache.org/repos/asf?p=logging-log4j-kotlin.git;a=summary</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/logging-log4j-kotlin.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/logging-log4j-kotlin.git</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf?p=logging-log4j-kotlin.git</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -48,7 +48,7 @@
   </distributionManagement>
 
   <properties>
-    <Log4jKotlinVersion>1.0.0</Log4jKotlinVersion>
+    <Log4jKotlinVersion>1.0.1</Log4jKotlinVersion>
     <Log4jReleaseManager>Matt Sicker</Log4jReleaseManager>
     <Log4jReleaseKey>748F15B2CF9BA8F024155E6ED7C92B70FA1C814D</Log4jReleaseKey>
     <changes.plugin.version>2.12</changes.plugin.version>
