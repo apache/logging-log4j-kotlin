@@ -27,7 +27,7 @@ import kotlin.reflect.full.companionObject
  * the [logger(String)] function.
  */
 @Suppress("unused")
-inline fun <reified T : Any> T.logger() = loggerOf(T::class.java)
+inline fun <reified T : Any> T.logger() = cachedLoggerOf(T::class.java)
 
 /**
  * Named logger instantiation by function. Use: `val log = logger('MyLoggerName')`. Generally one should
