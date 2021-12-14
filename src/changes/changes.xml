@@ -30,6 +30,11 @@
          - "update" - Change
          - "remove" - Removed
     -->
+    <release version="1.2.0" date="2021-12-13" description="Release 1.2.0">
+      <action issue="LOG4J2-3218" dev="rgupta" type="update">
+        Update Log4j dependency to 2.16.0.
+      </action>
+    </release>
     <release version="1.1.0" date="2021-08-28" description="Release 1.1.0">
       <action issue="LOG4J2-2433" dev="rgupta" type="add">
         Support MDCs with Kotlin coroutines.
