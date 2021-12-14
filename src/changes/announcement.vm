@@ -82,7 +82,7 @@ Changes in this version include:
 #end
 ---
 
-Apache Log4j Audit ${relVersion} requires a minimum of Java 8 to build and run.
+Apache Log4j Kotlin API ${relVersion} requires a minimum of Java 8 to build and run.
 
 For complete information on ${project.name}, including instructions on how to submit bug
 reports, patches, or suggestions for improvement, see the Apache ${project.name} website:
