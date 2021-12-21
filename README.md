@@ -15,8 +15,8 @@ TODO
 
 ```groovy
 compile "org.apache.logging.log4j:log4j-api-kotlin:1.2.0"
-compile "org.apache.logging.log4j:log4j-api:2.16.0"
-compile "org.apache.logging.log4j:log4j-core:2.16.0"
+compile "org.apache.logging.log4j:log4j-api:2.17.0"
+compile "org.apache.logging.log4j:log4j-core:2.17.0"
 ```
 
 ## Documentation
@@ -28,7 +28,7 @@ TODO
 
 ## Requirements
 
-Log4j Kotlin API requires at least Java 7. This also requires Log4j 2 API, but it is specified as transitive
+Log4j Kotlin API requires at least Java 8. This also requires Log4j 2 API, but it is specified as transitive
 dependencies automatically if you are using SBT, Maven, Gradle, or some other similar build system. This also
 requires Log4j 2 Core (or possibly an other implementation of Log4j 2 API) as a runtime dependency. Some
 Log4j 2 Core features require optional dependencies which are documented in the 
