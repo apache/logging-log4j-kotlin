@@ -29,6 +29,7 @@
 
     <menu name="Apache Log4j Kotlin" inherit="top" img="icon-home">
       <item name="About" href="/index.html"/>
+      <item name="Maven, Ivy, and Gradle Artifacts" href="/artifacts.html"/>
       <item name="Download" href="/download.html"/>
       <item name="Usage" href="/usage.html"/>
     </menu>
