@@ -47,7 +47,6 @@
     <menu name="Project Information" img="icon-info-sign">
       <item name="Dependency Convergence" href="/dependency-convergence.html" />
       <item name="Dependency Management" href="/dependency-management.html" />
-      <item name="Project Team" href="/team-list.html" />
       <item name="Mailing Lists" href="/mail-lists.html" />
       <item name="Issue Tracking" href="/issue-tracking.html" />
       <item name="Project License" href="/license.html" />
