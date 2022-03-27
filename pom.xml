@@ -193,11 +193,6 @@
         <version>${site.plugin.version}</version>
         <dependencies>
           <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-            <version>${velocity.plugin.version}</version>
-          </dependency>
-          <dependency>
             <groupId>org.apache.maven.wagon</groupId>
             <artifactId>wagon-ssh</artifactId>
             <version>2.9</version>
@@ -217,8 +212,7 @@
           <moduleExcludes>
             <xdoc>navigation.xml,changes.xml</xdoc>
           </moduleExcludes>
-          <templateDirectory>${log4jParentDir}/src/site</templateDirectory>
-          <template>site.vm</template>
+
           <asciidoc>
             <attributes>
               <!-- copy any site properties wanted in asciidoc files -->

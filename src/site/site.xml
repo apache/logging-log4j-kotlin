@@ -19,6 +19,19 @@
          xmlns="http://maven.apache.org/DECORATION/1.4.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/DECORATION/1.4.0 http://maven.apache.org/xsd/decoration-1.4.0.xsd">
+  <bannerLeft>
+    <src>images/ls-logo.jpg</src>
+    <href>https://logging.apache.org</href>
+  </bannerLeft>
+  <bannerRight>
+    <src>images/logo.png</src>
+    <href>https://logging.apache.org/log4j/2.x</href>
+  </bannerRight>
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.8</version>
+  </skin>
   <body>
     <links>
       <item name="Logging Wiki" href="https://cwiki.apache.org/confluence/display/LOGGING/Home"/>
