@@ -176,7 +176,7 @@
       <plugin>
         <groupId>org.asciidoctor</groupId>
         <artifactId>asciidoctor-maven-plugin</artifactId>
-        <version>1.5.6</version>
+        <version>${asciidoc.plugin.version}</version>
         <executions>
           <execution>
             <id>output-html</id>
