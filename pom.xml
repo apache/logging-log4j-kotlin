@@ -36,7 +36,7 @@
     <connection>scm:git:https://gitbox.apache.org/repos/asf/logging-log4j-kotlin.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/logging-log4j-kotlin.git</developerConnection>
     <url>https://gitbox.apache.org/repos/asf?p=logging-log4j-kotlin.git</url>
-    <tag>log4j-api-kotlin-1.2.0-rc2</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
@@ -49,7 +49,7 @@
   <properties>
     <Log4jKotlinVersion>1.2.0</Log4jKotlinVersion>
     <Log4jReleaseManager>Matt Sicker</Log4jReleaseManager>
-    <Log4jReleaseKey>748F15B2CF9BA8F024155E6ED7C92B70FA1C814D</Log4jReleaseKey>
+    <Log4jReleaseKey>8378BFAAD82FE5AA602AC356031EE010CA15D1EE</Log4jReleaseKey>
     <changes.plugin.version>2.12</changes.plugin.version>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
     <dokka.plugin.version>0.9.17</dokka.plugin.version>
