@@ -55,7 +55,7 @@
     <dokka.plugin.version>0.9.17</dokka.plugin.version>
     <bnd.plugin.version>5.2.0</bnd.plugin.version>
     <findbugs.plugin.version>3.0.5</findbugs.plugin.version>
-    <javadoc.plugin.version>2.10.3</javadoc.plugin.version>
+    <javadoc.plugin.version>3.4.0</javadoc.plugin.version>
     <jxr.plugin.version>2.5</jxr.plugin.version>
     <kotlin.version>1.3.72</kotlin.version>
     <kotlinx.coroutines.version>1.3.6</kotlinx.coroutines.version>

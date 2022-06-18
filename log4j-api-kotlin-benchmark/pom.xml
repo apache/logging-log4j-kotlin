@@ -21,7 +21,6 @@
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-api-kotlin-parent</artifactId>
     <version>1.3.0-SNAPSHOT</version>
-    <relativePath>../</relativePath>
   </parent>
 
   <artifactId>log4j-api-kotlin-benchmark</artifactId>
@@ -37,6 +36,7 @@
     <jmh.generator>default</jmh.generator>
     <javac.target>1.8</javac.target>
     <uberjar.name>benchmarks</uberjar.name>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
   </properties>
 
   <dependencies>
