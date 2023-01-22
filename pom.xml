@@ -59,7 +59,7 @@
     <jxr.plugin.version>2.5</jxr.plugin.version>
     <kotlin.version>1.8.0</kotlin.version>
     <kotlinx.coroutines.version>1.6.4</kotlinx.coroutines.version>
-    <log4j.version>2.17.2</log4j.version>
+    <log4j.version>2.19.0</log4j.version>
     <pmd.plugin.version>3.8</pmd.plugin.version>
     <rat.plugin.version>0.12</rat.plugin.version>
     <site.plugin.version>3.11.0</site.plugin.version>
