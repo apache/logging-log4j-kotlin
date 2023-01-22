@@ -1,4 +1,4 @@
-# [Apache Log4j 2 Kotlin API](http://logging.apache.org/log4j/2.x/)
+# [Apache Log4j 2 (Kotlin API)](http://logging.apache.org/log4j/2.x/)
 
 Log4j Kotlin API is a Kotlin logging facade based on Log4j 2. Log4j Kotlin API provides Log4j 2 as its
 default logging implementation, but this is not strictly required (e.g., this API can also be used with Logback
@@ -7,6 +7,13 @@ the Log4j 2 Java API.
 
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.logging.log4j/log4j-api-kotlin.svg)](https://search.maven.org/artifact/org.apache.logging.log4j/log4j-api-kotlin)
 [![Build Status](https://ci-builds.apache.org/job/Logging/job/log4j-kotlin/job/master/lastBuild/badge/icon)](https://builds.apache.org/job/Logging/job/log4j-kotlin/job/master/)
+
+## Pull Requests on Github
+
+By sending a pull request you grant the Apache Software Foundation sufficient rights to use and release the submitted
+work under the Apache license. You grant the same rights (copyright license, patent license, etc.) to the
+Apache Software Foundation as if you have signed a Contributor License Agreement. For contributions that are
+judged to be non-trivial, you will be asked to actually signing a Contributor License Agreement.
 
 ## Usage
 
