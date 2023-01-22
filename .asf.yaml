@@ -18,7 +18,9 @@
 github:
   homepage: https://logging.apache.org/log4j/kotlin/
   description: "Apache Log4j API for Kotlin contains Kotlin-specific enhancements to the Log4j 2 API. This includes support for mixin interfaces and coroutine contexts."
-  issues: true
+  features:
+    issues: true
+  del_branch_on_merge: true
   labels:
     - apache
     - api
