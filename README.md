@@ -17,22 +17,54 @@ judged to be non-trivial, you will be asked to actually signing a Contributor Li
 
 ## Usage
 
-Gradle users can add the following dependencies to their `build.gradle` file:
+Users should refer to [Maven, Ivy and Gradle Artifacts](https://logging.apache.org/log4j/kotlin/artifacts.html)
+on the Log4j website for instructions on how to include Log4j into their project using their chosen build tool.
 
-TODO
+Using the Kotlin API is as simple as mixing in the Logging interface to your class. Example:
 
-```groovy
-compile "org.apache.logging.log4j:log4j-api-kotlin:1.2.0"
-compile "org.apache.logging.log4j:log4j-api:2.17.0"
-compile "org.apache.logging.log4j:log4j-core:2.17.0"
+```kotlin
+import org.apache.logging.log4j.kotlin.Logging
+
+class MyClass: BaseClass, Logging {
+    fun doStuff() {
+        logger.info("Doing stuff")
+    }
+    
+    fun doStuffWithUser(user: User) {
+        logger.info { "Doing stuff with ${user.name}." }
+    }
+}
 ```
+
+The Logging interface can also be mixed into object declarations, including companions. This is generally preferable over the previous approach as there is a single logger created for every instance of the class.
+
+```kotlin
+import org.apache.logging.log4j.kotlin.Logging
+
+class MyClass: BaseClass {
+    companion object : Logging
+    
+    ...
+}
+```
+
+Alternatively, a more traditional style can be used to instantiate a logger instance:
+
+```kotlin
+import org.apache.logging.log4j.kotlin
+
+class MyClass: BaseClass {
+    val logger = logger()
+    
+    ...
+}
+```
+
+The function `logger()` is an extension function on the Any type (or more specifically, any type `T` that extends `Any`).
 
 ## Documentation
 
-[//]: # "The Log4j Kotlin API is documented [in the Log4j 2 manual](https://logging.apache.org/log4j/2.x/manual/kotlin-api.html)"
-[//]: # "and in the [KDocs](https://logging.apache.org/log4j/2.x/log4j-api-kotlin/kdocs/index.html#org.apache.logging.log4j.kotlin.package)."
-
-TODO
+The Kotlin's Log4j 2 User's Guide is available [here](https://logging.apache.org/log4j/kotlin/index.html).
 
 ## Requirements
 
@@ -57,7 +89,9 @@ Apache Log4j 2 is distributed under the [Apache License, version 2.0](http://www
 ## Download
 
 [How to download Log4j](http://logging.apache.org/log4j/2.x/download.html),
-and [how to use it from SBT, Maven, Ivy and Gradle](http://logging.apache.org/log4j/2.x/maven-artifacts.html).
+and [how to use it from Maven, Ivy and Gradle](http://logging.apache.org/log4j/2.x/maven-artifacts.html).
+You can access the latest development snapshot by using the Maven repository `https://repository.apache.org/snapshots`,
+see [Snapshot builds](https://logging.apache.org/log4j/2.x/maven-artifacts.html#Snapshot_builds).
 
 ## Issue Tracking
 
@@ -78,4 +112,5 @@ mvn install
 
 ## Contributing
 
-We love contributions! Take a look at [our contributing page](https://github.com/apache/logging-log4j-kotlin/blob/master/src/main/asciidoc/contributing.adoc).
+We love contributions!
+Take a look at [our contributing page](CONTRIBUTING.md).
