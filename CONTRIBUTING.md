@@ -26,7 +26,7 @@ follow so that we can have a chance of keeping on top of things.
 
 + Make sure you have a [GitHub account](https://github.com/join).
 + If you're planning to implement a new feature it makes sense to discuss your changes on the [dev list](https://logging.apache.org/log4j/2.x/mail-lists.html) first. This way you can make sure you're not wasting your time on something that isn't considered to be in Apache Log4j's scope.
-+ Submit a ticket for your issue, assuming one does not already exist.
++ [Submit a ticket](https://github.com/apache/logging-log4j-kotlin/issues) for your issue, assuming one does not already exist.
   + Clearly describe the issue including steps to reproduce when it is a bug.
   + Make sure you fill in the earliest version that you know has the issue.
 + Fork the repository on GitHub.
@@ -58,8 +58,7 @@ In this case, it is appropriate to start the first line of a commit with '(doc)'
 ## Additional Resources
 
 + [Project Guidelines](https://logging.apache.org/log4j/2.x/guidelines.html)
-+ [Code Style Guide](https://logging.apache.org/log4j/2.x/javastyle.html)
-+ [Apache Log4j 2 Issue Tracker](https://github.com/apache/logging-log4j2/issues)
++ [Apache Log4j API for Kotlin Issue Tracker](https://github.com/apache/logging-log4j-kotlin/issues)
 + [Contributor License Agreement][cla]
 + [General GitHub documentation](https://docs.github.com/)
 + [GitHub pull request documentation](https://docs.github.com/en/pull-requests)
