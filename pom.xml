@@ -46,6 +46,11 @@
     </site>
   </distributionManagement>
 
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/apache/logging-log4j-kotlin/issues</url>
+  </issueManagement>
+
   <properties>
     <Log4jKotlinVersion>1.2.0</Log4jKotlinVersion>
     <Log4jReleaseManager>Matt Sicker</Log4jReleaseManager>
