@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.logging</groupId>
     <artifactId>logging-parent</artifactId>
-    <version>5</version>
+    <version>7</version>
     <relativePath />
   </parent>
 
