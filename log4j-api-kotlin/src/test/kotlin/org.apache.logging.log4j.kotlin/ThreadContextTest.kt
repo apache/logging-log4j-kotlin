@@ -17,88 +17,107 @@
 package org.apache.logging.log4j.kotlin
 
 import kotlinx.coroutines.*
-import org.apache.logging.log4j.ThreadContext
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import kotlin.coroutines.ContinuationInterceptor
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class ThreadContextTest {
   @Before
   fun setUp() {
-    ThreadContext.clearAll()
+    ContextMap.clear()
+    ContextStack.clear()
   }
 
   @After
   fun tearDown() {
-    ThreadContext.clearAll()
+    ContextMap.clear()
+    ContextStack.clear()
   }
 
   @Test
-  fun `Context is not passed by default between coroutines`() = runBlocking<Unit> {
-    ThreadContext.put("myKey", "myValue")
+  fun `Context is not passed by default between coroutines`() = runBlocking {
+    ContextMap["myKey"] = "myValue"
+    ContextStack.push("test")
     // Scoped launch with MDCContext element
     GlobalScope.launch {
-      assertEquals(null, ThreadContext.get("myKey"))
+      assertNull(ContextMap["myKey"])
+      assertTrue(ContextStack.empty)
     }.join()
   }
 
   @Test
-  fun `Context can be passed between coroutines`() = runBlocking<Unit> {
-    ThreadContext.put("myKey", "myValue")
+  fun `Context can be passed between coroutines`() = runBlocking {
+    ContextMap["myKey"] = "myValue"
+    ContextStack.push("test")
     // Scoped launch with MDCContext element
     GlobalScope.launch(CoroutineThreadContext()) {
-      assertEquals("myValue", ThreadContext.get("myKey"))
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
     }.join()
   }
 
   @Test
-  fun `Context inheritance`() = runBlocking<Unit> {
-    ThreadContext.put("myKey", "myValue")
+  fun `Context inheritance`() = runBlocking {
+    ContextMap["myKey"] = "myValue"
+    ContextStack.push("test")
     // Scoped launch with MDCContext element
     withContext(CoroutineThreadContext()) {
-      ThreadContext.put("myKey", "myValue2")
+      ContextMap["myKey"] = "myValue2"
+      ContextStack.push("test2")
       // Scoped launch with inherited MDContext element
       launch(Dispatchers.Default) {
-        assertEquals("myValue", ThreadContext.get("myKey"))
+        assertEquals("myValue", ContextMap["myKey"])
+        assertEquals("test", ContextStack.peek())
       }
     }
-    assertEquals("myValue", ThreadContext.get("myKey"))
+    assertEquals("myValue", ContextMap["myKey"])
+    assertEquals("test", ContextStack.peek())
   }
 
   @Test
   fun `Context passed while on main thread`() {
-    ThreadContext.put("myKey", "myValue")
+    ContextMap["myKey"] = "myValue"
+    ContextStack.push("test")
     // No MDCContext element
     runBlocking {
-      assertEquals("myValue", ThreadContext.get("myKey"))
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
     }
   }
 
   @Test
   fun `Context can be passed while on main thread`() {
-    ThreadContext.put("myKey", "myValue")
+    ContextMap["myKey"] = "myValue"
+    ContextStack.push("test")
     runBlocking(CoroutineThreadContext()) {
-      assertEquals("myValue", ThreadContext.get("myKey"))
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
     }
   }
 
   @Test
   fun `Context may be empty`() {
     runBlocking(CoroutineThreadContext()) {
-      assertEquals(null, ThreadContext.get("myKey"))
+      assertTrue(ContextMap.empty)
+      assertTrue(ContextStack.empty)
     }
   }
 
   @Test
   fun `Context with context`() = runBlocking {
-    ThreadContext.put("myKey", "myValue")
+    ContextMap["myKey"] = "myValue"
+    ContextStack.push("test")
     val mainDispatcher = coroutineContext[ContinuationInterceptor]!!
     withContext(Dispatchers.Default + CoroutineThreadContext()) {
-      assertEquals("myValue", ThreadContext.get("myKey"))
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
       withContext(mainDispatcher) {
-        assertEquals("myValue", ThreadContext.get("myKey"))
+        assertEquals("myValue", ContextMap["myKey"])
+        assertEquals("test", ContextStack.peek())
       }
     }
   }

@@ -22,12 +22,16 @@ import kotlin.coroutines.AbstractCoroutineContextElement
 import kotlin.coroutines.CoroutineContext
 
 /**
- * The value of [ThreadContext] map and stack.
- * See [ThreadContext.getImmutableContext] and [ThreadContext.getImmutableStack].
+ * Snapshot of the current [ContextMap] and [ContextStack].
+ *
+ * @param map immutable view of the current context map
+ * @param stack immutable view of the current context stack
+ * @see ContextMap.view
+ * @see ContextStack.view
  */
 data class ThreadContextData(
-  val map: Map<String, String>?,
-  val stack: Collection<String>?
+  val map: Map<String, String>? = ContextMap.view,
+  val stack: Collection<String>? = ContextStack.view
 )
 
 /**
@@ -39,7 +43,7 @@ data class ThreadContextData(
  * Example:
  *
  * ```
- * ThreadContext.put("kotlin", "rocks") // Put a value into the Thread context
+ * ContextMap["kotlin"] = "rocks" // Put a value into the Thread context
  *
  * launch(CoroutineThreadContext()) {
  *     logger.info { "..." }   // The Thread context contains the mapping here
@@ -47,21 +51,21 @@ data class ThreadContextData(
  * ```
  *
  * Note, that you cannot update Thread context from inside of the coroutine simply
- * using [ThreadContext.put]. These updates are going to be lost on the next suspension and
+ * using [ThreadContext.put] or [ContextMap.set]. These updates are going to be lost on the next suspension and
  * reinstalled to the Thread context that was captured or explicitly specified in
- * [contextMap] when this object was created on the next resumption.
- * Use `withContext(ThreadContext()) { ... }` to capture updated map of Thread keys and values
+ * [contextData] when this object was created on the next resumption.
+ * Use `withContext(CoroutineThreadContext()) { ... }` to capture updated map of Thread keys and values
  * for the specified block of code.
  *
- * @param contextMap the value of [Thread] context map.
+ * @param contextData the value of [Thread] context map and context stack.
  * Default value is the copy of the current thread's context map that is acquired via
- * [ThreadContext.getContext].
+ * [ContextMap.view] and [ContextStack.view].
  */
 class CoroutineThreadContext(
   /**
    * The value of [Thread] context map.
    */
-  val contextData: ThreadContextData = ThreadContextData(ThreadContext.getImmutableContext(), ThreadContext.getImmutableStack())
+  val contextData: ThreadContextData = ThreadContextData()
 ) : ThreadContextElement<ThreadContextData>, AbstractCoroutineContextElement(Key) {
   /**
    * Key of [ThreadContext] in [CoroutineContext].
@@ -70,7 +74,7 @@ class CoroutineThreadContext(
 
   /** @suppress */
   override fun updateThreadContext(context: CoroutineContext): ThreadContextData {
-    val oldState = ThreadContextData(ThreadContext.getImmutableContext(), ThreadContext.getImmutableStack())
+    val oldState = ThreadContextData(ContextMap.view, ContextStack.view)
     setCurrent(contextData)
     return oldState
   }
@@ -81,15 +85,7 @@ class CoroutineThreadContext(
   }
 
   private fun setCurrent(contextData: ThreadContextData) {
-    if (contextData.map == null) {
-      ThreadContext.clearMap()
-    } else {
-      ThreadContext.putAll(contextData.map)
-    }
-    if (contextData.stack == null) {
-      ThreadContext.clearStack()
-    } else {
-      ThreadContext.setStack(contextData.stack)
-    }
+    contextData.map?.let { ContextMap += it } ?: ContextMap.clear()
+    contextData.stack?.let { ContextStack.set(it) } ?: ContextStack.clear()
   }
 }
