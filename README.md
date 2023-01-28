@@ -44,7 +44,7 @@ import org.apache.logging.log4j.kotlin.Logging
 class MyClass: BaseClass {
     companion object : Logging
     
-    ...
+    // ...
 }
 ```
 
@@ -56,11 +56,47 @@ import org.apache.logging.log4j.kotlin
 class MyClass: BaseClass {
     val logger = logger()
     
-    ...
+    // ...
 }
 ```
 
 The function `logger()` is an extension function on the Any type (or more specifically, any type `T` that extends `Any`).
+
+<!--
+TODO: uncomment when 1.3.0 is released:
+Beginning in version 1.3.0, an extension property is also available on classes:
+
+```kotlin
+import org.apache.logging.log4j.kotlin.logger
+
+class MyClass: BaseClass {
+  init {
+    logger.info("Hello, world!")
+  }
+}
+```
+
+Also added in version 1.3.0, the `ThreadContext` API has two facade objects provided: `ContextMap` and `ContextStack`.
+
+```kotlin
+import org.apache.logging.log4j.kotlin.ContextMap
+import org.apache.logging.log4j.kotlin.ContextStack
+
+ContextMap["key"] = "value"
+assert(ContextMap["key"] == "value")
+assert("key" in ContextMap)
+
+ContextMap += "anotherKey" to "anotherValue"
+ContextMap -= "key"
+
+ContextStack.push("message")
+assert(!ContextStack.empty)
+assert(ContextStack.depth == 1)
+val message = ContextStack.peek()
+assert(message == ContextStack.pop())
+assert(ContextStack.empty)
+```
+-->
 
 ## Documentation
 
