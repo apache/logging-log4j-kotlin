@@ -38,6 +38,7 @@ open class LoggingBenchmark {
     @JvmStatic
     val LOGGER3 = logger()
     val LOGGER4: Logger = LogManager.getLogger()
+    val LOGGER5 = logger
   }
 
   @Benchmark
@@ -88,5 +89,15 @@ open class LoggingBenchmark {
   @Benchmark
   fun companionObjectLookupInterfaceDirect() {
     logger.info("Test")
+  }
+
+  @Benchmark
+  fun companionObjectExtensionPropertyFunctional() {
+    LOGGER5.info { "Test" }
+  }
+
+  @Benchmark
+  fun companionObjectExtensionPropertyDirect() {
+    LOGGER5.info("Test")
   }
 }

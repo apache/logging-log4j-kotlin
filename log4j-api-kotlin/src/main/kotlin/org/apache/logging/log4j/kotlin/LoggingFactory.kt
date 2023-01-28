@@ -30,6 +30,15 @@ import kotlin.reflect.full.companionObject
 inline fun <reified T : Any> T.logger() = loggerOf(T::class.java)
 
 /**
+ * Provides a logger named after the receiver object's class.
+ *
+ * @since 1.3.0
+ */
+inline val <reified T> T.logger: KotlinLogger
+  get() = cachedLoggerOf(T::class.java)
+
+
+/**
  * Named logger instantiation by function. Use: `val log = logger('MyLoggerName')`. Generally one should
  * prefer the `logger` function to create automatically named loggers, but this is useful outside of objects,
  * such as in top-level functions.
