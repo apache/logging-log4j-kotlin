@@ -6,7 +6,7 @@
     (the "License"); you may not use this file except in compliance with
     the License.  You may obtain a copy of the License at
 
-         http://www.apache.org/licenses/LICENSE-2.0
+         https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,22 +14,9 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 ////
-= Apache Log4j Kotlin API
-:toc: left
 
-Log4j Kotlin API is a https://kotlinlang.org/[Kotlin] logging facade based on https://logging.apache.org/log4j/2.x/[Log4j 2].
+= ${release.version}<#if release.date?has_content> (${release.date})</#if>
 
-Log4j Kotlin API uses Log4j 2.x as its logging backend.
+Changes staged for the next 1.x.x version that is yet to be released.
 
-Log4j Kotlin API uses Log4j 2.x as its logging backend by default, but this can also be replaced with compatible libraries (e.g., https://logback.qos.ch/[Logback]).
-
-While this library is not required to use Log4j API in Kotlin, it does provide idiomatic Kotlin APIs which are friendlier to use in Kotlin programs than the Java APIs.
-
-
-////
-TODO:
-* Apache logo
-* License report
-* Project links
-* Dependency report
-////
+<#include "../.changelog-entries.adoc.ftl">

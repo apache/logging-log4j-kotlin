@@ -16,7 +16,9 @@
   ~ limitations under the license.
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.apache.logging</groupId>
     <artifactId>logging-parent</artifactId>
@@ -26,12 +28,72 @@
 
   <groupId>org.apache.logging.log4j</groupId>
   <artifactId>log4j-api-kotlin-parent</artifactId>
-  <version>1.3.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Apache Log4j Kotlin API Parent</name>
-  <description>Apache Log4j Kotlin API parent project</description>
+  <version>1.3.0-SNAPSHOT</version>
 
+  <name>Apache Log4j Kotlin API</name>
+  <description>
+    Apache Log4j Kotlin API is a logging API library for Kotlin based on Log4j API. A logging backend such as
+    Log4j Core must also be used for configuring what happens to log messages.
+  </description>
   <url>https://logging.apache.org/log4j/kotlin/</url>
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/apache/logging-log4j-kotlin/issues</url>
+  </issueManagement>
+
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://builds.apache.org/job/Logging/job/log4j-kotlin/</url>
+  </ciManagement>
+
+  <!-- Developer IDs are used to map author IDs to names while exporting changelogs.
+     Hence, updates here need to be reflected to `.changelog-entries.adoc.ftl` too. -->
+  <developers>
+
+    <developer>
+      <id>rgupta</id>
+      <name>Raman Gupta</name>
+      <email>rocketraman@apache.org</email>
+      <roles>
+        <role>Committer</role>
+      </roles>
+    </developer>
+
+    <developer>
+      <id>mattsicker</id>
+      <name>Matt Sicker</name>
+      <email>mattsicker@apache.org</email>
+      <organization>Apple</organization>
+      <roles>
+        <role>PMC Member</role>
+        <role>Committer</role>
+      </roles>
+      <timezone>America/Chicago</timezone>
+    </developer>
+
+  </developers>
+
+  <mailingLists>
+
+    <mailingList>
+      <name>log4j-user</name>
+      <subscribe>log4j-user-subscribe@logging.apache.org</subscribe>
+      <unsubscribe>log4j-user-unsubscribe@logging.apache.org</unsubscribe>
+      <post>log4j-user@logging.apache.org</post>
+      <archive>https://lists.apache.org/list.html?log4j-user@logging.apache.org</archive>
+    </mailingList>
+
+    <mailingList>
+      <name>dev</name>
+      <subscribe>dev-subscribe@logging.apache.org</subscribe>
+      <unsubscribe>dev-unsubscribe@logging.apache.org</unsubscribe>
+      <post>dev@logging.apache.org</post>
+      <archive>https://lists.apache.org/list.html?dev@logging.apache.org</archive>
+    </mailingList>
+
+  </mailingLists>
+
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/logging-log4j-kotlin.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/logging-log4j-kotlin.git</developerConnection>
@@ -39,96 +101,155 @@
     <tag>HEAD</tag>
   </scm>
 
-  <distributionManagement>
-    <site>
-      <id>apache.website</id>
-      <url>scp://people.apache.org/www/logging.apache.org/log4j-kotlin-api</url>
-    </site>
-  </distributionManagement>
-
-  <issueManagement>
-    <system>GitHub Issues</system>
-    <url>https://github.com/apache/logging-log4j-kotlin/issues</url>
-  </issueManagement>
-
   <properties>
+
+    <!-- ===========================
+         Release-specific properties
+         =========================== -->
+    <log4jParentDir>${basedir}</log4jParentDir>
     <Log4jKotlinVersion>1.3.0</Log4jKotlinVersion>
+    <Log4jReleaseVersion>${Log4jKotlinVersion}</Log4jReleaseVersion>
     <Log4jReleaseManager>Matt Sicker</Log4jReleaseManager>
     <Log4jReleaseKey>8378BFAAD82FE5AA602AC356031EE010CA15D1EE</Log4jReleaseKey>
-    <changes.plugin.version>2.12</changes.plugin.version>
-    <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
-    <dokka.plugin.version>0.9.17</dokka.plugin.version>
-    <bnd.plugin.version>5.2.0</bnd.plugin.version>
-    <findbugs.plugin.version>3.0.5</findbugs.plugin.version>
-    <javadoc.plugin.version>3.4.0</javadoc.plugin.version>
-    <jxr.plugin.version>2.5</jxr.plugin.version>
+    <Log4jSigningUserName>mattsicker@apache.org</Log4jSigningUserName>
+
+    <!-- =================
+         Common properties
+         ================= -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- Skipping `maven-site-plugin` globally.
+         It is manually enabled only for the parent module below. -->
+    <maven.site.skip>true</maven.site.skip>
+    <maven.site.deploy.skip>true</maven.site.deploy.skip>
+
+    <!-- ██     ██  █████  ██████  ███    ██ ██ ███    ██  ██████  ██
+     ██     ██ ██   ██ ██   ██ ████   ██ ██ ████   ██ ██       ██
+     ██  █  ██ ███████ ██████  ██ ██  ██ ██ ██ ██  ██ ██   ███ ██
+     ██ ███ ██ ██   ██ ██   ██ ██  ██ ██ ██ ██  ██ ██ ██    ██
+      ███ ███  ██   ██ ██   ██ ██   ████ ██ ██   ████  ██████  ██
+
+     Dependency and plugin version properties might have many implications beyond their simple appearance!
+     Walk through the following checklist before making a change in these properties!
+
+     1. Follow the `<artifactId>.version` naming convention
+     2. Make sure properties are sorted in alphabetical order
+     3. Check parent POMs for any associations.
+        For instance, Maven Surefire Plugin version property is such an exception.
+        It is named as `surefire.version` rather than `maven-surefire-plugin.version`, since `surefire.version` is already employed by `apache.org:apache` parent POM.
+     4. Think of consequences when users _import_ this POM along with, e.g., `spring-boot-dependencies` BOM -->
+
+    <!-- =================================================
+         Plugin version properties (in alphabetical order)
+         ================================================= -->
+    <apache-rat-plugin.version>0.12</apache-rat-plugin.version>
+    <asciidoctor-maven-plugin.version>2.2.2</asciidoctor-maven-plugin.version>
+    <bnd-maven-plugin.version>5.2.0</bnd-maven-plugin.version>
+    <dokka-maven-plugin.version>0.9.17</dokka-maven-plugin.version>
+    <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
+    <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
+    <log4j-tools.version>0.1.0</log4j-tools.version>
+    <maven-changes-plugin.version>2.12</maven-changes-plugin.version>
+    <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
+    <maven-javadoc-plugin.version>3.4.0</maven-javadoc-plugin.version>
+    <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
+    <maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
+    <maven-site-plugin.version>3.11.0</maven-site-plugin.version>
+    <!-- `surefire.version` property used in `apache.org:apache`: -->
+    <surefire.version>2.22.1</surefire.version>
+
+    <!-- =====================================================
+         Dependency version properties (in alphabetical order)
+         ===================================================== -->
+    <log4j.version>2.19.0</log4j.version>
     <kotlin.version>1.3.72</kotlin.version>
     <kotlinx.coroutines.version>1.3.6</kotlinx.coroutines.version>
-    <log4j.version>2.19.0</log4j.version>
-    <pmd.plugin.version>3.8</pmd.plugin.version>
-    <rat.plugin.version>0.12</rat.plugin.version>
-    <site.plugin.version>3.11.0</site.plugin.version>
-    <asciidoc.plugin.version>2.2.2</asciidoc.plugin.version>
-    <surefire.plugin.version>2.22.1</surefire.plugin.version>
-    <log4jParentDir>${basedir}</log4jParentDir>
+
   </properties>
 
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-bom</artifactId>
+        <version>${log4j.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-api-kotlin</artifactId>
         <version>${project.version}</version>
       </dependency>
-      <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-api</artifactId>
-        <version>${log4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-core</artifactId>
-        <version>${log4j.version}</version>
-      </dependency>
+
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-api</artifactId>
         <version>${log4j.version}</version>
         <type>test-jar</type>
-        <scope>test</scope>
       </dependency>
+
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-core</artifactId>
         <version>${log4j.version}</version>
         <type>test-jar</type>
-        <scope>test</scope>
       </dependency>
+
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib</artifactId>
+        <version>${kotlin.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-reflect</artifactId>
+        <version>${kotlin.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jetbrains.kotlinx</groupId>
+        <artifactId>kotlinx-coroutines-jdk8</artifactId>
+        <version>${kotlinx.coroutines.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.2</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-test-junit</artifactId>
+        <version>${kotlin.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mockito.kotlin</groupId>
+        <artifactId>mockito-kotlin</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+
     </dependencies>
+
   </dependencyManagement>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib</artifactId>
-      <version>${kotlin.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-test</artifactId>
-      <version>${kotlin.version}</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
   <build>
+    <defaultGoal>verify</defaultGoal>
+
     <pluginManagement>
+
       <plugins>
+
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>${surefire.plugin.version}</version>
+          <groupId>org.jetbrains.kotlin</groupId>
+          <artifactId>kotlin-maven-plugin</artifactId>
+          <version>${kotlin.version}</version>
         </plugin>
+
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
@@ -141,19 +262,55 @@
             </execution>
           </executions>
         </plugin>
+
         <plugin>
           <groupId>org.jetbrains.dokka</groupId>
           <artifactId>dokka-maven-plugin</artifactId>
-          <version>${dokka.plugin.version}</version>
+          <version>${dokka-maven-plugin.version}</version>
         </plugin>
+
         <plugin>
           <groupId>biz.aQute.bnd</groupId>
           <artifactId>bnd-maven-plugin</artifactId>
-          <version>${bnd.plugin.version}</version>
+          <version>${bnd-maven-plugin.version}</version>
         </plugin>
+
+        <plugin>
+          <groupId>org.asciidoctor</groupId>
+          <artifactId>asciidoctor-maven-plugin</artifactId>
+          <version>${asciidoctor-maven-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>${maven-site-plugin.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.maven.wagon</groupId>
+              <artifactId>wagon-ssh</artifactId>
+              <version>2.9</version>
+            </dependency>
+            <dependency>
+              <groupId>org.asciidoctor</groupId>
+              <artifactId>asciidoctor-maven-plugin</artifactId>
+              <version>${asciidoctor-maven-plugin.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>${exec-maven-plugin.version}</version>
+        </plugin>
+
       </plugins>
+
     </pluginManagement>
+
     <plugins>
+
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
@@ -175,59 +332,122 @@
           </execution>
         </executions>
       </plugin>
+
+      <!-- ███████ ████████  █████  ██████  ████████        ███████ ██ ████████ ███████
+           ██         ██    ██   ██ ██   ██    ██    ██     ██      ██    ██    ██
+           ███████    ██    ███████ ██████     ██           ███████ ██    ██    █████
+                ██    ██    ██   ██ ██   ██    ██    ██          ██ ██    ██    ██
+           ███████    ██    ██   ██ ██   ██    ██           ███████ ██    ██    ███████
+
+           This section consists of plugins responsible for generating the site.
+           Note that only parent is supposed to have a `site` goal, it is skipped for modules! -->
+
+      <!-- export AsciiDoc-formatted sources to `target/generated-sources/site/asciidoc/changelog` -->
       <plugin>
-        <groupId>org.asciidoctor</groupId>
-        <artifactId>asciidoctor-maven-plugin</artifactId>
-        <version>${asciidoc.plugin.version}</version>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <inherited>false</inherited>
         <executions>
           <execution>
-            <id>output-html</id>
-            <phase>generate-resources</phase>
+            <id>changelog-export</id>
+            <phase>pre-site</phase>
             <goals>
-              <goal>process-asciidoc</goal>
+              <goal>java</goal>
             </goals>
           </execution>
         </executions>
         <configuration>
-          <backend>html5</backend>
+          <includeProjectDependencies>false</includeProjectDependencies>
+          <includePluginDependencies>true</includePluginDependencies>
+          <executableDependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-changelog</artifactId>
+          </executableDependency>
+          <mainClass>org.apache.logging.log4j.changelog.exporter.ChangelogExporter</mainClass>
+          <systemProperties>
+            <systemProperty>
+              <key>log4j.changelog.directory</key>
+              <value>${project.basedir}/src/changelog</value>
+            </systemProperty>
+            <systemProperty>
+              <key>log4j.changelog.exporter.outputDirectory</key>
+              <value>${project.build.directory}/generated-sources/site/asciidoc/changelog</value>
+            </systemProperty>
+          </systemProperties>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-changelog</artifactId>
+            <version>${log4j-tools.version}</version>
+          </dependency>
+        </dependencies>
       </plugin>
+
+      <!-- copy `src/site` to `target/generated-sources/site` -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <inherited>false</inherited>
+        <executions>
+          <!-- copy `src/site` to `target/generated-sources/site` -->
+          <execution>
+            <id>copy-site</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/generated-sources/site</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${log4jParentDir}/src/site</directory>
+                  <excludes>
+                    <exclude>/resources/glyphicons-halflings-2-1.zip</exclude>
+                    <exclude>/resources/logo/**/*</exclude>
+                  </excludes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>${site.plugin.version}</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.maven.wagon</groupId>
-            <artifactId>wagon-ssh</artifactId>
-            <version>2.9</version>
-          </dependency>
-          <dependency>
-            <groupId>org.asciidoctor</groupId>
-            <artifactId>asciidoctor-maven-plugin</artifactId>
-            <version>${asciidoc.plugin.version}</version>
-          </dependency>
-        </dependencies>
-        <configuration>
+        <inherited>false</inherited>
+        <configuration combine.self="override">
+          <skip>false</skip>
+          <generateProjectInfo>false</generateProjectInfo>
+          <generateReports>false</generateReports>
+          <siteDirectory>${project.build.directory}/generated-sources/site</siteDirectory>
           <!-- only build English site even on other language OS -->
           <locales>en</locales>
           <!-- Exclude the navigation file for Maven 1 sites
-               and the changes file used by the changes-plugin,
-               as they interfere with the site generation. -->
+               as it interfere with the site generation. -->
           <moduleExcludes>
-            <xdoc>navigation.xml,changes.xml</xdoc>
+            <xdoc>navigation.xml</xdoc>
           </moduleExcludes>
-
           <asciidoc>
             <attributes>
               <!-- copy any site properties wanted in asciidoc files -->
-              <Log4jReleaseVersion>${Log4jReleaseVersion}</Log4jReleaseVersion>
+              <Log4jKotlinVersion>${Log4jKotlinVersion}</Log4jKotlinVersion>
+              <Log4jReleaseVersion>${Log4jKotlinVersion}</Log4jReleaseVersion>
               <Log4jReleaseManager>${Log4jReleaseManager}</Log4jReleaseManager>
               <Log4jReleaseKey>${Log4jReleaseKey}</Log4jReleaseKey>
             </attributes>
           </asciidoc>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctor-maven-plugin</artifactId>
+            <version>${asciidoctor-maven-plugin.version}</version>
+          </dependency>
+        </dependencies>
       </plugin>
+
       <plugin>
         <groupId>org.jetbrains.dokka</groupId>
         <artifactId>dokka-maven-plugin</artifactId>
@@ -235,171 +455,86 @@
           <skip>true</skip>
         </configuration>
       </plugin>
+
+      <!-- ███████ ███    ██ ██████         ███████ ██ ████████ ███████
+           ██      ████   ██ ██   ██ ██     ██      ██    ██    ██
+           █████   ██ ██  ██ ██   ██        ███████ ██    ██    █████
+           ██      ██  ██ ██ ██   ██ ██          ██ ██    ██    ██
+           ███████ ██   ████ ██████         ███████ ██    ██    ███████ -->
+
     </plugins>
+
   </build>
-  <reporting>
-    <plugins>
-      <!-- Changes report -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-changes-plugin</artifactId>
-        <version>${changes.plugin.version}</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>changes-report</report>
-              <report>jira-report</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-        <configuration>
-          <statusIds>Resolved, Closed</statusIds>
-          <columnNames>Type,Key,Summary,Assignee,Status,Resolution,Fix Version</columnNames>
-          <component>Kotlin API</component>
-          <useJql>true</useJql>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.8.1</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>index</report>
-              <report>dependencies</report>
-              <report>dependency-info</report>
-              <report>dependency-convergence</report>
-              <report>dependency-management</report>
-              <report>mailing-list</report>
-              <report>issue-tracking</report>
-              <report>license</report>
-              <report>scm</report>
-              <report>summary</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-        <configuration>
-          <!-- you'd think these would be the defaults, right? -->
-          <customBundle>${project.basedir}/src/site/custom/project-info-report.properties</customBundle>
-          <webAccessUrl>${project.scm.url}</webAccessUrl>
-          <anonymousConnection>${project.scm.connection}</anonymousConnection>
-          <developerConnection>${project.scm.developerConnection}</developerConnection>
-          <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${javadoc.plugin.version}</version>
-        <configuration>
-          <aggregate>true</aggregate>
-          <bottom><![CDATA[<p align="center">Copyright &#169; {inceptionYear}-{currentYear} {organizationName}. All Rights Reserved.<br />
-            Apache Logging, Apache Log4j, Apache Log4j Audit, Log4j, Log4j Audit, Apache, the Apache feather logo, the Apache Logging project logo,
-            and the Apache Log4j logo are trademarks of The Apache Software Foundation.</p>]]></bottom>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${checkstyle.plugin.version}</version>
-        <configuration>
-          <!--<propertiesLocation>${vfs.parent.dir}/checkstyle.properties</propertiesLocation> -->
-          <configLocation>${log4jParentDir}/checkstyle.xml</configLocation>
-          <suppressionsLocation>${log4jParentDir}/checkstyle-suppressions.xml</suppressionsLocation>
-          <enableRulesSummary>false</enableRulesSummary>
-          <propertyExpansion>basedir=${basedir}</propertyExpansion>
-          <propertyExpansion>licensedir=${log4jParentDir}/checkstyle-header.txt</propertyExpansion>
-        </configuration>
-      </plugin>
-      <!-- Surefire report -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>${surefire.plugin.version}</version>
-        <reportSets>
-          <reportSet>
-            <id>integration-tests</id>
-            <reports>
-              <report>failsafe-report-only</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-      <!-- RAT report -->
-      <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-        <version>${rat.plugin.version}</version>
-        <configuration>
-          <excludes>
-            <exclude>**/*.asc</exclude>
-            <exclude>.idea/**/*</exclude>
-            <exclude>src/site/resources/js/jquery.js</exclude>
-            <exclude>src/site/resources/js/jquery.min.js</exclude>
-            <!-- Generated files -->
-            <exclude>log4j-api-kotlin-distribution/target/**/*</exclude>
-            <exclude>log4j-api-kotlin-distribution/.project</exclude>
-            <exclude>log4j-api-kotlin-distribution/.settings/**</exclude>
-            <exclude>RELEASE-NOTES.md</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>${findbugs.plugin.version}</version>
-        <configuration>
-          <fork>true</fork>
-          <jvmArgs>-Duser.language=en</jvmArgs>
-          <threshold>Normal</threshold>
-          <effort>Default</effort>
-          <excludeFilterFile>${log4jParentDir}/findbugs-exclude-filter.xml</excludeFilterFile>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <version>${jxr.plugin.version}</version>
-        <reportSets>
-          <reportSet>
-            <id>non-aggregate</id>
-            <reports>
-              <report>jxr</report>
-            </reports>
-          </reportSet>
-          <reportSet>
-            <id>aggregate</id>
-            <reports>
-              <report>aggregate</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>${pmd.plugin.version}</version>
-        <configuration>
-          <targetJdk>${maven.compiler.target}</targetJdk>
-        </configuration>
-      </plugin>
-    </plugins>
-  </reporting>
-  <repositories>
-    <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>https://repository.apache.org/snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </repository>
-  </repositories>
+
+  <distributionManagement>
+    <downloadUrl>https://logging.apache.org/log4j/kotlin/download.html</downloadUrl>
+    <!-- `site` is only included to make `maven-site-plugin` stop complaining: -->
+    <site>
+      <id>www.example.com</id>
+      <url>scp://www.example.com/www/docs/project/</url>
+    </site>
+    <!-- `repository` from ASF parent POM (id: apache.releases.https) -->
+    <!-- `snapshotRepository` from ASF parent POM (id: apache.snapshots.https) -->
+  </distributionManagement>
 
   <modules>
     <module>log4j-api-kotlin</module>
     <module>log4j-api-kotlin-sample</module>
     <module>log4j-api-kotlin-benchmark</module>
   </modules>
+
+  <profiles>
+
+    <!-- Shortcut to populate `src/changelog/<releaseVersion>` from `src/changelog/.<releaseVersionMajor>.x.x` -->
+    <profile>
+      <id>changelog-releaser</id>
+      <build>
+        <defaultGoal>validate</defaultGoal>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>changelog-releaser</id>
+                <!-- Choosing the earlier possible phase, since `ChangelogReleaser` execution doesn't depend on anything: -->
+                <phase>validate</phase>
+                <goals>
+                  <goal>java</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <includeProjectDependencies>false</includeProjectDependencies>
+              <includePluginDependencies>true</includePluginDependencies>
+              <executableDependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-changelog</artifactId>
+              </executableDependency>
+              <mainClass>org.apache.logging.log4j.changelog.releaser.ChangelogReleaser</mainClass>
+              <systemProperties>
+                <systemProperty>
+                  <key>log4j.changelog.directory</key>
+                  <value>${project.basedir}/src/changelog</value>
+                </systemProperty>
+                <systemProperty>
+                  <key>log4j.changelog.releaseVersion</key>
+                  <value>${Log4jKotlinVersion}</value>
+                </systemProperty>
+              </systemProperties>
+            </configuration>
+            <dependencies>
+              <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-changelog</artifactId>
+                <version>${log4j-tools.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
 </project>
