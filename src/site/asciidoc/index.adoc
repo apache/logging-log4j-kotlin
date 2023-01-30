@@ -17,11 +17,9 @@
 = Apache Log4j Kotlin API
 :toc: left
 
-Log4j Kotlin API is a https://kotlinlang.org/[Kotlin] logging facade based on https://logging.apache.org/log4j/2.x/[Log4j 2].
+Log4j Kotlin API is a https://kotlinlang.org/[Kotlin] logging facade based on https://logging.apache.org/log4j/2.x/[Apache Log4j API].
 
-Log4j Kotlin API uses Log4j 2.x as its logging backend.
-
-Log4j Kotlin API uses Log4j 2.x as its logging backend by default, but this can also be replaced with compatible libraries (e.g., https://logback.qos.ch/[Logback]).
+Log4j Kotlin API uses Log4j Core 2.x as its logging backend by default, but this can also be replaced with compatible libraries (e.g., https://logback.qos.ch/[Logback]).
 
 While this library is not required to use Log4j API in Kotlin, it does provide idiomatic Kotlin APIs which are friendlier to use in Kotlin programs than the Java APIs.
 

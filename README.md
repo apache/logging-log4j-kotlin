@@ -1,9 +1,9 @@
 # [Apache Log4j 2 (Kotlin API)](http://logging.apache.org/log4j/2.x/)
 
-Log4j Kotlin API is a Kotlin logging facade based on Log4j 2. Log4j Kotlin API provides Log4j 2 as its
+Log4j Kotlin API is a Kotlin logging facade based on Apache Log4j API. Log4j Kotlin API provides Log4j Core 2.x as its
 default logging implementation, but this is not strictly required (e.g., this API can also be used with Logback
 or other Log4j 2 API provider implementations). Idiomatic Kotlin features are provided as an alternative to using
-the Log4j 2 Java API.
+the Log4j Java API.
 
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.logging.log4j/log4j-api-kotlin.svg)](https://search.maven.org/artifact/org.apache.logging.log4j/log4j-api-kotlin)
 [![Build Status](https://ci-builds.apache.org/job/Logging/job/log4j-kotlin/job/master/lastBuild/badge/icon)](https://builds.apache.org/job/Logging/job/log4j-kotlin/job/master/)
@@ -100,32 +100,33 @@ assert(ContextStack.empty)
 
 ## Documentation
 
-The Kotlin's Log4j 2 User's Guide is available [here](https://logging.apache.org/log4j/kotlin/index.html).
+The user guide for Log4j Kotlin API is [available here](https://logging.apache.org/log4j/kotlin/).
 
 ## Requirements
 
-Log4j Kotlin API requires at least Java 8. This also requires Log4j 2 API, but it is specified as transitive
-dependencies automatically if you are using SBT, Maven, Gradle, or some other similar build system. This also
-requires Log4j 2 Core (or possibly an other implementation of Log4j 2 API) as a runtime dependency. Some
-Log4j 2 Core features require optional dependencies which are documented in the 
-[Log4j 2 manual](https://logging.apache.org/log4j/2.x/manual/index.html).
+The minimum requirements for Log4j Kotlin API are Java 8 and Kotlin 1.3.x. Log4j API is also required, though
+this is already specified as a transitive dependency for `log4j-api-kotlin` which is supported by common build
+systems like Maven, Gradle, SBT, and Ivy. A logging backend library such as Log4j Core, Logback, or `java.util.logging`
+is required at runtime for an application to configure the output of logging. Log4j Core version 2.x includes
+various plugins and configuration options which may require additional dependencies. See the
+[Log4j manual](https://logging.apache.org/log4j/2.x/manual/) for more details.
 
-The Kotlin API requires the full `kotlin-reflect` dependency in order to name loggers appropriately, and
-optionally `kotlinx-coroutines-core` to set the mapped diagnostic context for a coroutine.
+This library requires a dependency on `kotlin-reflect` in order to determine appropriate logger names from
+classes. When `kotlinx-coroutines-core` is available, this library provides a `CoroutineThreadContext` for
+supporting the `ThreadContext` API (and MDC/NDC APIs) in coroutines.
 
-The Kotlin dependencies are not exposed transitively -- for maximum compatibility logging-log4j-kotlin is built
-with Kotlin 1.3, producing binaries that should be forward compatible. For maximum compat, the Kotlin dependencies
-are "provided" i.e. consumers of this library need to depend on them directly rather than transitively, thus
-avoiding version clashes.
+This library declares a `provided` scope dependency on Kotlin 1.3. This is to ensure that consumers of this library
+specify the proper Kotlin dependencies corresponding to the version of the Kotlin language in use and avoiding
+dependency conflicts.
 
 ## License
 
-Apache Log4j 2 is distributed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
+Apache Log4j Kotlin API is distributed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 ## Download
 
-[How to download Log4j](http://logging.apache.org/log4j/2.x/download.html),
-and [how to use it from Maven, Ivy and Gradle](http://logging.apache.org/log4j/2.x/maven-artifacts.html).
+[How to download Log4j Kotlin API](http://logging.apache.org/log4j/kotlin/download.html),
+and [how to use it from Maven, Ivy and Gradle](http://logging.apache.org/log4j/kotlin/artifacts.html).
 You can access the latest development snapshot by using the Maven repository `https://repository.apache.org/snapshots`,
 see [Snapshot builds](https://logging.apache.org/log4j/2.x/maven-artifacts.html#Snapshot_builds).
 

@@ -98,7 +98,7 @@ assert(ContextStack.empty)
 
 === API Documentation
 
-See https://logging.apache.org/TODO[KDocs].
+See https://logging.apache.org/log4j/kotlin/log4j-api-kotlin/org.apache.logging.log4j.kotlin/[KDocs].
 
 === Configuration
 
