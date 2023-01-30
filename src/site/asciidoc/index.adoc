@@ -30,11 +30,3 @@ include::usage.adoc[]
 include::build.adoc[]
 
 include::contributing.adoc[]
-
-////
-TODO:
-* Apache logo
-* License report
-* Project links
-* Dependency report
-////
