@@ -70,7 +70,7 @@ Beginning in version 1.3.0, an extension property is also available on classes:
 import org.apache.logging.log4j.kotlin.logger
 
 class MyClass: BaseClass {
-  init {
+  fun doStuff() {
     logger.info("Hello, world!")
   }
 }
