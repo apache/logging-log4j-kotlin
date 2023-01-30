@@ -401,11 +401,7 @@
               <outputDirectory>${project.build.directory}/generated-sources/site</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${log4jParentDir}/src/site</directory>
-                  <excludes>
-                    <exclude>/resources/glyphicons-halflings-2-1.zip</exclude>
-                    <exclude>/resources/logo/**/*</exclude>
-                  </excludes>
+                  <directory>${project.basedir}/src/site</directory>
                 </resource>
               </resources>
             </configuration>

@@ -45,6 +45,7 @@
       <item name="Maven, Ivy, and Gradle Artifacts" href="/artifacts.html"/>
       <item name="Download" href="/download.html"/>
       <item name="Usage" href="/usage.html"/>
+      <item name="API Docs" href="/log4j-api-kotlin/org.apache.logging.log4j.kotlin/"/>
       <item name="Changelog" href="/changelog/"/>
     </menu>
 

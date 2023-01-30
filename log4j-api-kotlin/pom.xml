@@ -122,6 +122,7 @@
         </executions>
         <configuration>
           <skip>false</skip>
+          <outputDir>${log4jParentDir}/target/site</outputDir>
         </configuration>
       </plugin>
 
