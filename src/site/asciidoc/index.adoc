@@ -27,10 +27,6 @@ While this library is not required to use Log4j API in Kotlin, it does provide i
 
 include::usage.adoc[]
 
-include::download.adoc[]
-
-include::changes.adoc[]
-
 include::build.adoc[]
 
 include::contributing.adoc[]
