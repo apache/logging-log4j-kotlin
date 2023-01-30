@@ -3,7 +3,7 @@ Bundle-Name: ${project.name}
 Bundle-Description: ${project.description}
 Bundle-Vendor: Apache Log4j Kotlin Project
 Bundle-ContactAddress: ${project.parent.url}
-Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version>=1.6))"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version>=1.8))"
 
 Import-Package: \
     kotlin, \
