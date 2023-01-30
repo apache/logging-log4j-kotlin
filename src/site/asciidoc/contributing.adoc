@@ -22,7 +22,6 @@ Before you dig right into the code there are a few guidelines that we need contr
 
 === Getting Started
 
-* Make sure you have a https://issues.apache.org/jira/[Jira account].
 * Make sure you have a https://github.com/signup/free[GitHub account].
 * If you're planning to implement a new feature it makes sense to discuss your changes on the https://logging.apache.org/log4j/2.x/mail-lists.html[dev list] first.
   This way you can make sure you're not wasting your time on something that isn't considered to be in Apache Log4j's scope.
@@ -47,19 +46,18 @@ Before you dig right into the code there are a few guidelines that we need contr
 
 === Making Trivial Changes
 
-For changes of a trivial nature to comments and documentation, it is not always necessary to create a new ticket in JIRA.
+For changes of a trivial nature to comments and documentation, it is not always necessary to create a new ticket in GitHub Issues.
 In this case, it is appropriate to start the first line of a commit with '(doc)' instead of a ticket number.
 
 === Submitting Changes
 
 * Sign the https://www.apache.org/licenses/#clas[Contributor License Agreement] if you haven't already.
 * Push your changes to a topic branch in your fork of the repository.
-* Submit a pull request to the repository in the apache organization.
-* Update your Jira ticket and include a link to the pull request in the ticket.
+* Submit a pull request to the repository in the apache organization and reference the GitHub Issue id.
 
 === Additional Resources
 
-* https://issues.apache.org/jira/browse/LOG4J2[Apache Log4j 2 Jira project page]
+* https://github.com/apache/logging-log4j-kotlin/issues[Apache Log4j Kotlin API GitHub Issues]
 * https://www.apache.org/licenses/#clas[Contributor License Agreement]
 * https://help.github.com/[General GitHub documentation]
 * https://help.github.com/send-pull-requests/[GitHub pull request documentation]
