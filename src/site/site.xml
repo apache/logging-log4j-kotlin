@@ -40,37 +40,18 @@
       <item name="GitHub" href="https://github.com/apache/logging-log4j-kotlin"/>
     </links>
 
-    <menu name="Apache Log4j Kotlin" inherit="top" img="icon-home">
+    <menu name="Apache Log4j Kotlin" inherit="top" img="img/glyphicons/home.png">
       <item name="About" href="/index.html"/>
       <item name="Maven, Ivy, and Gradle Artifacts" href="/artifacts.html"/>
       <item name="Download" href="/download.html"/>
       <item name="Usage" href="/usage.html"/>
+      <item name="Changelog" href="/changelog/"/>
     </menu>
 
-    <menu name="For Contributors" inherit="top" img="icon-pencil">
+    <menu name="For Contributors" inherit="top" img="img/glyphicons/pencil.png">
       <item name="Building Log4j Kotlin from Source" href="/build.html"/>
       <item name="Contributing" href="/contributing.html"/>
     </menu>
 
-    <menu name="Component Reports" inherit="top" img="icon-cog">
-      <item name="Log4j Kotlin API" href="log4j-api-kotlin/index.html"/>
-      <item name="Log4j Kotlin Samples" href="log4j-api-kotlin-sample/index.html"/>
-    </menu>
-
-    <menu name="Project Information" img="icon-info-sign">
-      <item name="Dependency Convergence" href="/dependency-convergence.html" />
-      <item name="Dependency Management" href="/dependency-management.html" />
-      <item name="Mailing Lists" href="/mail-lists.html" />
-      <item name="Issue Tracking" href="/issue-tracking.html" />
-      <item name="Project License" href="/license.html" />
-      <item name="Source Repository" href="/source-repository.html" />
-      <item name="Project Summary" href="/project-summary.html" />
-    </menu>
-
-    <menu name="Project Reports" img="icon-cog">
-      <item name="Changes Report" href="/changes-report.html" />
-      <item name="JIRA Report" href="/jira-report.html" />
-      <item name="RAT Report" href="/rat-report.html" />
-    </menu>
   </body>
 </project>
