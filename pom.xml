@@ -425,15 +425,6 @@
           <moduleExcludes>
             <xdoc>navigation.xml</xdoc>
           </moduleExcludes>
-          <asciidoc>
-            <attributes>
-              <!-- copy any site properties wanted in asciidoc files -->
-              <Log4jKotlinVersion>${Log4jKotlinVersion}</Log4jKotlinVersion>
-              <Log4jReleaseVersion>${Log4jKotlinVersion}</Log4jReleaseVersion>
-              <Log4jReleaseManager>${Log4jReleaseManager}</Log4jReleaseManager>
-              <Log4jReleaseKey>${Log4jReleaseKey}</Log4jReleaseKey>
-            </attributes>
-          </asciidoc>
         </configuration>
         <dependencies>
           <dependency>
