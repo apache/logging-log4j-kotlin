@@ -36,7 +36,6 @@
     <log4jParentDir>${basedir}/..</log4jParentDir>
     <jmh.version>1.23</jmh.version>
     <jmh.generator>default</jmh.generator>
-    <javac.target>1.8</javac.target>
     <uberjar.name>benchmarks</uberjar.name>
     <maven.javadoc.skip>true</maven.javadoc.skip>
   </properties>
@@ -87,10 +86,11 @@
       <plugin>
         <artifactId>kotlin-maven-plugin</artifactId>
         <groupId>org.jetbrains.kotlin</groupId>
-        <version>${kotlin.version}</version>
         <executions>
           <execution>
             <id>process-sources</id>
+            <!-- intentionally done during generate-sources so that we can let JMH work after that -->
+            <!--suppress KotlinMavenPluginPhase -->
             <phase>generate-sources</phase>
             <goals>
               <goal>compile</goal>
@@ -170,11 +170,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
         <configuration>
-          <compilerVersion>${javac.target}</compilerVersion>
-          <source>${javac.target}</source>
-          <target>${javac.target}</target>
           <compilerArgument>-proc:none</compilerArgument>
         </configuration>
         <executions>

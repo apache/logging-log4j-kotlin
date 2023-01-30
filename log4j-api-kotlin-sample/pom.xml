@@ -68,38 +68,24 @@
 
   <build>
     <sourceDirectory>src/main/kotlin</sourceDirectory>
+
     <plugins>
+
       <plugin>
-        <artifactId>kotlin-maven-plugin</artifactId>
         <groupId>org.jetbrains.kotlin</groupId>
-        <version>${kotlin.version}</version>
-        <executions>
-          <execution>
-            <id>compile</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>test-compile</id>
-            <goals>
-              <goal>test-compile</goal>
-            </goals>
-          </execution>
-        </executions>
+        <artifactId>kotlin-maven-plugin</artifactId>
       </plugin>
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.5.0</version>
         <configuration>
           <mainClass>org.apache.logging.log4j.kotlin.sample.LoggingApp</mainClass>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-      </plugin>
+
     </plugins>
+
   </build>
+
 </project>
