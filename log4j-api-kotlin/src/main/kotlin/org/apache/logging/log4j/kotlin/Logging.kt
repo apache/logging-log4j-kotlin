@@ -49,7 +49,9 @@ package org.apache.logging.log4j.kotlin
  * nanoseconds).
  */
 interface Logging {
-  @Suppress("unused")
+  /**
+   * Provides a logger automatically named after the class that extends this mixin interface.
+   */
   val logger
     get() = cachedLoggerOf(this.javaClass)
 }
