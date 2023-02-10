@@ -163,8 +163,8 @@
          Dependency version properties (in alphabetical order)
          ===================================================== -->
     <log4j.version>2.19.0</log4j.version>
-    <kotlin.version>1.3.72</kotlin.version>
-    <kotlinx.coroutines.version>1.3.6</kotlinx.coroutines.version>
+    <kotlin.version>1.4.30</kotlin.version>
+    <kotlinx.coroutines.version>1.4.3</kotlinx.coroutines.version>
 
   </properties>
 
