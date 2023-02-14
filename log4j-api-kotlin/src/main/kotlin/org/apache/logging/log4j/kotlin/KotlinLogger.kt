@@ -133,6 +133,22 @@ class KotlinLogger(val delegate: ExtendedLogger) {
     delegate.logIfEnabled(FQCN, level, marker, supplier.asLog4jSupplier(), t)
   }
 
+  fun catching(level: Level, throwable: Throwable) {
+    delegate.catching(level, throwable)
+  }
+
+  fun catching(throwable: Throwable) {
+    delegate.catching(throwable)
+  }
+
+  fun throwing(level: Level, throwable: Throwable) {
+    delegate.throwing(level, throwable)
+  }
+
+  fun throwing(throwable: Throwable) {
+    delegate.throwing(throwable)
+  }
+
   fun trace(marker: Marker, msg: Message) {
     delegate.logIfEnabled(FQCN, Level.TRACE, marker, msg, null)
   }
