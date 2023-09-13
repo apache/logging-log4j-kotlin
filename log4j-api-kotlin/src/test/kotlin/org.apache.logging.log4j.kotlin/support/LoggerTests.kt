@@ -19,7 +19,7 @@ package org.apache.logging.log4j.kotlin.support
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.core.LogEvent
 import org.apache.logging.log4j.core.Logger
-import org.apache.logging.log4j.test.appender.ListAppender
+import org.apache.logging.log4j.core.test.appender.ListAppender
 
 fun rootLogger() = LogManager.getRootLogger() as Logger
 

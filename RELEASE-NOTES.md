@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Licensed to the Apache Software Foundation (ASF) under one or more
   ~ contributor license agreements.  See the NOTICE file distributed with
@@ -15,7 +14,9 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<release xmlns="http://logging.apache.org/log4j/changelog"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.1.xsd"
-         date="2021-08-28" version="1.1.0"/>
+
+This project uses itself, i.e., `log4j-changelog-maven-plugin`, for keeping a changelog and generating release notes.
+
+Changelog files are located under [`src/changelog`](src/changelog).
+Release notes can be generated using `./mvnw -N -P changelog-export` command.
+See [`log4j-changelog-maven-plugin`](log4j-changelog-maven-plugin) for details on how it all works.

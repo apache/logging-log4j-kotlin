@@ -12,20 +12,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-Bundle-SymbolicName: org.apache.logging.log4j.kotlin
-Bundle-Name: ${project.name}
-Bundle-Description: ${project.description}
-Bundle-Vendor: Apache Log4j Kotlin Project
-Bundle-ContactAddress: ${project.parent.url}
-Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version>=1.8))"
 
-Import-Package: \
-    kotlin, \
-    kotlin.*, \
-    kotlinx.*;resolution:=optional, \
-    *
-
--removeheaders: Private-Package
-
--exportcontents:\
-    org.apache.logging.log4j.kotlin
+# Checked by Spotless (LF line endings)
+*.java text eol=lf
+*.xml  text eol=lf
+*.yaml text eol=lf
+*.yml  text eol=lf

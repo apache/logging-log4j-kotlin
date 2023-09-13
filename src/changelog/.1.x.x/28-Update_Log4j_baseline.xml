@@ -1,11 +1,7 @@
 <entry xmlns="http://logging.apache.org/log4j/changelog"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.0.xsd"
+       xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.1.xsd"
        type="changed">
-  <issue id="28" link="https://github.com/apache/logging-log4j-kotlin/pull/28"/>
-  <author name="u-ways"/>
-  <author id="mattsicker"/>
-  <description format="asciidoc">
-    Update Log4j dependency to 2.19.0.
-  </description>
+  <author id="github:vy"/>
+  <description format="markdown">Update Log4j dependency to `2.20.0`</description>
 </entry>

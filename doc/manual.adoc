@@ -1,0 +1,192 @@
+////
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+////
+
+:log4j-kotlin-version: 1.2.0
+:log4j-url: https://logging.apache.org/log4j/2.x
+:log4j-api-url: {log4j-url}/manual/api-separation.html
+
+Log4j Kotlin API provides a Kotlin-friendly interface to log against {log4j-api-url}[the Log4j API].
+The minimum requirements are Java 8 and Kotlin 1.3.
+
+[IMPORTANT]
+====
+This is just a logging API.
+Your application still needs to have a logging backend (e.g., {log4j-url}[Log4j]) configured.
+====
+
+[_dependencies]
+== Dependencies
+
+You need to have the `org.apache.logging.log4j:log4j-api-kotlin` dependency in your classpath:
+
+[source,xml,subs="+attributes"]
+----
+<dependency>
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-api-kotlin</artifactId>
+  <version>{log4j-kotlin-version}</version>
+</dependency>
+----
+
+[#_usage]
+== Usage
+
+You can start using the wrapper by extending from the provided `Logging` interface:
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin.Logging
+
+class MyClass: BaseClass, Logging {
+
+  fun doStuff() {
+    logger.info("Doing stuff")
+  }
+
+  fun doStuffWithUser(user: User) {
+    logger.info { "Doing stuff with ${user.name}." }
+  }
+
+}
+----
+
+The `Logging` interface can also be mixed into `object` declarations, including companions.
+This is generally preferable over the previous approach as there is a single logger created for every instance of the class.
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin.Logging
+
+class MyClass: BaseClass {
+
+  companion object : Logging
+
+  // ...
+
+}
+----
+
+Alternatively, a more traditional style can be used to instantiate a logger instance:
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin
+
+class MyClass: BaseClass {
+
+  val logger = logger()
+
+  // ...
+
+}
+----
+
+The function `logger()` is an extension function on the `Any` type (or more specifically, any type `T` that extends `Any`).
+
+Beginning in version 1.3.0, an extension property is also available on classes:
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin.logger
+
+class MyClass: BaseClass {
+
+  fun doStuff() {
+    logger.info("Hello, world!")
+  }
+
+}
+----
+
+Also added in version 1.3.0, the `ThreadContext` API has two facade objects provided: `ContextMap` and `ContextStack`.
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin.ContextMap
+import org.apache.logging.log4j.kotlin.ContextStack
+
+ContextMap["key"] = "value"
+assert(ContextMap["key"] == "value")
+assert("key" in ContextMap)
+
+ContextMap += "anotherKey" to "anotherValue"
+ContextMap -= "key"
+
+ContextStack.push("message")
+assert(!ContextStack.empty)
+assert(ContextStack.depth == 1)
+val message = ContextStack.peek()
+assert(message == ContextStack.pop())
+assert(ContextStack.empty)
+----
+
+[#_params]
+== Parameter substitution
+
+Unlike Java, Kotlin provides native functionality for https://kotlinlang.org/docs/reference/basic-syntax.html#using-string-templates[string templates].
+However, using a string template still incurs the message construction cost if the logger level is not enabled.
+To avoid this, prefer passing a lambda which won't be evaluated until necessary:
+
+[source,kotlin]
+----
+logger.debug { "Logging in user ${user.name} with birthday ${user.calcBirthday()}" }
+----
+
+[#_logger_names]
+== Logger names
+
+Most logging implementations use a hierarchical scheme for matching logger names with logging configuration.
+
+In this scheme the logger name hierarchy is represented by `.` (dot) characters in the logger name, in a fashion very similar to the hierarchy used for Java/Kotlin package names.
+The `Logger` property added by the `Logging` interface follows this convention: the interface ensures the `Logger` is automatically named according to the class it is being used in.
+
+The value returned when calling the `logger()` extension method depends on the receiver of the extension.
+When called within an object, the receiver is `this` and therefore the logger will again be named according to the class it is being used in.
+However, a logger named via another class can be obtained as well:
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin
+
+class MyClass: BaseClass {
+
+  val logger = SomeOtherClass.logger()
+
+  // ...
+
+}
+----
+
+[#_explicitly_named_loggers]
+=== Explicitly Named Loggers
+
+An explicitly-named logger may be obtained via the `logger` function that takes a `name` parameter:
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin
+
+class MyClass: BaseClass {
+
+  val logger = logger("MyCustomLoggerName")
+
+  // ...
+
+}
+----
+
+This is also needed in scopes that do not have a `this` object, such as top-level functions.

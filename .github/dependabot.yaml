@@ -15,27 +15,20 @@
 # limitations under the License.
 #
 
-# .asf.yaml documentation:
-# https://cwiki.apache.org/confluence/display/INFRA/Git+-+.asf.yaml+features
-github:
-  homepage: https://logging.apache.org/log4j/kotlin/
-  description: "Apache Log4j API for Kotlin contains Kotlin-specific enhancements to the Log4j 2 API. This includes support for mixin interfaces and coroutine contexts."
-  features:
-    issues: true
-  del_branch_on_merge: true
-  labels:
-    - apache
-    - api
-    - jvm
-    - kotlin
-    - library
-    - log4j
-    - log4j2
-    - logging
-    - logger
-    - async
-    - asynchronous
-    - coroutines
-    - concurrency
-  protected_branches:
-    master: {}
+version: 2
+updates:
+
+  - package-ecosystem: maven
+    directory: "/"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+    ignore:
+      # Keep Kotlin baseline
+      - dependency-name: "org.jetbrains.kotlin:kotlin-*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
