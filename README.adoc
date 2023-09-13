@@ -45,7 +45,7 @@ You can build and test sources using `./mvnw verify` command.
 In accordance with the Apache Software Foundation's release https://infra.apache.org/release-distribution.html[distribution policy] and https://infra.apache.org/release-publishing.html[creation process], project artifacts are _officially_ accessible from the following locations:
 
 * ASF https://repository.apache.org/content/repositories/releases[Release] and https://repository.apache.org/content/repositories/snapshots[snapshot] repositories (mirrored to https://central.sonatype.dev/[the Maven Central Repository])
-* ASF https://downloads.apache.org/logging/{project-name}[Distribution directory]
+* ASF https://downloads.apache.org/logging/log4j-kotlin[Distribution directory]
 
 See xref:RELEASING.adoc[release instructions] for further details.
 
