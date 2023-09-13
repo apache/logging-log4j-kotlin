@@ -15,14 +15,12 @@
 # limitations under the License.
 #
 
-# .asf.yaml documentation:
-# https://cwiki.apache.org/confluence/display/INFRA/Git+-+.asf.yaml+features
+# `.asf.yaml` documentation: https://cwiki.apache.org/confluence/display/INFRA/Git+-+.asf.yaml+features
+
 github:
-  homepage: https://logging.apache.org/log4j/kotlin/
-  description: "Apache Log4j API for Kotlin contains Kotlin-specific enhancements to the Log4j 2 API. This includes support for mixin interfaces and coroutine contexts."
-  features:
-    issues: true
-  del_branch_on_merge: true
+
+  description: A Kotlin-friendly interface to log against the Log4j API
+  homepage: https://github.com/apache/logging-log4j-kotlin
   labels:
     - apache
     - api
@@ -33,9 +31,12 @@ github:
     - log4j2
     - logging
     - logger
-    - async
-    - asynchronous
     - coroutines
     - concurrency
+
+  features:
+    issues: true
+
   protected_branches:
-    master: {}
+    main:
+      required_signatures: true
