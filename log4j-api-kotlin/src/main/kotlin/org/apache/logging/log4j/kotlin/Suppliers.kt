@@ -16,8 +16,10 @@
  */
 package org.apache.logging.log4j.kotlin
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import org.apache.logging.log4j.util.Supplier
 
 fun <T: Any?> (() -> T).asLog4jSupplier(): Supplier<T> = Supplier { invoke() }
 
+@SuppressFBWarnings("BC_BAD_CAST_TO_ABSTRACT_COLLECTION")
 fun <T: Any?> (Array<out () -> T>).asLog4jSuppliers(): Array<Supplier<T>> = map { it.asLog4jSupplier() }.toTypedArray()
