@@ -23,6 +23,10 @@ ij_continuation_indent_size = 8
 indent_style = space
 trim_trailing_whitespace = true
 
+[*.kt]
+indent_size = 2
+ij_continuation_indent_size = 4
+
 # `ij_any_use_relative_indents = true` is deliberately left out since it messes up the indentation in ternary operator usages
 
 # Split some things over multiple lines to keep lines short
