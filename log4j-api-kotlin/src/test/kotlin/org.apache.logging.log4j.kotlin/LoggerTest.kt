@@ -16,15 +16,15 @@
  */
 package org.apache.logging.log4j.kotlin
 
+import com.nhaarman.mockitokotlin2.*
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.MarkerManager
-import org.apache.logging.log4j.junit.LoggerContextRule
+import org.apache.logging.log4j.core.test.junit.LoggerContextRule
 import org.apache.logging.log4j.message.*
 import org.apache.logging.log4j.spi.ExtendedLogger
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
-import org.mockito.kotlin.*
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 

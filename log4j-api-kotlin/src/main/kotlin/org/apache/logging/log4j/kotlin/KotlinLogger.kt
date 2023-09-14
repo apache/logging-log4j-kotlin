@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.kotlin
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.Logger
 import org.apache.logging.log4j.Marker
@@ -241,6 +242,7 @@ class KotlinLogger(val delegate: ExtendedLogger) {
   }
 
   // TODO exit and catching with fqcn is not part of the ExtendedLogger interface, location-awareness will be broken
+  @SuppressFBWarnings("SA_LOCAL_SELF_ASSIGNMENT")
   fun <R : Any?> runInTrace(entryMessage: EntryMessage, block: () -> R): R {
     delegate.traceEntry(entryMessage)
     return try {

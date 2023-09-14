@@ -2,6 +2,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.1.xsd"
        type="changed">
+  <issue id="37" link="https://github.com/apache/logging-log4j-kotlin/pull/37"/>
   <author id="github:vy"/>
-  <description format="markdown">Update Log4j dependency to `2.20.0`</description>
+  <description format="markdown">Bumped `logging-parent` version to `10.0.0` and overhauled the entire project infrastructure to take advantage of its goodies</description>
 </entry>

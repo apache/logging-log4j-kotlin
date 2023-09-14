@@ -16,10 +16,12 @@
  */
 package org.apache.logging.log4j.kotlin.sample
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import org.apache.logging.log4j.kotlin.ContextMap
 import org.apache.logging.log4j.kotlin.logger
 import java.util.*
 
+@SuppressFBWarnings("PREDICTABLE_RANDOM", "DMI_RANDOM_USED_ONLY_ONCE")
 object LoggingAppExtensionProperty {
   @JvmStatic
   fun main(args: Array<String>) {
@@ -46,6 +48,7 @@ object LoggingAppExtensionProperty {
       Random().nextInt(10)
     }
 
+    @SuppressFBWarnings("NP_ALWAYS_NULL")
     fun getKeyError(): Int = logger.runInTrace {
       throw Exception("Oops!")
     }

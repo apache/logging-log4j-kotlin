@@ -1,0 +1,65 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to you under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+name: build
+
+on:
+  push:
+    # Avoid workflow run for _merged_ `dependabot` PRs.
+    # They were (hopefully!) already tested in PR-triggered workflow.
+    branches-ignore:
+      - "dependabot/**"
+    paths-ignore:
+      - "**.adoc"
+      - "**.md"
+      - "**.txt"
+  pull_request:
+    paths-ignore:
+      - "**.adoc"
+      - "**.md"
+      - "**.txt"
+
+permissions: read-all
+
+jobs:
+
+  build:
+    uses: apache/logging-parent/.github/workflows/build-reusable.yaml@main
+    # Write permissions to allow merge of `dependabot` PRs
+    permissions:
+      contents: write
+      pull-requests: write
+
+  deploy-snapshot:
+    needs: build
+    if: github.repository == 'apache/logging-log4j-kotlin' && github.ref == 'refs/heads/main'
+    uses: apache/logging-parent/.github/workflows/deploy-snapshot-reusable.yaml@main
+    secrets: inherit
+
+  deploy-release:
+    needs: build
+    if: github.repository == 'apache/logging-log4j-kotlin' && startsWith(github.ref, 'refs/heads/release/')
+    uses: apache/logging-parent/.github/workflows/deploy-release-reusable.yaml@main
+    secrets: inherit
+    # Write permissions to allow the Maven `revision` property update, changelog release, etc.
+    permissions:
+      contents: write
+    with:
+      project-name: log4j-kotlin
+      distribution-attachment-count: 1
+      distribution-attachment-filepath-pattern: |-
+          '^.*/target/log4j-api-kotlin-'${PROJECT_VERSION}'\\.jar$'

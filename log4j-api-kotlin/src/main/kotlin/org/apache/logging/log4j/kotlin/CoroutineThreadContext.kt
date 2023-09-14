@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.kotlin
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import kotlinx.coroutines.ThreadContextElement
 import org.apache.logging.log4j.ThreadContext
 import kotlin.coroutines.AbstractCoroutineContextElement
@@ -29,6 +30,7 @@ import kotlin.coroutines.CoroutineContext
  * @see ContextMap.view
  * @see ContextStack.view
  */
+@SuppressFBWarnings("EI_EXPOSE_REP", "EI_EXPOSE_REP2")
 data class ThreadContextData(
   val map: Map<String, String>? = ContextMap.view,
   val stack: Collection<String>? = ContextStack.view
@@ -73,6 +75,7 @@ class CoroutineThreadContext(
   companion object Key : CoroutineContext.Key<CoroutineThreadContext>
 
   /** @suppress */
+  @SuppressFBWarnings("EI_EXPOSE_REP")
   override fun updateThreadContext(context: CoroutineContext): ThreadContextData {
     val oldState = ThreadContextData(ContextMap.view, ContextStack.view)
     setCurrent(contextData)
@@ -80,6 +83,7 @@ class CoroutineThreadContext(
   }
 
   /** @suppress */
+  @SuppressFBWarnings("EI_EXPOSE_REP")
   override fun restoreThreadContext(context: CoroutineContext, oldState: ThreadContextData) {
     setCurrent(oldState)
   }

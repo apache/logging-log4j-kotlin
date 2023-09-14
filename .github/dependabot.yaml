@@ -15,28 +15,20 @@
 # limitations under the License.
 #
 
-# `.asf.yaml` documentation: https://cwiki.apache.org/confluence/display/INFRA/Git+-+.asf.yaml+features
+version: 2
+updates:
 
-github:
+  - package-ecosystem: maven
+    directory: "/"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+    ignore:
+      # Keep Kotlin baseline
+      - dependency-name: "org.jetbrains.kotlin:kotlin-*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
 
-  description: A Kotlin-friendly interface to log against the Log4j API
-  homepage: https://github.com/apache/logging-log4j-kotlin
-  labels:
-    - apache
-    - api
-    - jvm
-    - kotlin
-    - library
-    - log4j
-    - log4j2
-    - logging
-    - logger
-    - coroutines
-    - concurrency
-
-  features:
-    issues: true
-
-  protected_branches:
-    main:
-      required_signatures: true
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
