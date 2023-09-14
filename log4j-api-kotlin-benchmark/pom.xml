@@ -29,8 +29,8 @@
   <artifactId>log4j-api-kotlin-benchmark</artifactId>
 
   <properties>
+    <spotbugs.skip>true</spotbugs.skip>
     <jmh.generator>default</jmh.generator>
-    <javac.target>1.8</javac.target>
     <uberjar.name>benchmarks</uberjar.name>
   </properties>
 
@@ -150,28 +150,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <compilerVersion>${javac.target}</compilerVersion>
-          <source>${javac.target}</source>
-          <target>${javac.target}</target>
-          <compilerArgument>-proc:none</compilerArgument>
-        </configuration>
-        <executions>
-          <execution>
-            <id>compile-sources</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <phase>process-sources</phase>
-          </execution>
-          <execution>
-            <id>compile-all</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <phase>compile</phase>
-          </execution>
-        </executions>
       </plugin>
 
       <!-- Package all the dependencies into the JAR -->
