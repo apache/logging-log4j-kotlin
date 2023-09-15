@@ -17,6 +17,6 @@
 
 = ${release.version}<#if release.date?has_content> (${release.date})</#if>
 
-Changes staged for the next 1.x.x version that is yet to be released.
+This minor release bumps the Kotlin baseline to 1.6.21 and contains various small improvements.
 
 <#include "../.changelog.md.ftl">
