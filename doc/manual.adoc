@@ -15,12 +15,12 @@
     limitations under the License.
 ////
 
-:log4j-kotlin-version: 1.2.0
+include::maven-properties.adoc[]
 :log4j-url: https://logging.apache.org/log4j/2.x
 :log4j-api-url: {log4j-url}/manual/api-separation.html
 
 Log4j Kotlin API provides a Kotlin-friendly interface to log against {log4j-api-url}[the Log4j API].
-The minimum requirements are Java 8 and Kotlin 1.3.
+The minimum requirements are Java {java-version} and Kotlin {kotlin-version}.
 
 [IMPORTANT]
 ====
@@ -38,7 +38,7 @@ You need to have the `org.apache.logging.log4j:log4j-api-kotlin` dependency in y
 <dependency>
   <groupId>org.apache.logging.log4j</groupId>
   <artifactId>log4j-api-kotlin</artifactId>
-  <version>{log4j-kotlin-version}</version>
+  <version>{project-version}</version>
 </dependency>
 ----
 

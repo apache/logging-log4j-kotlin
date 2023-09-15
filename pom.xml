@@ -276,8 +276,8 @@
     </pluginManagement>
 
     <plugins>
-      <plugin>
 
+      <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
         <executions>
@@ -299,6 +299,78 @@
       </plugin>
 
     </plugins>
+
   </build>
+
+  <profiles>
+
+    <!-- populate `doc/maven-properties.adoc` from `doc/maven-properties.tmpl.adoc` -->
+    <profile>
+
+      <id>maven-properties-adoc</id>
+
+      <activation>
+        <file>
+          <exists>doc/maven-properties.tmpl.adoc</exists>
+        </file>
+      </activation>
+
+      <build>
+        <plugins>
+
+          <!-- copy `doc/maven-properties.tmpl.adoc` to `target/doc` -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>copy-doc-maven-properties-tmpl</id>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <phase>generate-sources</phase>
+                <inherited>false</inherited>
+                <configuration>
+                  <target>
+                    <copy overwrite="true" tofile="${project.build.directory}/doc/maven-properties.adoc" verbose="true">
+                      <fileset file="doc/maven-properties.tmpl.adoc" />
+                    </copy>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- process `target/doc` and output to `doc` -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>filter-doc-maven-properties-tmpl</id>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <phase>process-sources</phase>
+                <inherited>false</inherited>
+                <configuration>
+                  <outputDirectory>doc</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>${project.build.directory}/doc</directory>
+                      <filtering>true</filtering>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+
+    </profile>
+
+  </profiles>
 
 </project>
