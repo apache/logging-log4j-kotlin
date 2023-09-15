@@ -17,15 +17,11 @@
 package org.apache.logging.log4j.kotlin
 
 import org.apache.logging.log4j.Level.ERROR
-import org.apache.logging.log4j.core.test.junit.LoggerContextRule
 import org.apache.logging.log4j.kotlin.support.withListAppender
-import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class LoggerMixinExtendsTest : Logging {
-
-  @Rule @JvmField var init = LoggerContextRule("InfoLogger.xml")
 
   @Test
   fun `Logging using an interface mix-in logs the correct class name`() {

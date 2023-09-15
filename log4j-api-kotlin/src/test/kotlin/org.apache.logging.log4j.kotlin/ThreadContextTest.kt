@@ -17,22 +17,22 @@
 package org.apache.logging.log4j.kotlin
 
 import kotlinx.coroutines.*
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import kotlin.coroutines.ContinuationInterceptor
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class ThreadContextTest {
-  @Before
+  @BeforeEach
   fun setUp() {
     ContextMap.clear()
     ContextStack.clear()
   }
 
-  @After
+  @AfterEach
   fun tearDown() {
     ContextMap.clear()
     ContextStack.clear()

@@ -17,16 +17,13 @@
 package org.apache.logging.log4j.kotlin
 
 import org.apache.logging.log4j.Level
-import org.apache.logging.log4j.core.test.junit.LoggerContextRule
 import org.apache.logging.log4j.kotlin.support.withListAppender
-import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 const val loggerName = "Foo"
 
 class NamedLoggerTest {
-  @Rule @JvmField var init = LoggerContextRule("InfoLogger.xml")
 
   val log = logger(loggerName)
 

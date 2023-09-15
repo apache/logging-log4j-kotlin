@@ -18,7 +18,7 @@ package org.apache.logging.log4j.kotlin
 
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.kotlin.support.withListAppender
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class LoggerCompanionTest {

@@ -17,14 +17,11 @@
 package org.apache.logging.log4j.kotlin
 
 import org.apache.logging.log4j.Level
-import org.apache.logging.log4j.core.test.junit.LoggerContextRule
 import org.apache.logging.log4j.kotlin.support.withListAppender
-import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class LoggerReceiversTest {
-  @Rule @JvmField var init = LoggerContextRule("InfoLogger.xml")
 
   @Test
   fun `Logging from a function instantiation via class receiver logs the correct class name`() {

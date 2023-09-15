@@ -16,7 +16,7 @@
  */
 package org.apache.logging.log4j.kotlin
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 private val CONTEXT_NAME = contextName {}

@@ -151,26 +151,18 @@
 
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-api</artifactId>
+        <artifactId>log4j-bom</artifactId>
         <version>${log4j.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
 
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-api-test</artifactId>
-        <version>${log4j.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-core</artifactId>
-        <version>${log4j.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-core-test</artifactId>
-        <version>${log4j.version}</version>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
 
       <dependency>
@@ -208,8 +200,8 @@
       </dependency>
 
       <dependency>
-        <groupId>org.junit.vintage</groupId>
-        <artifactId>junit-vintage-engine</artifactId>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
         <version>${junit.version}</version>
       </dependency>
 

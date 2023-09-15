@@ -19,14 +19,12 @@ package org.apache.logging.log4j.kotlin
 import com.nhaarman.mockitokotlin2.*
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.MarkerManager
-import org.apache.logging.log4j.core.test.junit.LoggerContextRule
 import org.apache.logging.log4j.message.*
 import org.apache.logging.log4j.spi.ExtendedLogger
-import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyString
+import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertTrue
 
 data class Custom(val i: Int)
 
@@ -47,8 +45,6 @@ class LoggerTest {
     val result = "foo"
     val managerValue: Int = 4711
   }
-
-  @Rule @JvmField var init = LoggerContextRule("InfoLogger.xml")
 
   class Fixture(stubbing: LoggerStubbingFn? = null) {
     val mockLogger = mock<ExtendedLogger> {
@@ -113,8 +109,8 @@ class LoggerTest {
       return result
     }
     val log = logger()
-    log.info { lamdaFun() }
-    assertTrue { count == 1 }
+    log.error { lamdaFun() }
+    assertEquals(1, count)
   }
 
   @Test
@@ -126,7 +122,7 @@ class LoggerTest {
     }
     val log = logger()
     log.debug { lamdaFun() }
-    assertTrue { count == 0 }
+    assertEquals(0, count)
   }
 
   @Test
@@ -162,7 +158,7 @@ class LoggerTest {
         Unit
       }
     }
-    assertTrue { count == 1 }
+    assertEquals(1, count)
     verify(f.mockLogger).traceExit(eq(entryMsg))
   }
 
@@ -175,8 +171,8 @@ class LoggerTest {
         ++count
       }
     }
-    assertTrue { count == 1 }
-    assertTrue { returnedCount == 1 }
+    assertEquals(1, count)
+    assertEquals(1, returnedCount)
     verify(f.mockLogger).traceEntry(eq(entryMsg))
     verify(f.mockLogger).traceExit(eq(entryMsg), eq(1))
   }
@@ -192,7 +188,7 @@ class LoggerTest {
         }
       }
     }
-    assertTrue { count == 1 }
+    assertEquals(1, count)
     verify(f.mockLogger, times(1)).traceEntry(any<EntryMessage>())
     verify(f.mockLogger, times(0)).traceExit(any())
     verify(f.mockLogger).catching(argThat { message == "cause" })
