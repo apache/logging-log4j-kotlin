@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-= ${release.version}<#if release.date?has_content> (${release.date})</#if>
+# ${release.version}<#if release.date?has_content> (${release.date})</#if>
 
 This minor release bumps the Kotlin baseline to 1.6.21 and contains various small improvements.
 

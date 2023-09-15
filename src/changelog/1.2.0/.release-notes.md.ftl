@@ -1,4 +1,4 @@
-<!--
+<#--
   ~ Licensed to the Apache Software Foundation (ASF) under one or more
   ~ contributor license agreements.  See the NOTICE file distributed with
   ~ this work for additional information regarding copyright ownership.
@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-= ${release.version}<#if release.date?has_content> (${release.date})</#if>
+# ${release.version}<#if release.date?has_content> (${release.date})</#if>
 
 Changes staged for the next 1.x.x version that is yet to be released.
 

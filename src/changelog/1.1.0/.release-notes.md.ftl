@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-= ${release.version}<#if release.date?has_content> (${release.date})</#if>
+# ${release.version}<#if release.date?has_content> (${release.date})</#if>
 
 This is the 2nd minor release of the project.
 
