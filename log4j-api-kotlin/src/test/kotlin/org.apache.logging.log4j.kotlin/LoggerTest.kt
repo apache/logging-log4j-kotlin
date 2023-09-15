@@ -16,13 +16,13 @@
  */
 package org.apache.logging.log4j.kotlin
 
-import com.nhaarman.mockitokotlin2.*
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.MarkerManager
 import org.apache.logging.log4j.message.*
 import org.apache.logging.log4j.spi.ExtendedLogger
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyString
+import org.mockito.kotlin.*
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
