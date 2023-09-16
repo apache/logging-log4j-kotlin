@@ -137,6 +137,8 @@
     <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
     <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
     <maven-shade-plugin.version>2.2</maven-shade-plugin.version>
+    <kotlin.version>1.6.21</kotlin.version>
+    <kotlinx.coroutines.version>1.6.4</kotlinx.coroutines.version>
 
   </properties>
 
