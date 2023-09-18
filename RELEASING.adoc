@@ -118,7 +118,7 @@ The ASF infrastructure treats ``rel/``-prefixed git tags special and ensures the
 
 === In the ASF infrastructure
 
-. _Release_ the repository in https://reporter.apache.org/addrelease.html?logging[repository.apache.org]
+. _Release_ the repository in https://repository.apache.org[repository.apache.org]
 . In https://dist.apache.org/repos/dist/release/logging/{project-name}[dist.apache.org/repos/dist] Subversion repository,
 .. create the `*release*/logging/{project-name}/7.8.0` folder, and copy the signed sources and their checksum from `*dev*/logging/{project-name}` to there
 .. delete the folder from an earlier release in `*release*/logging/{project-name}`
