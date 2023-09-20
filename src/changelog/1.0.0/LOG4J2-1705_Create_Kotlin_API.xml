@@ -5,5 +5,5 @@
   <issue id="LOG4J2-3556" link="https://issues.apache.org/jira/browse/LOG4J2-1705"/>
   <author id="github:jvz"/>
   <author id="github:rocketraman"/>
-  <description format="markdown">Create Kotlin wrapper API for Log4j</description>
+  <description format="asciidoc">Create Kotlin wrapper API for Log4j</description>
 </entry>

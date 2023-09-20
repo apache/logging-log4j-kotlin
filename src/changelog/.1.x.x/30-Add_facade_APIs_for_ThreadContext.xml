@@ -4,5 +4,5 @@
        type="added">
   <issue id="30" link="https://github.com/apache/logging-log4j-kotlin/issues/30"/>
   <author id="github:jvz"/>
-  <description format="markdown">Added facade APIs for manipulating the context map and stack</description>
+  <description format="asciidoc">Added facade APIs for manipulating the context map and stack</description>
 </entry>

@@ -5,5 +5,5 @@
   <issue id="LOG4J2-2432" link="https://issues.apache.org/jira/browse/LOG4J2-2432"/>
   <author id="github:jvz"/>
   <author id="github:rocketraman"/>
-  <description format="markdown">Make `namedLogger` more discoverable</description>
+  <description format="asciidoc">Make `namedLogger` more discoverable</description>
 </entry>

@@ -14,9 +14,13 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
+<#if entriesByType?size gt 0>
+<#list entriesByType as entryType, entries>
 
-# ${release.version}<#if release.date?has_content> (${release.date})</#if>
+==== ${entryType?capitalize}
 
-This is the first major release of the project.
-
-<#include "../.changelog.md.ftl">
+<#list entries as entry>
+* ${entry.description.text?replace("\\s+", " ", "r")}<#if entry.issues?has_content> (<#list entry.issues as issue>${issue.link}[${issue.id}]<#if issue?has_next>, </#if></#list>)</#if>
+</#list>
+</#list>
+</#if>

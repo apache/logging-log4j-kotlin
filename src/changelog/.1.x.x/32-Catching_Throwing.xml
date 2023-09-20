@@ -4,5 +4,5 @@
        type="added">
   <issue id="32" link="https://github.com/apache/logging-log4j-kotlin/issues/32"/>
   <author id="github:rocketraman"/>
-  <description format="markdown">Added missing `catching` and `throwing` API methods in `KotlinLogger`</description>
+  <description format="asciidoc">Added missing `catching` and `throwing` API methods in `KotlinLogger`</description>
 </entry>

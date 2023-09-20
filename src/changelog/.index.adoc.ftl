@@ -22,18 +22,20 @@
     ██ ███ ██ ██   ██ ██   ██ ██  ██ ██ ██ ██  ██ ██ ██    ██
      ███ ███  ██   ██ ██   ██ ██   ████ ██ ██   ████  ██████  ██
 
-    IF THIS FILE IS CALLED `maven-properties.adoc`, DO NOT EDIT IT!
-    ALWAYS EDIT `maven-properties.tmpl.adoc`!
+    IF THIS FILE IS CALLED `index.adoc`, IT IS AUTO-GENERATED, DO NOT EDIT IT!
 
-    `maven-properties.adoc` is generated from `maven-properties.tmpl.adoc` by Maven.
+    Release notes `index.adoc` is generated from `src/changelog/.index.adoc.ftl`.
+    Auto-generation happens during `generate-sources` phase of Maven.
     Hence, you must always
 
-    1. Edit `maven-properties.tmpl.adoc`
-    2. Run `./mvnw generate-resources`
-    3. Commit both `maven-properties.tmpl.adoc` and `maven-properties.adoc`
-
+    1. Edit `.index.adoc.ftl`
+    2. Run `./mvnw generate-sources`
+    3. Commit both `.index.adoc.ftl` and the generated `.index.adoc`
 ////
 
-:project-version: ${project.version}
-:java-version: ${java.version}
-:kotlin-version: ${kotlin.version}
+[#release-notes]
+== Release Notes
+
+<#list releases as release>
+include::release-notes/_${release.version}.adoc[]
+</#list>

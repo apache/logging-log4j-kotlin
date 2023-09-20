@@ -4,5 +4,5 @@
        type="added">
   <issue id="29" link="https://github.com/apache/logging-log4j-kotlin/issues/29"/>
   <author id="github:jvz"/>
-  <description format="markdown">Added an extension property for storing a cached logger</description>
+  <description format="asciidoc">Added an extension property for storing a cached logger</description>
 </entry>

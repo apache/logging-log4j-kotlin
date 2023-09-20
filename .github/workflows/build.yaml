@@ -22,7 +22,7 @@ on:
     # Avoid workflow run for _merged_ `dependabot` PRs.
     # They were (hopefully!) already tested in PR-triggered workflow.
     branches-ignore:
-      - "dependabot/**"
+    - "dependabot/**"
     paths-ignore:
       - "**.adoc"
       - "**.md"
@@ -43,23 +43,26 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    # Secrets for signing commits
+    secrets: inherit
 
   deploy-snapshot:
     needs: build
-    if: github.repository == 'apache/logging-log4j-kotlin' && github.ref == 'refs/heads/main'
+    if: github.repository == 'apache/logging-parent' && github.ref == 'refs/heads/main'
     uses: apache/logging-parent/.github/workflows/deploy-snapshot-reusable.yaml@main
+    # Secrets for deployments
     secrets: inherit
 
   deploy-release:
     needs: build
-    if: github.repository == 'apache/logging-log4j-kotlin' && startsWith(github.ref, 'refs/heads/release/')
+    if: github.repository == 'apache/logging-parent' && startsWith(github.ref, 'refs/heads/release/')
     uses: apache/logging-parent/.github/workflows/deploy-release-reusable.yaml@main
+    # Secrets for deployments
     secrets: inherit
     # Write permissions to allow the Maven `revision` property update, changelog release, etc.
     permissions:
       contents: write
     with:
-      project-name: log4j-kotlin
-      distribution-attachment-count: 1
-      distribution-attachment-filepath-pattern: |-
-          '^.*/target/log4j-api-kotlin-'${PROJECT_VERSION}'\\.jar$'
+      project-id: logging-parent
+      distribution-attachment-count: 0
+      site-enabled: true

@@ -15,12 +15,14 @@
     limitations under the License.
 ////
 
-include::maven-properties.adoc[]
+include::_constants.adoc[]
 :log4j-url: https://logging.apache.org/log4j/2.x
 :log4j-api-url: {log4j-url}/manual/api-separation.html
 
-Log4j Kotlin API provides a Kotlin-friendly interface to log against {log4j-api-url}[the Log4j API].
-The minimum requirements are Java {java-version} and Kotlin {kotlin-version}.
+= Log4j Kotlin API
+
+{project-name} provides a Kotlin-friendly interface to log against {log4j-api-url}[the Log4j API].
+The minimum requirements are Java `{java-target-version}` and Kotlin `{kotlin-version}`.
 
 [IMPORTANT]
 ====
@@ -190,3 +192,69 @@ class MyClass: BaseClass {
 ----
 
 This is also needed in scopes that do not have a `this` object, such as top-level functions.
+
+
+
+[#development]
+== Development
+
+{project-name} uses {project-github-url}[GitHub] for source code management.
+
+The project requires a Java compiler matching the `{java-compiler-version}` range and targets Java `{java-target-version}` and Kotlin `{kotlin-version}`.
+
+You can build and verify sources using:
+
+[source,bash]
+----
+./mvnw verify
+----
+
+You can build and view the website as follows:
+
+[source,bash]
+----
+./mvnw -N site
+python -m http.server -d target/site
+----
+
+[#distribution]
+== Distribution
+
+In accordance with the Apache Software Foundation's release https://infra.apache.org/release-distribution.html[distribution policy] and https://infra.apache.org/release-publishing.html[creation process], project artifacts are _officially_ accessible from the following locations:
+
+* ASF https://repository.apache.org/content/repositories/releases[Release] and https://repository.apache.org/content/repositories/snapshots[snapshot] repositories (mirrored to https://central.sonatype.dev/[the Maven Central Repository])
+* ASF https://downloads.apache.org/logging/{project-id}[Distribution directory]
+
+See xref:#release-instructions[the release instructions] for details.
+
+[#support]
+== Support
+
+Please keep in mind that this project is intended for internal usage only.
+You can use GitHub Issues for feature requests and bug reports – not questions!
+See https://logging.apache.org/log4j/2.x/support.html[the Log4j support policy] for details.
+
+[#security]
+== Security
+
+If you have encountered an unlisted security vulnerability or other unexpected behaviour that has security impact, please report them privately to mailto:security@logging.apache.org[the Log4j security mailing list].
+See https://logging.apache.org/log4j/2.x/security.html[the Log4j Security page] for further details.
+
+include::release-notes.adoc[]
+
+[#release-instructions]
+== Release instructions
+
+{project-name} employs the CI/CD foundation provided by the https://logging.apache.org/logging-parent[`logging-parent`].
+You can simply use https://logging.apache.org/logging-parent/release-instructions.html[its release instructions].
+
+[#license]
+== License
+
+Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.
+See `NOTICE.txt` distributed with this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0[].
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.

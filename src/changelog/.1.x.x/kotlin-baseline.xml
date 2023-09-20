@@ -4,5 +4,5 @@
        type="changed">
   <author id="github:breun"/>
   <author id="github:vy"/>
-  <description format="markdown">Bumped Kotlin and Kotlin Extensions baseline to `1.6.21` and `1.6.4` respectively</description>
+  <description format="asciidoc">Bumped Kotlin and Kotlin Extensions baseline to `1.6.21` and `1.6.4` respectively</description>
 </entry>

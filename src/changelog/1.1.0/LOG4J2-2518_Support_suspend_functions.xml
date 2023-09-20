@@ -4,5 +4,5 @@
        type="added">
   <issue id="LOG4J2-2518" link="https://issues.apache.org/jira/browse/LOG4J2-2518"/>
   <author id="github:rocketraman"/>
-  <description format="markdown">Support suspend functions in supplier lambdas</description>
+  <description format="asciidoc">Support suspend functions in supplier lambdas</description>
 </entry>
