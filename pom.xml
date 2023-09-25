@@ -140,7 +140,7 @@
     <bnd.plugin.version>6.4.0</bnd.plugin.version>
     <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
     <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
-    <maven-shade-plugin.version>2.2</maven-shade-plugin.version>
+    <maven-shade-plugin.version>3.5.1</maven-shade-plugin.version>
 
   </properties>
 
