@@ -19,8 +19,5 @@ https://github.com/apache/logging-log4j-kotlin/actions[image:https://github.com/
 https://search.maven.org/search?q=g:org.apache.logging.log4j%20a:log4j-api-kotlin-parent[image:https://img.shields.io/maven-central/v/org.apache.logging.log4j/log4j-api-kotlin-parent.svg[Maven Central]]
 https://www.apache.org/licenses/LICENSE-2.0.txt[image:https://img.shields.io/github/license/apache/logging-log4j-kotlin.svg[License]]
 
-:log4j-url: https://logging.apache.org/log4j/2.x
-:log4j-kotlin-url: https://logging.apache.org/log4j/kotlin
-:log4j-api-url: {log4j-url}/manual/api-separation.html
-
-Log4j Kotlin API provides a Kotlin-friendly interface to log against {log4j-api-url}[the Log4j API]. See {log4j-kotlin-url}[the project website] for more information.
+Log4j Kotlin API provides a Kotlin-friendly interface to log against the https://logging.apache.org/log4j[Log4j] API.
+See https://logging.apache.org/log4j/kotlin[the project website] for more information.
