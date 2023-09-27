@@ -33,6 +33,7 @@ fail_for_invalid_args() {
 
 # Constants
 PROJECT_NAME="Apache Log4j Kotlin API"
+PROJECT_SITE="https://logging.apache.org/log4j/kotlin"
 PROJECT_REPO="https://github.com/apache/logging-log4j-kotlin"
 PROJECT_DIST_DIR="https://dist.apache.org/repos/dist/dev/logging/log4j-kotlin"
 PROJECT_VERSION="$2"
@@ -75,7 +76,7 @@ everyone to test the release, but only the Logging Services PMC
 votes are officially counted. At least 3 +1 votes and more
 positive than negative votes are required.
 
-# Release Notes
+=== Release Notes
 EOF
     dump_release_notes
     ;;
@@ -85,14 +86,14 @@ announce)
 To: log4j-user@logging.apache.org, dev@logging.apache.org
 Title: [ANNOUNCE] $PROJECT_NAME $PROJECT_VERSION released
 
-${PROJECT_NAME}[1] team is pleased to announce the $PROJECT_VERSION
+${PROJECT_NAME} team is pleased to announce the $PROJECT_VERSION
 release. This project contains a Kotlin-friendly interface to log
 against the Log4j API. For further information (support, download,
 etc.) see the project website[1].
 
-[1] $PROJECT_REPO
+[1] $PROJECT_SITE
 
-# Release Notes
+=== Release Notes
 EOF
     dump_release_notes
     ;;
