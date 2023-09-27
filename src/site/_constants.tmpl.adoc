@@ -37,6 +37,6 @@
 :project-version: ${project.version}
 :project-name: Log4j Kotlin API
 :project-id: log4j-kotlin
-:java-target-version: ${java.version}
+:java-target-version: ${maven.compiler.target}
 :java-compiler-version: ${minimalJavaBuildVersion}
 :kotlin-version: ${kotlin.version}
