@@ -20,7 +20,7 @@
 github:
 
   description: A Kotlin-friendly interface to log against the Log4j API
-  homepage: https://github.com/apache/logging-log4j-kotlin
+  homepage: https://logging.apache.org/log4j/kotlin
   labels:
     - apache
     - api
