@@ -30,7 +30,7 @@ This is just a logging API.
 Your application still needs to have a logging backend (e.g., {log4j-url}[Log4j]) configured.
 ====
 
-[_dependencies]
+[#dependencies]
 == Dependencies
 
 You need to have the `org.apache.logging.log4j:log4j-api-kotlin` dependency in your classpath:
