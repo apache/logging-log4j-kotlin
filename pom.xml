@@ -134,10 +134,8 @@
     <kotlin.version>1.6.21</kotlin.version>
     <kotlinx.coroutines.version>1.6.4</kotlinx.coroutines.version>
     <mockito-kotlin.version>4.1.0</mockito-kotlin.version>
-    <spotbugs-annotations.version>4.7.3</spotbugs-annotations.version>
 
     <!-- plugin versions -->
-    <bnd.plugin.version>6.4.0</bnd.plugin.version>
     <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
     <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
     <maven-shade-plugin.version>2.2</maven-shade-plugin.version>
@@ -221,12 +219,6 @@
         <version>${jmh.version}</version>
       </dependency>
 
-      <dependency>
-        <groupId>com.github.spotbugs</groupId>
-        <artifactId>spotbugs-annotations</artifactId>
-        <version>${spotbugs-annotations.version}</version>
-      </dependency>
-
     </dependencies>
   </dependencyManagement>
 
@@ -250,12 +242,6 @@
           <groupId>org.jetbrains.dokka</groupId>
           <artifactId>dokka-maven-plugin</artifactId>
           <version>${dokka.plugin.version}</version>
-        </plugin>
-
-        <plugin>
-          <groupId>biz.aQute.bnd</groupId>
-          <artifactId>bnd-maven-plugin</artifactId>
-          <version>${bnd.plugin.version}</version>
         </plugin>
 
         <plugin>

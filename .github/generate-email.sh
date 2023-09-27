@@ -39,14 +39,14 @@ PROJECT_VERSION="$2"
 COMMIT_ID="$3"
 
 # Check release notes file
-RELEASE_NOTES_FILE="$SCRIPT_DIR/../target/release-notes/$PROJECT_VERSION.md"
+RELEASE_NOTES_FILE="$SCRIPT_DIR/../src/site/_release-notes/_$PROJECT_VERSION.adoc"
 [ -f "$RELEASE_NOTES_FILE" ] || {
     stderr "Couldn't find release notes file: $RELEASE_NOTES_FILE"
     exit 1
 }
 
 dump_release_notes() {
-    awk "f{print} /^# $PROJECT_VERSION/{f=1}" "$RELEASE_NOTES_FILE"
+    awk "f{print} /^Release date::/{f=1}" "$RELEASE_NOTES_FILE"
 }
 
 case $1 in

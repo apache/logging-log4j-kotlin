@@ -64,6 +64,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>osgi.annotation</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api-test</artifactId>
       <scope>test</scope>
@@ -114,50 +120,8 @@
   </dependencies>
 
   <build>
-
-    <plugins>
-
-      <plugin>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <version>${kotlin.version}</version>
-        <executions>
-          <execution>
-            <id>compile</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>test-compile</id>
-            <goals>
-              <goal>test-compile</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>biz.aQute.bnd</groupId>
-        <artifactId>bnd-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>bnd-process</goal>
-            </goals>
-            <configuration>
-              <bndfile>bnd/${project.artifactId}.bnd</bndfile>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-    </plugins>
-
     <sourceDirectory>src/main/kotlin</sourceDirectory>
-
     <testSourceDirectory>src/test/kotlin</testSourceDirectory>
-
   </build>
 
 </project>

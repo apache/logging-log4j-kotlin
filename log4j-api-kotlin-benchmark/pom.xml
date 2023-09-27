@@ -193,7 +193,9 @@
       </plugin>
 
     </plugins>
+
     <sourceDirectory>src/main/kotlin</sourceDirectory>
+
   </build>
 
 </project>

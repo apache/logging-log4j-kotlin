@@ -240,13 +240,13 @@ See https://logging.apache.org/log4j/2.x/support.html[the Log4j support policy] 
 If you have encountered an unlisted security vulnerability or other unexpected behaviour that has security impact, please report them privately to mailto:security@logging.apache.org[the Log4j security mailing list].
 See https://logging.apache.org/log4j/2.x/security.html[the Log4j Security page] for further details.
 
-include::release-notes.adoc[]
+include::_release-notes.adoc[]
 
 [#release-instructions]
 == Release instructions
 
 {project-name} employs the CI/CD foundation provided by the https://logging.apache.org/logging-parent[`logging-parent`].
-You can simply use https://logging.apache.org/logging-parent/release-instructions.html[its release instructions].
+You can simply use its release instructions.
 
 [#license]
 == License
