@@ -19,10 +19,6 @@ name: build
 
 on:
   push:
-    # Avoid workflow run for _merged_ `dependabot` PRs.
-    # They were (hopefully!) already tested in PR-triggered workflow.
-    branches-ignore:
-    - "dependabot/**"
     paths-ignore:
       - "**.adoc"
       - "**.md"
@@ -38,31 +34,35 @@ permissions: read-all
 jobs:
 
   build:
+    if: github.actor != 'dependabot[bot]'
     uses: apache/logging-parent/.github/workflows/build-reusable.yaml@main
-    # Write permissions to allow merge of `dependabot` PRs
-    permissions:
-      contents: write
-      pull-requests: write
-    # Secrets for signing commits
-    secrets: inherit
 
   deploy-snapshot:
     needs: build
-    if: github.repository == 'apache/logging-parent' && github.ref == 'refs/heads/main'
+    if: github.repository == 'apache/logging-log4j-kotlin' && github.ref_name == 'main'
     uses: apache/logging-parent/.github/workflows/deploy-snapshot-reusable.yaml@main
     # Secrets for deployments
-    secrets: inherit
+    secrets:
+      NEXUS_USER: ${{ secrets.NEXUS_USER }}
+      NEXUS_PW: ${{ secrets.NEXUS_PW }}
 
   deploy-release:
     needs: build
-    if: github.repository == 'apache/logging-parent' && startsWith(github.ref, 'refs/heads/release/')
+    if: github.repository == 'apache/logging-log4j-kotlin' && startsWith(github.ref_name, 'release/')
     uses: apache/logging-parent/.github/workflows/deploy-release-reusable.yaml@main
     # Secrets for deployments
-    secrets: inherit
+    secrets:
+      GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
+      LOGGING_STAGE_DEPLOYER_USER: ${{ secrets.LOGGING_STAGE_DEPLOYER_USER }}
+      LOGGING_STAGE_DEPLOYER_PW: ${{ secrets.LOGGING_STAGE_DEPLOYER_PW }}
+      SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+      SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
     # Write permissions to allow the Maven `revision` property update, changelog release, etc.
     permissions:
       contents: write
     with:
-      project-id: logging-parent
-      distribution-attachment-count: 0
+      project-id: log4j-kotlin
+      distribution-attachment-filepath-pattern: |-
+        '^.*/target/log4j-api-kotlin-'${PROJECT_VERSION}'\\.jar$'
+      distribution-attachment-count: 1
       site-enabled: true
