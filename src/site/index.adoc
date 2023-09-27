@@ -44,7 +44,7 @@ You need to have the `org.apache.logging.log4j:log4j-api-kotlin` dependency in y
 </dependency>
 ----
 
-[#_usage]
+[#usage]
 == Usage
 
 You can start using the wrapper by extending from the provided `Logging` interface:
@@ -136,7 +136,7 @@ assert(message == ContextStack.pop())
 assert(ContextStack.empty)
 ----
 
-[#_params]
+[#params]
 == Parameter substitution
 
 Unlike Java, Kotlin provides native functionality for https://kotlinlang.org/docs/reference/basic-syntax.html#using-string-templates[string templates].
@@ -148,7 +148,7 @@ To avoid this, prefer passing a lambda which won't be evaluated until necessary:
 logger.debug { "Logging in user ${user.name} with birthday ${user.calcBirthday()}" }
 ----
 
-[#_logger_names]
+[#logger-names]
 == Logger names
 
 Most logging implementations use a hierarchical scheme for matching logger names with logging configuration.
@@ -173,7 +173,7 @@ class MyClass: BaseClass {
 }
 ----
 
-[#_explicitly_named_loggers]
+[#explicitly-named-loggers]
 === Explicitly Named Loggers
 
 An explicitly-named logger may be obtained via the `logger` function that takes a `name` parameter:
