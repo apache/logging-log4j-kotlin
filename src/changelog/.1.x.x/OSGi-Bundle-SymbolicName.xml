@@ -1,0 +1,7 @@
+<entry xmlns="http://logging.apache.org/log4j/changelog"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.1.xsd"
+       type="changed">
+  <author id="github:vy"/>
+  <description format="asciidoc">OSGi `Bundle-SymbolicName` is renamed from `org.apache.logging.log4j.kotlin` to `org.apache.logging.log4j.api_kotlin`</description>
+</entry>
