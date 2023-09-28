@@ -44,6 +44,8 @@ You need to have the `org.apache.logging.log4j:log4j-api-kotlin` dependency in y
 </dependency>
 ----
 
+Java module name and OSGi `Bundle-SymbolicName` are set to `org.apache.logging.log4j.api_kotlin`.
+
 [#usage]
 == Usage
 
