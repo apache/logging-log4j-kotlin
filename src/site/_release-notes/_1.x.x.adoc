@@ -51,6 +51,6 @@ This minor release bumps the Kotlin baseline to 1.6.21 and contains various smal
 
 * Updated Log4j dependency to `2.20.0`
 * Bumped `logging-parent` version to `10.1.0` and overhauled the entire project infrastructure to take advantage of its goodies (https://github.com/apache/logging-log4j-kotlin/pull/37[37])
-* OSGi `Bundle-SymbolicName` is renamed from `org.apache.logging.log4j.kotlin` to `org.apache.logging.log4j.api-kotlin`
+* OSGi `Bundle-SymbolicName` is renamed from `org.apache.logging.log4j.kotlin` to `org.apache.logging.log4j.api_kotlin`
 * Migrated tests to JUnit 5
 * Bumped Kotlin and Kotlin Extensions baseline to `1.6.21` and `1.6.4` respectively
