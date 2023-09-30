@@ -31,6 +31,28 @@
   <name>Apache Log4j Kotlin API</name>
   <description>Kotlin wrapper for Log4j API</description>
 
+  <properties>
+    <!--
+      ~ OSGi and JPMS configuration
+      -->
+    <bnd-module-name>org.apache.logging.log4j.kotlin</bnd-module-name>
+    <bnd-extra-package-options>
+      <!-- Optional packages -->
+      kotlin.reflect.*;resolution:=optional,
+      kotlinx.coroutines.*;resolution:=optional
+    </bnd-extra-package-options>
+    <bnd-extra-module-options>
+      <!-- BND does not look in META-INF/versions/9 for a module descriptor -->
+      org.apache.logging.log4j;substitute="log4j-api",
+      kotlin.stdlib;substitute="kotlin-stdlib",
+      kotlin.reflect;substitute="kotlin-reflect",
+      <!-- Module name from version 1.7.x, version 1.6.x has no name -->
+      kotlinx.coroutines.core;substitute="kotlinx-coroutines-core-jvm";transitive=false,
+      <!-- Legacy library with no classes -->
+      kotlin-stdlib-common;ignore=true
+    </bnd-extra-module-options>
+  </properties>
+
   <dependencies>
 
     <dependency>
