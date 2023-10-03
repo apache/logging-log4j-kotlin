@@ -31,6 +31,10 @@
   <name>Apache Log4j Kotlin API samples</name>
   <description>Sample usage of the Log4j Kotlin API</description>
 
+  <properties>
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
+
   <dependencies>
 
     <dependency>

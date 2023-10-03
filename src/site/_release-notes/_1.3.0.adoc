@@ -55,3 +55,4 @@ This minor release bumps the Kotlin baseline to 1.6.21 and contains various smal
 * Renamed OSGi `Bundle-SymbolicName` from `org.apache.logging.log4j.kotlin` to `org.apache.logging.log4j.api.kotlin`
 * Migrated tests to JUnit 5
 * Bumped Kotlin and Kotlin Extensions baseline to `1.6.21` and `1.6.4` respectively
+* Skipped deploying `log4j-api-kotlin-benchmark` and `log4j-api-kotlin-sample` modules
