@@ -56,3 +56,7 @@ This minor release bumps the Kotlin baseline to 1.6.21 and contains various smal
 * Migrated tests to JUnit 5
 * Bumped Kotlin and Kotlin Extensions baseline to `1.6.21` and `1.6.4` respectively
 * Skipped deploying `log4j-api-kotlin-benchmark` and `log4j-api-kotlin-sample` modules
+
+==== Removed
+
+* Stopped exporting KDoc to HTML

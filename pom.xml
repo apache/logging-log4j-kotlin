@@ -239,12 +239,6 @@
         </plugin>
 
         <plugin>
-          <groupId>org.jetbrains.dokka</groupId>
-          <artifactId>dokka-maven-plugin</artifactId>
-          <version>${dokka.plugin.version}</version>
-        </plugin>
-
-        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-shade-plugin</artifactId>
           <version>${maven-shade-plugin.version}</version>
