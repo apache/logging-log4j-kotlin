@@ -15,7 +15,7 @@
     limitations under the License.
 ////
 
-https://github.com/apache/logging-log4j-kotlin/actions[image:https://github.com/apache/logging-log4j-kotlin/workflows/build/badge.svg[Actions Status]]
+https://github.com/apache/logging-log4j-kotlin/actions[image:https://github.com/apache/logging-log4j-kotlin/actions/workflows/build.yaml/badge.svg[Actions Status]]
 https://search.maven.org/search?q=g:org.apache.logging.log4j%20a:log4j-api-kotlin-parent[image:https://img.shields.io/maven-central/v/org.apache.logging.log4j/log4j-api-kotlin-parent.svg[Maven Central]]
 https://www.apache.org/licenses/LICENSE-2.0.txt[image:https://img.shields.io/github/license/apache/logging-log4j-kotlin.svg[License]]
 

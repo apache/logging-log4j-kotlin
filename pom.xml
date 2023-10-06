@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.logging</groupId>
     <artifactId>logging-parent</artifactId>
-    <version>10.1.0</version>
+    <version>10.1.1</version>
     <relativePath />
   </parent>
 
@@ -121,7 +121,7 @@
   <properties>
 
     <!-- project version -->
-    <revision>1.3.0-SNAPSHOT</revision>
+    <revision>1.3.0</revision>
 
     <!-- disable `maven-site-plugin`-->
     <maven.site.skip>true</maven.site.skip>
@@ -236,12 +236,6 @@
           <groupId>org.jetbrains.kotlin</groupId>
           <artifactId>kotlin-maven-plugin</artifactId>
           <version>${kotlin.version}</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.jetbrains.dokka</groupId>
-          <artifactId>dokka-maven-plugin</artifactId>
-          <version>${dokka.plugin.version}</version>
         </plugin>
 
         <plugin>

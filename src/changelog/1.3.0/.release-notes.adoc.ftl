@@ -6,7 +6,7 @@
     (the "License"); you may not use this file except in compliance with
     the License.  You may obtain a copy of the License at
 
-         http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,21 +22,22 @@
     ██ ███ ██ ██   ██ ██   ██ ██  ██ ██ ██ ██  ██ ██ ██    ██
      ███ ███  ██   ██ ██   ██ ██   ████ ██ ██   ████  ██████  ██
 
-    IF THIS FILE IS CALLED `index.adoc`, IT IS AUTO-GENERATED, DO NOT EDIT IT!
+    IF THIS FILE DOESN'T HAVE A `.ftl` SUFFIX, IT IS AUTO-GENERATED, DO NOT EDIT IT!
 
-    Release notes `index.adoc` is generated from `src/changelog/.index.adoc.ftl`.
+    Version-specific release notes (`7.8.0.adoc`, etc.) are generated from `src/changelog/*/.release-notes.adoc.ftl`.
     Auto-generation happens during `generate-sources` phase of Maven.
     Hence, you must always
 
-    1. Edit `.index.adoc.ftl`
+    1. Find and edit the associated `.release-notes.adoc.ftl`
     2. Run `./mvnw generate-sources`
-    3. Commit both `.index.adoc.ftl` and the generated `.index.adoc`
+    3. Commit both `.release-notes.adoc.ftl` and the generated `7.8.0.adoc`
 ////
 
-[#release-notes]
-== Release Notes
+[#release-notes-${release.version?replace("[^a-zA-Z0-9]", "-", "r")}]
+=== ${release.version}
 
-include::_release-notes/_1.3.0.adoc[]
-include::_release-notes/_1.2.0.adoc[]
-include::_release-notes/_1.1.0.adoc[]
-include::_release-notes/_1.0.0.adoc[]
+<#if release.date?has_content>Release date:: ${release.date}</#if>
+
+This minor release bumps the Kotlin baseline to 1.6.21 and contains various small improvements.
+
+<#include "../.changelog.adoc.ftl">

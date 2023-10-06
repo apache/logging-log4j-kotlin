@@ -35,7 +35,6 @@
     <!--
       ~ OSGi and JPMS configuration
       -->
-    <bnd-module-name>org.apache.logging.log4j.kotlin</bnd-module-name>
     <bnd-extra-package-options>
       <!-- Optional packages -->
       kotlin.reflect.*;resolution:=optional,
@@ -43,7 +42,6 @@
     </bnd-extra-package-options>
     <bnd-extra-module-options>
       <!-- BND does not look in META-INF/versions/9 for a module descriptor -->
-      org.apache.logging.log4j;substitute="log4j-api",
       kotlin.stdlib;substitute="kotlin-stdlib",
       kotlin.reflect;substitute="kotlin-reflect",
       <!-- Module name from version 1.7.x, version 1.6.x has no name -->
