@@ -26,13 +26,13 @@ updates:
     ignore:
       # Keep Kotlin baseline
       - dependency-name: "org.jetbrains.kotlin:*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]
       # Keep Kotlin extensions baseline
       - dependency-name: "org.jetbrains.kotlinx:*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]
       # Keep Mockito baseline (5+ requires Java 11)
       - dependency-name: "org.mockito.kotlin:*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]
       - dependency-name: "org.mockito:*"
         update-types: ["version-update:semver-major"]
 
