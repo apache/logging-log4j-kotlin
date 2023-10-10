@@ -33,6 +33,8 @@ updates:
       # Keep Mockito baseline (5+ requires Java 11)
       - dependency-name: "org.mockito.kotlin:*"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "org.mockito:*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: "/"
