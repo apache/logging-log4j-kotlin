@@ -39,6 +39,8 @@ jobs:
   build:
     if: github.actor != 'dependabot[bot]'
     uses: apache/logging-parent/.github/workflows/build-reusable.yaml@main
+    with:
+      site-enabled: true
 
   deploy-snapshot:
     needs: build
