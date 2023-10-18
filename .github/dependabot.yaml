@@ -26,7 +26,7 @@ updates:
     ignore:
       # Keep Kotlin baseline
       - dependency-name: "org.jetbrains.kotlin:*"
-        update-types: ["version-update:semver-major"]
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
       # Keep Kotlin extensions baseline
       - dependency-name: "org.jetbrains.kotlinx:*"
         update-types: ["version-update:semver-major"]
