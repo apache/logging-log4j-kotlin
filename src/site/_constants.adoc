@@ -34,7 +34,7 @@
 ////
 
 :project-github-url: https://github.com/apache/logging-log4j-kotlin
-:project-version: 1.3.0
+:project-version: 1.4.0-SNAPSHOT
 :project-name: Log4j Kotlin API
 :project-id: log4j-kotlin
 :java-target-version: 8
