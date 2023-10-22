@@ -40,3 +40,11 @@
 
 This minor release bumps the Kotlin baseline to 1.6.21 and contains various small improvements.
 
+
+==== Added
+
+* Started generating CycloneDX SBOM with the recent update of `logging-parent` to version `10.2.0`
+
+==== Changed
+
+* Update `org.apache.logging:logging-parent` to version `10.2.0`

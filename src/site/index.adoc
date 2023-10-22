@@ -195,8 +195,6 @@ class MyClass: BaseClass {
 
 This is also needed in scopes that do not have a `this` object, such as top-level functions.
 
-
-
 [#development]
 == Development
 
@@ -228,6 +226,13 @@ In accordance with the Apache Software Foundation's release https://infra.apache
 * ASF https://downloads.apache.org/logging/{project-id}[Distribution directory]
 
 See xref:#release-instructions[the release instructions] for details.
+[#maven-bom]
+
+[#cyclonedx-sbom]
+=== CycloneDX Software Bill of Materials (SBOM)
+
+Starting with version `1.4.0`, {project-name} distributes https://cyclonedx.org/capabilities/sbom/[CyclenoDX Software Bill of Materials (SBOM)] along with each deployed artifact.
+This is streamlined by `logging-parent`, see https://logging.apache.org/logging-parent/latest/#cyclonedx-sbom[its website] for details.
 
 [#support]
 == Support

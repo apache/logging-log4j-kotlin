@@ -15,14 +15,14 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" child.project.url.inherit.append.path="false" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.apache.logging</groupId>
     <artifactId>logging-parent</artifactId>
-    <version>10.1.1</version>
+    <version>10.2.0</version>
     <relativePath />
   </parent>
 
@@ -101,7 +101,7 @@
     <module>log4j-api-kotlin-benchmark</module>
   </modules>
 
-  <scm>
+  <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
     <connection>scm:git:git@github.com:apache/logging-log4j-kotlin.git</connection>
     <developerConnection>scm:git:git@github.com:apache/logging-log4j-kotlin.git</developerConnection>
     <tag>HEAD</tag>
@@ -117,6 +117,10 @@
     <system>GitHub Actions</system>
     <url>https://github.com/apache/logging-log4j-kotlin/actions</url>
   </ciManagement>
+
+  <distributionManagement>
+    <downloadUrl>https://logging.apache.org/log4j/kotlin/latest/#distribution</downloadUrl>
+  </distributionManagement>
 
   <properties>
 
@@ -260,6 +264,22 @@
     </pluginManagement>
 
     <plugins>
+
+      <!-- `cyclonedx-maven-plugin` doesn't exclude not installed/deployed modules: https://github.com/CycloneDX/cyclonedx-maven-plugin/issues/409
+           This `generate-sbom` execution override configures such exclusions. -->
+      <plugin>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-sbom</id>
+            <configuration combine.self="append">
+              <excludeArtifactId>log4j-api-kotlin-benchmark</excludeArtifactId>
+              <excludeArtifactId>log4j-api-kotlin-sample</excludeArtifactId>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
 
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>

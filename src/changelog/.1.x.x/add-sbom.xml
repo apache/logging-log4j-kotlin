@@ -15,7 +15,10 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<release xmlns="http://logging.apache.org/log4j/changelog"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.2.xsd"
-         date="2018-11-03" version="1.0.0"/>
+<entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://logging.apache.org/log4j/changelog"
+       xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.2.xsd"
+       type="added">
+  <author id="github:vy"/>
+  <description format="asciidoc">Started generating CycloneDX SBOM with the recent update of `logging-parent` to version `10.2.0`</description>
+</entry>
