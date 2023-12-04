@@ -48,6 +48,7 @@ This minor release bumps the Kotlin baseline to 1.6.21 and contains various smal
 ==== Changed
 
 * Update `org.apache.logging:logging-parent` to version `10.2.0`
+* Update `org.apache.logging:logging-parent` to version `10.4.0` (https://github.com/apache/logging-log4j-kotlin/pull/53[53])
 * Update `org.codehaus.mojo:build-helper-maven-plugin` to version `3.5.0` (https://github.com/apache/logging-log4j-kotlin/pull/51[51])
 * Update `org.codehaus.mojo:exec-maven-plugin` to version `3.1.1` (https://github.com/apache/logging-log4j-kotlin/pull/50[50])
 * Update `org.junit:junit-bom` to version `5.10.1` (https://github.com/apache/logging-log4j-kotlin/pull/49[49])
