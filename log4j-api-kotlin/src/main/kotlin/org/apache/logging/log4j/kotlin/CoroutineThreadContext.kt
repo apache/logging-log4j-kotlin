@@ -89,7 +89,9 @@ class CoroutineThreadContext(
   }
 
   private fun setCurrent(contextData: ThreadContextData) {
-    contextData.map?.let { ContextMap += it } ?: ContextMap.clear()
-    contextData.stack?.let { ContextStack.set(it) } ?: ContextStack.clear()
+    ContextMap.clear()
+    ContextStack.clear()
+    contextData.map?.let { ContextMap += it }
+    contextData.stack?.let { ContextStack.set(it) }
   }
 }
