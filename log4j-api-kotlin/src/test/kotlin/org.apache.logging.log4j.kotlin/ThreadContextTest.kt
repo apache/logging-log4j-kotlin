@@ -38,6 +38,7 @@ class ThreadContextTest {
     ContextStack.clear()
   }
 
+  @DelicateCoroutinesApi
   @Test
   fun `Context is not passed by default between coroutines`() = runBlocking {
     ContextMap["myKey"] = "myValue"
@@ -49,6 +50,7 @@ class ThreadContextTest {
     }.join()
   }
 
+  @DelicateCoroutinesApi
   @Test
   fun `Context can be passed between coroutines`() = runBlocking {
     ContextMap["myKey"] = "myValue"
@@ -120,5 +122,17 @@ class ThreadContextTest {
         assertEquals("test", ContextStack.peek())
       }
     }
+  }
+
+  @Test
+  fun `Context is restored after a context block is complete`() = runBlocking {
+    assertTrue(ContextMap.empty)
+    assertTrue(ContextStack.empty)
+    withContext(CoroutineThreadContext(ThreadContextData(mapOf("myKey" to "myValue"), listOf("test")))) {
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
+    }
+    assertTrue(ContextMap.empty)
+    assertTrue(ContextStack.empty)
   }
 }
