@@ -17,7 +17,7 @@
 
 # `.asf.yaml` documentation: https://cwiki.apache.org/confluence/display/INFRA/Git+-+.asf.yaml+features
 
-publish:
+staging:
   profile: ~
   whoami: asf-staging
   subdir: content/log4j/kotlin
