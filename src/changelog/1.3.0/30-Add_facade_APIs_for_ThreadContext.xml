@@ -3,6 +3,5 @@
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.2.xsd"
        type="added">
   <issue id="30" link="https://github.com/apache/logging-log4j-kotlin/issues/30"/>
-  <author id="github:jvz"/>
   <description format="asciidoc">Added facade APIs for manipulating the context map and stack</description>
 </entry>

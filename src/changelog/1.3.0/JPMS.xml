@@ -2,6 +2,5 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.2.xsd"
        type="added">
-  <author id="github:vy"/>
   <description format="asciidoc">Added JPMS support and used `org.apache.logging.log4j.api.kotlin` for the module name (identical to OSGi `Bundle-SymbolicName`) of the `log4j-api-kotlin` artifact</description>
 </entry>

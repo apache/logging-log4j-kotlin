@@ -3,6 +3,5 @@
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.2.xsd"
        type="changed">
   <issue id="37" link="https://github.com/apache/logging-log4j-kotlin/pull/37"/>
-  <author id="github:vy"/>
   <description format="asciidoc">Bumped `logging-parent` version to `10.1.1` and overhauled the entire project infrastructure to take advantage of its goodies</description>
 </entry>

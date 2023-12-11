@@ -2,7 +2,5 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.2.xsd"
        type="changed">
-  <author id="github:breun"/>
-  <author id="github:vy"/>
   <description format="asciidoc">Bumped Kotlin and Kotlin Extensions baseline to `1.6.21` and `1.6.4` respectively</description>
 </entry>
