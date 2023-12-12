@@ -38,14 +38,14 @@ jobs:
 
   build:
     if: github.actor != 'dependabot[bot]'
-    uses: apache/logging-parent/.github/workflows/build-reusable.yaml@main
+    uses: apache/logging-parent/.github/workflows/build-reusable.yaml@e45457c683302242be5e8e7c3c33edf8f0e0ec0e # rel/10.4.0
     with:
       site-enabled: true
 
   deploy-snapshot:
     needs: build
     if: github.repository == 'apache/logging-log4j-kotlin' && github.ref_name == 'main'
-    uses: apache/logging-parent/.github/workflows/deploy-snapshot-reusable.yaml@main
+    uses: apache/logging-parent/.github/workflows/deploy-snapshot-reusable.yaml@e45457c683302242be5e8e7c3c33edf8f0e0ec0e # rel/10.4.0
     # Secrets for deployments
     secrets:
       NEXUS_USER: ${{ secrets.NEXUS_USER }}
@@ -54,7 +54,7 @@ jobs:
   deploy-release:
     needs: build
     if: github.repository == 'apache/logging-log4j-kotlin' && startsWith(github.ref_name, 'release/')
-    uses: apache/logging-parent/.github/workflows/deploy-release-reusable.yaml@main
+    uses: apache/logging-parent/.github/workflows/deploy-release-reusable.yaml@e45457c683302242be5e8e7c3c33edf8f0e0ec0e # rel/10.4.0
     # Secrets for deployments
     secrets:
       GPG_SECRET_KEY: ${{ secrets.LOGGING_GPG_SECRET_KEY }}
