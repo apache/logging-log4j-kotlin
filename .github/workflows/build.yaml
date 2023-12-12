@@ -67,7 +67,4 @@ jobs:
       contents: write
     with:
       project-id: log4j-kotlin
-      distribution-attachment-filepath-pattern: |-
-        '^.*/target/log4j-api-kotlin-'${PROJECT_VERSION}'\\.jar$'
-      distribution-attachment-count: 1
       site-enabled: true
