@@ -18,4 +18,4 @@
 <release xmlns="http://logging.apache.org/log4j/changelog"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.2.xsd"
-         date="2023-12-12" version="1.4.0"/>
+         date="2023-12-18" version="1.4.0"/>
