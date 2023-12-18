@@ -36,7 +36,7 @@
 [#release-notes-1-4-0]
 === 1.4.0
 
-Release date:: 2023-12-12
+Release date:: 2023-12-18
 
 This minor release fixes incorrect coroutine context map and stack.
 
