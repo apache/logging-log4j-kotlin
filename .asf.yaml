@@ -21,3 +21,8 @@ publish:
   profile: ~
   whoami: asf-site
   subdir: content/log4j/kotlin
+
+staging:
+  profile: ~
+  whoami: asf-staging
+  subdir: content/log4j/kotlin
