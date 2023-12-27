@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule "^$" "/log4j/kotlin/latest/" [R]
+
