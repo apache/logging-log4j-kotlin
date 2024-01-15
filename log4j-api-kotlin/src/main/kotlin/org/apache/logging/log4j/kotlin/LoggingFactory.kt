@@ -18,7 +18,7 @@ package org.apache.logging.log4j.kotlin
 
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.spi.ExtendedLogger
-import java.util.*
+import java.util.Collections
 import kotlin.reflect.full.companionObject
 
 /**

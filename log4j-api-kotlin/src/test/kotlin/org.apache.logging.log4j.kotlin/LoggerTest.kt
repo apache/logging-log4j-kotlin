@@ -18,11 +18,24 @@ package org.apache.logging.log4j.kotlin
 
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.MarkerManager
-import org.apache.logging.log4j.message.*
+import org.apache.logging.log4j.message.DefaultFlowMessageFactory
+import org.apache.logging.log4j.message.EntryMessage
+import org.apache.logging.log4j.message.MessageFactory2
+import org.apache.logging.log4j.message.ParameterizedMessage
+import org.apache.logging.log4j.message.ParameterizedMessageFactory
 import org.apache.logging.log4j.spi.ExtendedLogger
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyString
-import org.mockito.kotlin.*
+import org.mockito.kotlin.KStubbing
+import org.mockito.kotlin.any
+import org.mockito.kotlin.argThat
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.eq
+import org.mockito.kotlin.isNull
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 

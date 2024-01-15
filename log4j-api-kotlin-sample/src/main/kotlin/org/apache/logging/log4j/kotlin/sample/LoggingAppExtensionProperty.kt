@@ -19,7 +19,7 @@ package org.apache.logging.log4j.kotlin.sample
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import org.apache.logging.log4j.kotlin.ContextMap
 import org.apache.logging.log4j.kotlin.logger
-import java.util.*
+import java.util.Random
 
 @SuppressFBWarnings("PREDICTABLE_RANDOM", "DMI_RANDOM_USED_ONLY_ONCE")
 object LoggingAppExtensionProperty {
