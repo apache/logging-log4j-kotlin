@@ -43,4 +43,5 @@ This minor release bumps the Kotlin baseline to 1.6.21 and contains various smal
 
 ==== Updated
 
+* Update `apache/logging-parent` to version `` (https://github.com/apache/logging-log4j-kotlin/pull/62[62])
 * Update `org.apache.logging.log4j:log4j-bom` to version `2.22.1` (https://github.com/apache/logging-log4j-kotlin/pull/60[60])
