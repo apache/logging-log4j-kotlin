@@ -138,6 +138,43 @@ assert(message == ContextStack.pop())
 assert(ContextStack.empty)
 ----
 
+A `CoroutineThreadContext` context element is provided to integrate logging context with coroutines.
+
+We provide convenience functions `loggingContext` and `additionalLoggingContext` to create instances of `CoroutineThreadContext` with the appropriate context data.
+The result of these functions can be passed directly to coroutine builders to set the context for the coroutine.
+
+To set the context, ignoring any context currently in scope:
+
+[source,kotlin]
+----
+launch(loggingContext(mapOf("myKey" to "myValue"), listOf("test"))) {
+  assertEquals("myValue", ContextMap["myKey"])
+  assertEquals("test", ContextStack.peek())
+}
+----
+
+Or to preserve the existing context and add additional logging context:
+
+[source,kotlin]
+----
+launch(additionalLoggingContext(mapOf("myKey" to "myValue"), listOf("test"))) {
+  assertEquals("myValue", ContextMap["myKey"])
+  assertEquals("test", ContextStack.peek())
+}
+----
+
+Alternatively, to change the context without launching a new coroutine, the `withLoggingContext` and `withAdditionalLoggingContext` functions are provided:
+
+[source,kotlin]
+----
+withAdditionalLoggingContext(mapOf("myKey" to "myValue"), listOf("test")) {
+  assertEquals("myValue", ContextMap["myKey"])
+  assertEquals("test", ContextStack.peek())
+}
+----
+
+These functions are shorthand for `withContext(loggingContext(...))` or `withContext(additionalLoggingContext(...))`.
+
 [#params]
 == Parameter substitution
 
