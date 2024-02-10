@@ -53,6 +53,10 @@ class ThreadContextTest {
       assertNull(ContextMap["myKey"])
       assertTrue(ContextStack.empty)
     }.join()
+    GlobalScope.launch(loggingContext()) {
+      assertNull(ContextMap["myKey"])
+      assertTrue(ContextStack.empty)
+    }.join()
   }
 
   @DelicateCoroutinesApi
@@ -62,6 +66,10 @@ class ThreadContextTest {
     ContextStack.push("test")
     // Scoped launch with MDCContext element
     GlobalScope.launch(CoroutineThreadContext()) {
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
+    }.join()
+    GlobalScope.launch(additionalLoggingContext()) {
       assertEquals("myValue", ContextMap["myKey"])
       assertEquals("test", ContextStack.peek())
     }.join()
@@ -75,10 +83,36 @@ class ThreadContextTest {
     withContext(CoroutineThreadContext()) {
       ContextMap["myKey"] = "myValue2"
       ContextStack.push("test2")
-      // Scoped launch with inherited MDContext element
+      // Scoped launch with non-inherited MDContext element
       launch(Dispatchers.Default) {
         assertEquals("myValue", ContextMap["myKey"])
         assertEquals("test", ContextStack.peek())
+      }
+      // Scoped launch with non-inherited MDContext element
+      launch(Dispatchers.Default + loggingContext()) {
+        assertTrue(ContextMap.empty)
+        assertTrue(ContextStack.empty)
+      }
+      // Scoped launch with non-inherited MDContext element
+      launch(Dispatchers.Default + loggingContext(mapOf("myKey2" to "myValue2"), listOf("test3"))) {
+        assertEquals(null, ContextMap["myKey"])
+        assertEquals("myValue2", ContextMap["myKey2"])
+        assertEquals(listOf("test3"), ContextStack.view.asList())
+      }
+      // Scoped launch with inherited MDContext element
+      launch(Dispatchers.Default + CoroutineThreadContext()) {
+        assertEquals("myValue2", ContextMap["myKey"])
+        assertEquals("test2", ContextStack.peek())
+      }
+      // Scoped launch with inherited plus additional empty MDContext element
+      launch(Dispatchers.Default + additionalLoggingContext()) {
+        assertEquals("myValue2", ContextMap["myKey"])
+        assertEquals(listOf("test", "test2"), ContextStack.view.asList())
+      }
+      launch(Dispatchers.Default + additionalLoggingContext(mapOf("myKey2" to "myValue2"), listOf("test3"))) {
+        assertEquals("myValue2", ContextMap["myKey"])
+        assertEquals("myValue2", ContextMap["myKey2"])
+        assertEquals(listOf("test", "test2", "test3"), ContextStack.view.asList())
       }
     }
     assertEquals("myValue", ContextMap["myKey"])
@@ -104,6 +138,10 @@ class ThreadContextTest {
       assertEquals("myValue", ContextMap["myKey"])
       assertEquals("test", ContextStack.peek())
     }
+    runBlocking(additionalLoggingContext()) {
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
+    }
   }
 
   @Test
@@ -112,10 +150,18 @@ class ThreadContextTest {
       assertTrue(ContextMap.empty)
       assertTrue(ContextStack.empty)
     }
+    runBlocking(loggingContext()) {
+      assertTrue(ContextMap.empty)
+      assertTrue(ContextStack.empty)
+    }
+    runBlocking(additionalLoggingContext()) {
+      assertTrue(ContextMap.empty)
+      assertTrue(ContextStack.empty)
+    }
   }
 
   @Test
-  fun `Context with context`() = runBlocking {
+  fun `Context using withContext`() = runBlocking {
     ContextMap["myKey"] = "myValue"
     ContextStack.push("test")
     val mainDispatcher = coroutineContext[ContinuationInterceptor]!!
@@ -127,6 +173,80 @@ class ThreadContextTest {
         assertEquals("test", ContextStack.peek())
       }
     }
+    withContext(Dispatchers.Default + additionalLoggingContext()) {
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
+      withContext(mainDispatcher) {
+        assertEquals("myValue", ContextMap["myKey"])
+        assertEquals("test", ContextStack.peek())
+      }
+    }
+    withContext(Dispatchers.Default + additionalLoggingContext(mapOf("myKey2" to "myValue2"), listOf("test2"))) {
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("myValue2", ContextMap["myKey2"])
+      assertEquals(listOf("test", "test2"), ContextStack.view.asList())
+      withContext(mainDispatcher) {
+        assertEquals("myValue", ContextMap["myKey"])
+        assertEquals("myValue2", ContextMap["myKey2"])
+        assertEquals(listOf("test", "test2"), ContextStack.view.asList())
+      }
+    }
+    withContext(Dispatchers.Default + loggingContext(mapOf("myKey2" to "myValue2"), listOf("test2"))) {
+      assertEquals(null, ContextMap["myKey"])
+      assertEquals("myValue2", ContextMap["myKey2"])
+      assertEquals(listOf("test2"), ContextStack.view.asList())
+      withContext(mainDispatcher) {
+        assertEquals(null, ContextMap["myKey"])
+        assertEquals("myValue2", ContextMap["myKey2"])
+        assertEquals(listOf("test2"), ContextStack.view.asList())
+      }
+    }
+  }
+
+  @Test
+  fun `Context using withLoggingContext`() = runBlocking {
+    ContextMap["myKey"] = "myValue"
+    ContextStack.push("test")
+    val mainDispatcher = coroutineContext[ContinuationInterceptor]!!
+    withAdditionalLoggingContext(mapOf("myKey2" to "myValue2"), listOf("test2")) {
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("myValue2", ContextMap["myKey2"])
+      assertEquals(listOf("test", "test2"), ContextStack.view.asList())
+      withContext(mainDispatcher) {
+        assertEquals("myValue", ContextMap["myKey"])
+        assertEquals("myValue2", ContextMap["myKey2"])
+        assertEquals(listOf("test", "test2"), ContextStack.view.asList())
+      }
+      withAdditionalLoggingContext(mapOf("myKey3" to "myValue3"), listOf("test3")) {
+        assertEquals("myValue", ContextMap["myKey"])
+        assertEquals("myValue2", ContextMap["myKey2"])
+        assertEquals("myValue3", ContextMap["myKey3"])
+        assertEquals(listOf("test", "test2", "test3"), ContextStack.view.asList())
+      }
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("myValue2", ContextMap["myKey2"])
+      assertEquals(null, ContextMap["myKey3"])
+      assertEquals(listOf("test", "test2"), ContextStack.view.asList())
+    }
+    withLoggingContext(mapOf("myKey2" to "myValue2"), listOf("test2")) {
+      assertEquals(null, ContextMap["myKey"])
+      assertEquals("myValue2", ContextMap["myKey2"])
+      assertEquals(listOf("test2"), ContextStack.view.asList())
+      withContext(mainDispatcher) {
+        assertEquals(null, ContextMap["myKey"])
+        assertEquals("myValue2", ContextMap["myKey2"])
+        assertEquals(listOf("test2"), ContextStack.view.asList())
+      }
+      withLoggingContext(mapOf("myKey3" to "myValue3"), listOf("test3")) {
+        assertEquals(null, ContextMap["myKey"])
+        assertEquals(null, ContextMap["myKey2"])
+        assertEquals(listOf("test3"), ContextStack.view.asList())
+      }
+      assertEquals(null, ContextMap["myKey"])
+      assertEquals("myValue2", ContextMap["myKey2"])
+      assertEquals(null, ContextMap["myKey3"])
+      assertEquals(listOf("test2"), ContextStack.view.asList())
+    }
   }
 
   @Test
@@ -136,6 +256,80 @@ class ThreadContextTest {
     withContext(CoroutineThreadContext(ThreadContextData(mapOf("myKey" to "myValue"), listOf("test")))) {
       assertEquals("myValue", ContextMap["myKey"])
       assertEquals("test", ContextStack.peek())
+      withContext(CoroutineThreadContext(ThreadContextData(mapOf("myKey2" to "myValue2"), listOf("test2")))) {
+        assertEquals(null, ContextMap["myKey"])
+        assertEquals("myValue2", ContextMap["myKey2"])
+        assertEquals(listOf("test2"), ContextStack.view.asList())
+      }
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
+    }
+    assertTrue(ContextMap.empty)
+    assertTrue(ContextStack.empty)
+
+    withContext(loggingContext(mapOf("myKey" to "myValue"), listOf("test"))) {
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
+      withContext(loggingContext(mapOf("myKey2" to "myValue2"), listOf("test2"))) {
+        assertEquals(null, ContextMap["myKey"])
+        assertEquals("myValue2", ContextMap["myKey2"])
+        assertEquals(listOf("test2"), ContextStack.view.asList())
+      }
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
+    }
+    assertTrue(ContextMap.empty)
+    assertTrue(ContextStack.empty)
+
+    withLoggingContext(mapOf("myKey" to "myValue"), listOf("test")) {
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
+      withLoggingContext(mapOf("myKey2" to "myValue2"), listOf("test2")) {
+        assertEquals(null, ContextMap["myKey"])
+        assertEquals("myValue2", ContextMap["myKey2"])
+        assertEquals(listOf("test2"), ContextStack.view.asList())
+      }
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
+    }
+    assertTrue(ContextMap.empty)
+    assertTrue(ContextStack.empty)
+
+    withAdditionalLoggingContext(mapOf("myKey" to "myValue"), listOf("test")) {
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals("test", ContextStack.peek())
+      withAdditionalLoggingContext(mapOf("myKey2" to "myValue2"), listOf("test2")) {
+        assertEquals("myValue", ContextMap["myKey"])
+        assertEquals("myValue2", ContextMap["myKey2"])
+        assertEquals(listOf("test", "test2"), ContextStack.view.asList())
+      }
+      assertEquals("myValue", ContextMap["myKey"])
+      assertEquals(null, ContextMap["myKey2"])
+      assertEquals("test", ContextStack.peek())
+    }
+    assertTrue(ContextMap.empty)
+    assertTrue(ContextStack.empty)
+  }
+
+  @Test
+  fun `Can override existing context, and restore it`() = runBlocking {
+    assertTrue(ContextMap.empty)
+    assertTrue(ContextStack.empty)
+    withLoggingContext(mapOf("myKey" to "myValue", "myKey2" to "myValue2"), listOf("test1", "test2")) {
+      assertEquals(mapOf("myKey" to "myValue", "myKey2" to "myValue2"), ContextMap.view)
+      assertEquals(listOf("test1", "test2"), ContextStack.view.asList())
+      withLoggingContext(mapOf("myKey3" to "myValue3", "myKey4" to "myValue4"), listOf("test3", "test4")) {
+        assertEquals(mapOf("myKey3" to "myValue3", "myKey4" to "myValue4"), ContextMap.view)
+        assertEquals(listOf("test3", "test4"), ContextStack.view.asList())
+        withAdditionalLoggingContext(mapOf("myKey4" to "myValue4Modified", "myKey5" to "myValue5"), listOf("test5")) {
+          assertEquals(mapOf("myKey3" to "myValue3", "myKey4" to "myValue4Modified", "myKey5" to "myValue5"), ContextMap.view)
+          assertEquals(listOf("test3", "test4", "test5"), ContextStack.view.asList())
+        }
+        assertEquals(mapOf("myKey3" to "myValue3", "myKey4" to "myValue4"), ContextMap.view)
+        assertEquals(listOf("test3", "test4"), ContextStack.view.asList())
+      }
+      assertEquals(mapOf("myKey" to "myValue", "myKey2" to "myValue2"), ContextMap.view)
+      assertEquals(listOf("test1", "test2"), ContextStack.view.asList())
     }
     assertTrue(ContextMap.empty)
     assertTrue(ContextStack.empty)
