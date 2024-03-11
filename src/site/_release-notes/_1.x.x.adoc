@@ -48,7 +48,7 @@ This minor release bumps the Kotlin baseline to 1.6.21 and contains various smal
 ==== Updated
 
 * Update `apache/logging-parent` to version `` (https://github.com/apache/logging-log4j-kotlin/pull/62[62])
-* Update `org.apache.logging.log4j:log4j-bom` to version `2.23.0` (https://github.com/apache/logging-log4j-kotlin/pull/68[68])
+* Update `org.apache.logging.log4j:log4j-bom` to version `2.23.1` (https://github.com/apache/logging-log4j-kotlin/pull/70[70])
 * Update `org.apache.logging:logging-parent` to version `10.6.0` (https://github.com/apache/logging-log4j-kotlin/pull/61[61])
 * Update `org.apache.maven.plugins:maven-shade-plugin` to version `3.5.2` (https://github.com/apache/logging-log4j-kotlin/pull/67[67])
 * Update `org.codehaus.mojo:exec-maven-plugin` to version `3.2.0` (https://github.com/apache/logging-log4j-kotlin/pull/69[69])
