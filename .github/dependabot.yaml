@@ -39,7 +39,7 @@ updates:
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
       # Keep Kotlin extensions baseline
       - dependency-name: "org.jetbrains.kotlinx:*"
-        update-types: ["version-update:semver-major"]
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
       # Keep Mockito baseline (5+ requires Java 11)
       - dependency-name: "org.mockito.kotlin:*"
         update-types: ["version-update:semver-major"]
