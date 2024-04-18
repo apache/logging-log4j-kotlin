@@ -34,7 +34,7 @@
 ////
 
 [#release-notes-${release.version?replace("[^a-zA-Z0-9]", "-", "r")}]
-=== ${release.version}
+== ${release.version}
 
 <#if release.date?has_content>Release date:: ${release.date}</#if>
 

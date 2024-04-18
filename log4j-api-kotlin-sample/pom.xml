@@ -32,7 +32,10 @@
   <description>Sample usage of the Log4j Kotlin API</description>
 
   <properties>
+    <bnd.baseline.skip>true</bnd.baseline.skip>
+    <maven.test.skip>true</maven.test.skip>
     <maven.deploy.skip>true</maven.deploy.skip>
+    <maven.install.skip>true</maven.install.skip>
   </properties>
 
   <dependencies>
