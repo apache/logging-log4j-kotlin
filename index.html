@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Log4j Kotlin API :: Apache Log4j Kotlin</title>
+    <link rel="canonical" href="https://logging.apache.org/log4j/kotlin/index.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.4">
+<link rel="stylesheet" href="./_/css/site.css">
+<link rel="icon" href="./_/../_images/favicon.ico" type="image/x-icon">
+<!-- `@asciidoctor/tabs` extension styles -->
+<link rel="stylesheet" href="./_/css/vendor/tabs.css">
+<style>
+  /* `page-toclevels` greater than 4 are not supported by Antora UI, patching it: */
+  .toc .toc-menu li[data-level="4"] a {
+    padding-left: 2.75rem
+  }
+  /* Replace the default highlight.js color for strings from red to green: */
+  .hljs-string {
+    color: #0f8532;
+  }
+</style>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="navbar-item title">Apache Log4j Kotlin</span>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://logging.apache.org">a subproject of&nbsp;<strong>Apache Logging Services</strong></a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Home</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="development.html">Development</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/download.html">Download</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/support.html">Support</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/security.html">Security</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link is-current"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html">Log4j Kotlin API</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/apache/logging-log4j-kotlin/edit/main/src/site/antora/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Log4j Kotlin API</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Log4j Kotlin API provides a Kotlin-friendly interface to log against <a href="https://logging.apache.org/log4j/2.x/manual/api-separation.html">the Log4j API</a>.
+The minimum requirements are Java <code>8</code> and Kotlin <code>1.6.21</code>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is just a logging API.
+Your application still needs to have a logging backend (e.g., <a href="https://logging.apache.org/log4j/2.x">Log4j</a>) configured.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dependencies"><a class="anchor" href="#dependencies"></a>Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You need to have the <code>org.apache.logging.log4j:log4j-api-kotlin</code> dependency in your classpath:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+  &lt;artifactId&gt;log4j-api-kotlin&lt;/artifactId&gt;
+  &lt;version&gt;1.5.0-SNAPSHOT&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Java module name and OSGi <code>Bundle-SymbolicName</code> are set to <code>org.apache.logging.log4j.api.kotlin</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can start using the wrapper by extending from the provided <code>Logging</code> interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin.Logging
+
+class MyClass: BaseClass, Logging {
+
+  fun doStuff() {
+    logger.info("Doing stuff")
+  }
+
+  fun doStuffWithUser(user: User) {
+    logger.info { "Doing stuff with ${user.name}." }
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>Logging</code> interface can also be mixed into <code>object</code> declarations, including companions.
+This is generally preferable over the previous approach as there is a single logger created for every instance of the class.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin.Logging
+
+class MyClass: BaseClass {
+
+  companion object : Logging
+
+  // ...
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, a more traditional style can be used to instantiate a logger instance:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin
+
+class MyClass: BaseClass {
+
+  val logger = logger()
+
+  // ...
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The function <code>logger()</code> is an extension function on the <code>Any</code> type (or more specifically, any type <code>T</code> that extends <code>Any</code>).</p>
+</div>
+<div class="paragraph">
+<p>Beginning in version 1.3.0, an extension property is also available on classes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin.logger
+
+class MyClass: BaseClass {
+
+  fun doStuff() {
+    logger.info("Hello, world!")
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Also added in version 1.3.0, the <code>ThreadContext</code> API has two facade objects provided: <code>ContextMap</code> and <code>ContextStack</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin.ContextMap
+import org.apache.logging.log4j.kotlin.ContextStack
+
+ContextMap["key"] = "value"
+assert(ContextMap["key"] == "value")
+assert("key" in ContextMap)
+
+ContextMap += "anotherKey" to "anotherValue"
+ContextMap -= "key"
+
+ContextStack.push("message")
+assert(!ContextStack.empty)
+assert(ContextStack.depth == 1)
+val message = ContextStack.peek()
+assert(message == ContextStack.pop())
+assert(ContextStack.empty)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A <code>CoroutineThreadContext</code> context element is provided to integrate logging context with coroutines.</p>
+</div>
+<div class="paragraph">
+<p>We provide convenience functions <code>loggingContext</code> and <code>additionalLoggingContext</code> to create instances of <code>CoroutineThreadContext</code> with the appropriate context data.
+The result of these functions can be passed directly to coroutine builders to set the context for the coroutine.</p>
+</div>
+<div class="paragraph">
+<p>To set the context, ignoring any context currently in scope:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">launch(loggingContext(mapOf("myKey" to "myValue"), listOf("test"))) {
+  assertEquals("myValue", ContextMap["myKey"])
+  assertEquals("test", ContextStack.peek())
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or to preserve the existing context and add additional logging context:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">launch(additionalLoggingContext(mapOf("myKey" to "myValue"), listOf("test"))) {
+  assertEquals("myValue", ContextMap["myKey"])
+  assertEquals("test", ContextStack.peek())
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, to change the context without launching a new coroutine, the <code>withLoggingContext</code> and <code>withAdditionalLoggingContext</code> functions are provided:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">withAdditionalLoggingContext(mapOf("myKey" to "myValue"), listOf("test")) {
+  assertEquals("myValue", ContextMap["myKey"])
+  assertEquals("test", ContextStack.peek())
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These functions are shorthand for <code>withContext(loggingContext(&#8230;&#8203;))</code> or <code>withContext(additionalLoggingContext(&#8230;&#8203;))</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="params"><a class="anchor" href="#params"></a>Parameter substitution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unlike Java, Kotlin provides native functionality for <a href="https://kotlinlang.org/docs/reference/basic-syntax.html#using-string-templates">string templates</a>.
+However, using a string template still incurs the message construction cost if the logger level is not enabled.
+To avoid this, prefer passing a lambda which won&#8217;t be evaluated until necessary:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">logger.debug { "Logging in user ${user.name} with birthday ${user.calcBirthday()}" }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logger-names"><a class="anchor" href="#logger-names"></a>Logger names</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Most logging implementations use a hierarchical scheme for matching logger names with logging configuration.</p>
+</div>
+<div class="paragraph">
+<p>In this scheme the logger name hierarchy is represented by <code>.</code> (dot) characters in the logger name, in a fashion very similar to the hierarchy used for Java/Kotlin package names.
+The <code>Logger</code> property added by the <code>Logging</code> interface follows this convention: the interface ensures the <code>Logger</code> is automatically named according to the class it is being used in.</p>
+</div>
+<div class="paragraph">
+<p>The value returned when calling the <code>logger()</code> extension method depends on the receiver of the extension.
+When called within an object, the receiver is <code>this</code> and therefore the logger will again be named according to the class it is being used in.
+However, a logger named via another class can be obtained as well:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin
+
+class MyClass: BaseClass {
+
+  val logger = SomeOtherClass.logger()
+
+  // ...
+
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="explicitly-named-loggers"><a class="anchor" href="#explicitly-named-loggers"></a>Explicitly Named Loggers</h3>
+<div class="paragraph">
+<p>An explicitly-named logger may be obtained via the <code>logger</code> function that takes a <code>name</code> parameter:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin
+
+class MyClass: BaseClass {
+
+  val logger = logger("MyCustomLoggerName")
+
+  // ...
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is also needed in scopes that do not have a <code>this</code> object, such as top-level functions.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    Copyright © 1999-2024 <a href="https://www.apache.org/">The Apache Software Foundation</a>.
+    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache Software License, Version 2.0</a>.
+    Please read our <a href="https://privacy.apache.org/policies/privacy-policy-public.html">privacy policy</a>.
+  </p>
+  <p>
+    Apache, Log4j, and the Apache feather logo are trademarks or registered trademarks of The Apache Software Foundation.
+    Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+    Other names may be trademarks of their respective owners.
+  </p>
+</footer>
+<script id="site-script" src="./_/js/site.js" data-ui-root-path="./_"></script>
+<script async src="./_/js/vendor/highlight.js"></script>
+<!-- `@asciidoctor/tabs` extension scripts -->
+<script async src="./_/js/vendor/tabs.js"></script>
+  </body>
+</html>
