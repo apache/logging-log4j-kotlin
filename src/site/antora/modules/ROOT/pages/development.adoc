@@ -33,8 +33,9 @@ You can build and view the website as follows:
 [source,bash]
 ----
 ./mvnw -N site
-python -m http.server -d target/site
 ----
+
+You can view the generated website with a browser by pointing it to `target/site` directory.
 
 [#release-instructions]
 == Release instructions
