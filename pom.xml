@@ -119,7 +119,7 @@
   </ciManagement>
 
   <distributionManagement>
-    <downloadUrl>https://logging.apache.org/log4j/kotlin/latest/#distribution</downloadUrl>
+    <downloadUrl>https://logging.apache.org/download.html</downloadUrl>
   </distributionManagement>
 
   <properties>
