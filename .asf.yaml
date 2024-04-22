@@ -15,7 +15,21 @@
 # limitations under the License.
 #
 
-# `.asf.yaml` documentation: https://cwiki.apache.org/confluence/display/INFRA/Git+-+.asf.yaml+features
+# `.asf.yaml` is a branch-specific YAML configuration file for Git repositories to control features such as notifications, GitHub settings, etc.
+# See its documentation for details: https://cwiki.apache.org/confluence/display/INFRA/Git+-+.asf.yaml+features
+
+# Bare minimum `notifications` to
+#
+# 1. Forward GitHub _activity_ to `notifications@`
+# 2. Forward commits to `commits@`
+# 3. Forward `dependabot` PRs to `robots@`
+#
+# Note that `notifications` are merged with the defaults accessible from: https://gitbox.apache.org/schemes.cgi?logging-log4j-kotlin
+notifications:
+  commits: commits@logging.apache.org
+  issues: notifications@logging.apache.org
+  pullrequests: notifications@logging.apache.org
+  pullrequests_bot_dependabot: robots@logging.apache.org
 
 github:
 
@@ -33,6 +47,8 @@ github:
     - logger
     - coroutines
     - concurrency
+
+  del_branch_on_merge: true
 
   features:
     issues: true
