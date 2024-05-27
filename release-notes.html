@@ -21,6 +21,9 @@
   .doc .colist>table code, .doc p code, .doc thead code { font-size: 0.8em; }
   .doc pre { font-size: 0.7rem; }
   .doc .colist { font-size: 0.75rem; }
+  /* Make links more visible: */
+  .doc a { text-decoration: underline; }
+  .doc a code { text-decoration: underline; color: #1565c0; }
   /* Tab header fonts aren't rendered good, adjusting the font weight: */
   .tablist > ul li { font-weight: 500; }
   /* `page-toclevels` greater than 4 are not supported by Antora UI, patching it: */
@@ -132,10 +135,16 @@
 <p>Update <code>org.apache.logging.log4j:log4j-bom</code> to version <code>2.23.1</code> (<a href="https://github.com/apache/logging-log4j-kotlin/pull/70">70</a>)</p>
 </li>
 <li>
-<p>Update <code>org.apache.logging:logging-parent</code> to version <code>11.0.0</code></p>
+<p>Update <code>org.apache.logging:logging-parent</code> to version `` (<a href="https://github.com/apache/logging-log4j-kotlin/pull/74">74</a>)</p>
 </li>
 <li>
 <p>Update <code>org.apache.maven.plugins:maven-shade-plugin</code> to version <code>3.5.3</code> (<a href="https://github.com/apache/logging-log4j-kotlin/pull/72">72</a>)</p>
+</li>
+<li>
+<p>Update <code>org.codehaus.mojo:build-helper-maven-plugin</code> to version <code>3.6.0</code> (<a href="https://github.com/apache/logging-log4j-kotlin/pull/73">73</a>)</p>
+</li>
+<li>
+<p>Update <code>org.codehaus.mojo:exec-maven-plugin</code> to version `` (<a href="https://github.com/apache/logging-log4j-kotlin/pull/75">75</a>)</p>
 </li>
 </ul>
 </div>
