@@ -28,6 +28,11 @@ content:
         - target/generated-site/antora
       edit_url:
 
+runtime:
+  log:
+    # Fail on warnings
+    failure_level: warn
+
 asciidoc:
   extensions:
     - "@asciidoctor/tabs"
