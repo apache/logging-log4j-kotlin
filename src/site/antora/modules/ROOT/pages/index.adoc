@@ -87,7 +87,7 @@ Alternatively, a more traditional style can be used to instantiate a logger inst
 
 [source,kotlin]
 ----
-import org.apache.logging.log4j.kotlin
+import org.apache.logging.log4j.kotlin.logger
 
 class MyClass: BaseClass {
 
