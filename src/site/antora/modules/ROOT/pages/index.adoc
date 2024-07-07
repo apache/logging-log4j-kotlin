@@ -45,77 +45,163 @@ You need to have the `org.apache.logging.log4j:log4j-api-kotlin` dependency in y
 
 Java module name and OSGi `Bundle-SymbolicName` are set to `org.apache.logging.log4j.api.kotlin`.
 
-[#usage]
-== Usage
+[#create-loggers]
+== Creating loggers
 
-You can start using the wrapper by extending from the provided `Logging` interface:
+A `Logger` is the primary interface that users interact with Log4j Kotlin.
+You can create ``Logger``s particularly in two ways:
 
-[source,kotlin]
-----
-import org.apache.logging.log4j.kotlin.Logging
+* <<class-loggers,Associate them with the class>> (*Recommended!*)
+* <<instance-loggers,Associate them with the instance>>
 
-class MyClass: BaseClass, Logging {
+[#class-loggers]
+=== [[usage]] Creating class loggers
 
-  fun doStuff() {
-    logger.info("Doing stuff")
-  }
+For most applications, we recommend you to create *a single logger instance per class definition* – not <<instance-loggers,per class instance>>!
+This not only avoids creating an extra logger field for each instance, its access pattern transparently communicates the implementation: the `Logger` is statically bound to the class definition.
+You can create class loggers in one of following ways:
 
-  fun doStuffWithUser(user: User) {
-    logger.info { "Doing stuff with ${user.name}." }
-  }
+[#create-companion-logger]
+==== Creating a logger in the companion object
 
-}
-----
-
-The `Logging` interface can also be mixed into `object` declarations, including companions.
-This is generally preferable over the previous approach as there is a single logger created for every instance of the class.
-
-[source,kotlin]
-----
-import org.apache.logging.log4j.kotlin.Logging
-
-class MyClass: BaseClass {
-
-  companion object : Logging
-
-  // ...
-
-}
-----
-
-Alternatively, a more traditional style can be used to instantiate a logger instance:
+This is the traditional approach to create class loggers.
+It also happens to be the most efficient one, since the logger lookup is performed once and its result is stored in the companion object shared by all instances of the class.
 
 [source,kotlin]
 ----
 import org.apache.logging.log4j.kotlin.logger
 
-class MyClass: BaseClass {
+class DbTableService {
 
-  val logger = logger()
+  companion object {
 
-  // ...
+    private val LOGGER = logger() // <1>
+
+  }
+
+  fun truncateTable(tableName: String) {
+    LOGGER.warn { "truncating table `${tableName}`" }
+    db.truncate(tableName)
+  }
 
 }
 ----
+<1> Create a `Logger` associated with the static class definition that all instances of the class share
 
-The function `logger()` is an extension function on the `Any` type (or more specifically, any type `T` that extends `Any`).
+[#extend-companion]
+==== Extending companion object from `Logging`
 
-Beginning in version 1.3.0, an extension property is also available on classes:
+`Logging` interface contains a `logger` getter that you can use by extending the companion object from the `Logging` class:
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin.Logging
+
+class DbTableService {
+
+  companion object: Logging // <1>
+
+  fun truncateTable(tableName: String) {
+    logger.warn { "truncating table `${tableName}`" }
+    db.truncate(tableName)
+  }
+
+}
+----
+<1> Extending the companion object from `Logging` effectively creates a single `Logger` instance
+. Assigned to the `logger` field
+. Associated with the static class definition that all instances of the class share
+
+[NOTE]
+====
+This getter-based approach incurs an extra overhead (compared to <<create-companion-logger>>) due to the logger lookup involved at runtime.
+====
+
+[#instance-loggers]
+=== Creating instance loggers
+
+Even though we recommend you to <<class-loggers,create class loggers>>, there might be occasions (most notably while {logging-services-url}/log4j/2.x/manual/webapp.html#log-separation[sharing classes in Jakarta EE environments]) necessitating loggers associated with each instance.
+You can achieve this as follows:
+
+[#create-instance-logger]
+==== Creating a logger in the class
+
+This is the traditional approach to create instance loggers.
+It also happens to be the most efficient one, since the logger lookup is performed once and its result is stored in the instance field.
 
 [source,kotlin]
 ----
 import org.apache.logging.log4j.kotlin.logger
 
-class MyClass: BaseClass {
+class DbTableService {
 
-  fun doStuff() {
-    logger.info("Hello, world!")
+  private val logger = logger() // <1>
+
+  fun truncateTable(tableName: String) {
+    logger.warn { "truncating table `${tableName}`" }
+    db.truncate(tableName)
   }
 
 }
 ----
+<1> Create a `Logger` associated with the class instance
 
-Also added in version 1.3.0, the `ThreadContext` API has two facade objects provided: `ContextMap` and `ContextStack`.
+[#extend-instance]
+==== Extending the class from `Logging`
+
+`Logging` interface contains a `logger` getter that you can use by extending the class from `Logging`:
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin.Logging
+
+class DbTableService: Logging { // <1>
+
+  fun truncateTable(tableName: String) {
+    logger.warn { "truncating table `${tableName}`" }
+    db.truncate(tableName)
+  }
+
+}
+----
+<1> Extending the class from `Logging` effectively creates a single `Logger` instance
+. Assigned to the `logger` field
+. Exclusively associated with the class instance (i.e., not shared among instances!)
+
+[NOTE]
+====
+This getter-based approach incurs an extra overhead (compared to <<create-instance-logger>>) due to the logger lookup involved at runtime.
+====
+
+[#logger-extension]
+==== Using `logger` extension property
+
+You can use the `logger`  extension property to dynamically inject a logger at the spot:
+
+[source,kotlin]
+----
+import org.apache.logging.log4j.kotlin.logger
+
+class DbTableService {
+
+  fun truncateTable(tableName: String) {
+    logger.warn { "truncating table `${tableName}`" } // <1>
+    db.truncate(tableName)
+  }
+
+}
+----
+<1> `logger` will look up the associated `Logger` instance for the encapsulating class
+
+[NOTE]
+====
+This getter-based approach incurs an extra overhead (compared to <<create-instance-logger>>) due to the logger lookup involved at runtime.
+====
+
+[#thread-context]
+== Thread context
+
+The `ThreadContext` API has two facade objects provided: `ContextMap` and `ContextStack`.
 
 [source,kotlin]
 ----
