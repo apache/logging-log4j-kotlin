@@ -149,82 +149,258 @@ Your application still needs to have a logging backend (e.g., <a href="https://l
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
+<h2 id="create-loggers"><a class="anchor" href="#create-loggers"></a>Creating loggers</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can start using the wrapper by extending from the provided <code>Logging</code> interface:</p>
+<p>A <code>Logger</code> is the primary interface that users interact with Log4j Kotlin.
+You can create <code>Logger</code>s particularly in two ways:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin.Logging
-
-class MyClass: BaseClass, Logging {
-
-  fun doStuff() {
-    logger.info("Doing stuff")
-  }
-
-  fun doStuffWithUser(user: User) {
-    logger.info { "Doing stuff with ${user.name}." }
-  }
-
-}</code></pre>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#class-loggers">Associate them with the class</a> (<strong>Recommended!</strong>)</p>
+</li>
+<li>
+<p><a href="#instance-loggers">Associate them with the instance</a></p>
+</li>
+</ul>
 </div>
-</div>
+<div class="sect2">
+<h3 id="class-loggers"><a class="anchor" href="#class-loggers"></a><a id="usage"></a> Creating class loggers</h3>
 <div class="paragraph">
-<p>The <code>Logging</code> interface can also be mixed into <code>object</code> declarations, including companions.
-This is generally preferable over the previous approach as there is a single logger created for every instance of the class.</p>
+<p>For most applications, we recommend you to create <strong>a single logger instance per class definition</strong> – not <a href="#instance-loggers">per class instance</a>!
+This not only avoids creating an extra logger field for each instance, its access pattern transparently communicates the implementation: the <code>Logger</code> is statically bound to the class definition.
+You can create class loggers in one of following ways:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin.Logging
-
-class MyClass: BaseClass {
-
-  companion object : Logging
-
-  // ...
-
-}</code></pre>
-</div>
-</div>
+<div class="sect3">
+<h4 id="create-companion-logger"><a class="anchor" href="#create-companion-logger"></a>Creating a logger in the companion object</h4>
 <div class="paragraph">
-<p>Alternatively, a more traditional style can be used to instantiate a logger instance:</p>
+<p>This is the traditional approach to create class loggers.
+It also happens to be the most efficient one, since the logger lookup is performed once and its result is stored in the companion object shared by all instances of the class.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin.logger
 
-class MyClass: BaseClass {
+class DbTableService {
 
-  val logger = logger()
+  companion object {
 
-  // ...
+    private val LOGGER = logger() <i class="conum" data-value="1"></i><b>(1)</b>
 
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The function <code>logger()</code> is an extension function on the <code>Any</code> type (or more specifically, any type <code>T</code> that extends <code>Any</code>).</p>
-</div>
-<div class="paragraph">
-<p>Beginning in version 1.3.0, an extension property is also available on classes:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin.logger
+  }
 
-class MyClass: BaseClass {
-
-  fun doStuff() {
-    logger.info("Hello, world!")
+  fun truncateTable(tableName: String) {
+    LOGGER.warn { "truncating table `${tableName}`" }
+    db.truncate(tableName)
   }
 
 }</code></pre>
 </div>
 </div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Create a <code>Logger</code> associated with the static class definition that all instances of the class share</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="extend-companion"><a class="anchor" href="#extend-companion"></a>Extending companion object from <code>Logging</code></h4>
 <div class="paragraph">
-<p>Also added in version 1.3.0, the <code>ThreadContext</code> API has two facade objects provided: <code>ContextMap</code> and <code>ContextStack</code>.</p>
+<p><code>Logging</code> interface contains a <code>logger</code> getter that you can use by extending the companion object from the <code>Logging</code> class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin.Logging
+
+class DbTableService {
+
+  companion object: Logging <i class="conum" data-value="1"></i><b>(1)</b>
+
+  fun truncateTable(tableName: String) {
+    logger.warn { "truncating table `${tableName}`" }
+    db.truncate(tableName)
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Extending the companion object from <code>Logging</code> effectively creates a single <code>Logger</code> instance
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Assigned to the <code>logger</code> field</p>
+</li>
+<li>
+<p>Associated with the static class definition that all instances of the class share</p>
+</li>
+</ol>
+</div></td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This getter-based approach incurs an extra overhead (compared to <a href="#create-companion-logger">Creating a logger in the companion object</a>) due to the logger lookup involved at runtime.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="instance-loggers"><a class="anchor" href="#instance-loggers"></a>Creating instance loggers</h3>
+<div class="paragraph">
+<p>Even though we recommend you to <a href="#class-loggers">create class loggers</a>, there might be occasions (most notably while <a href="https://logging.apache.org/log4j/2.x/manual/webapp.html#log-separation">sharing classes in Jakarta EE environments</a>) necessitating loggers associated with each instance.
+You can achieve this as follows:</p>
+</div>
+<div class="sect3">
+<h4 id="create-instance-logger"><a class="anchor" href="#create-instance-logger"></a>Creating a logger in the class</h4>
+<div class="paragraph">
+<p>This is the traditional approach to create instance loggers.
+It also happens to be the most efficient one, since the logger lookup is performed once and its result is stored in the instance field.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin.logger
+
+class DbTableService {
+
+  private val logger = logger() <i class="conum" data-value="1"></i><b>(1)</b>
+
+  fun truncateTable(tableName: String) {
+    logger.warn { "truncating table `${tableName}`" }
+    db.truncate(tableName)
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Create a <code>Logger</code> associated with the class instance</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="extend-instance"><a class="anchor" href="#extend-instance"></a>Extending the class from <code>Logging</code></h4>
+<div class="paragraph">
+<p><code>Logging</code> interface contains a <code>logger</code> getter that you can use by extending the class from <code>Logging</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin.Logging
+
+class DbTableService: Logging { <i class="conum" data-value="1"></i><b>(1)</b>
+
+  fun truncateTable(tableName: String) {
+    logger.warn { "truncating table `${tableName}`" }
+    db.truncate(tableName)
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Extending the class from <code>Logging</code> effectively creates a single <code>Logger</code> instance
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Assigned to the <code>logger</code> field</p>
+</li>
+<li>
+<p>Exclusively associated with the class instance (i.e., not shared among instances!)</p>
+</li>
+</ol>
+</div></td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This getter-based approach incurs an extra overhead (compared to <a href="#create-instance-logger">Creating a logger in the class</a>) due to the logger lookup involved at runtime.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="logger-extension"><a class="anchor" href="#logger-extension"></a>Using <code>logger</code> extension property</h4>
+<div class="paragraph">
+<p>You can use the <code>logger</code>  extension property to dynamically inject a logger at the spot:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import org.apache.logging.log4j.kotlin.logger
+
+class DbTableService {
+
+  fun truncateTable(tableName: String) {
+    logger.warn { "truncating table `${tableName}`" } <i class="conum" data-value="1"></i><b>(1)</b>
+    db.truncate(tableName)
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>logger</code> will look up the associated <code>Logger</code> instance for the encapsulating class</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This getter-based approach incurs an extra overhead (compared to <a href="#create-instance-logger">Creating a logger in the class</a>) due to the logger lookup involved at runtime.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="thread-context"><a class="anchor" href="#thread-context"></a>Thread context</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>ThreadContext</code> API has two facade objects provided: <code>ContextMap</code> and <code>ContextStack</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
