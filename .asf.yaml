@@ -1,0 +1,14 @@
+publish:
+  profile: ~
+  whoami: main-site-pro-out
+  subdir: content/log4j/kotlin
+
+
+# INFRA cannot handle change sets bigger than a certain size: https://the-asf.slack.com/archives/CBX4TSBQ8/p1709724983391709
+# This file will be used to push a small commit to help the INFRA to recover.
+#
+# Random values to cause a change:
+#
+# - Seed: 23708
+# - Commit ID: 55c182884e911c5bc2b3581281c6014ac362304c
+# - Timestamp: 2024-07-07T17:33:27Z
