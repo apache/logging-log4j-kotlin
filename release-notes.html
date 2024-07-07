@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Release notes :: Apache Log4j Kotlin</title>
+    <link rel="canonical" href="https://logging.apache.org/log4j/kotlin/release-notes.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.5">
+<link rel="stylesheet" href="./_/css/site.css">
+<link rel="icon" href="./_/../_images/favicon.ico" type="image/x-icon">
+<!-- `@asciidoctor/tabs` extension styles -->
+<link rel="stylesheet" href="./_/css/vendor/tabs.css">
+<style>
+  /* Swap colors of `IMPORTANT` and `WARNING` blocks */
+  .doc .admonitionblock.important .icon { background-color: #f70; }
+  .doc .admonitionblock.warning .icon { background-color: #e40046; }
+  /* Default `h4`, `h5`, and `h6` are smaller than the normal text, fix header font sizing: */
+  .doc h1 { font-size: 1.9rem; }
+  .doc h2 { font-size: 1.7rem; }
+  .doc h3 { font-size: 1.5rem; font-weight: 400; }
+  .doc h4 { font-size: 1.3rem; font-weight: 500; }
+  .doc h5 { font-size: 1.1rem; font-weight: 500; text-decoration: underline; }
+  .doc h6 { font-size: 0.9rem; font-weight: 500; text-decoration: underline; }
+  /* Default `code`, `pre`, and `.colist` (source code annotations) fonts are too big, adjust them: */
+  .doc .colist>table code, .doc p code, .doc thead code { font-size: 0.8em; }
+  .doc pre { font-size: 0.7rem; }
+  .doc .colist { font-size: 0.75rem; }
+  /* Make links more visible: */
+  .doc a { text-decoration: underline; }
+  .doc a code { text-decoration: underline; color: #1565c0; }
+  /* Tab header fonts aren't rendered good, adjusting the font weight: */
+  .tablist > ul li { font-weight: 500; }
+  /* `page-toclevels` greater than 4 are not supported by Antora UI, patching it: */
+  .toc .toc-menu li[data-level="4"] a {
+    padding-left: 2.75rem;
+  }
+  /* Replace the default highlight.js color for strings from red (unnecessarily signaling something negative) to green: */
+  .hljs-string {
+    color: #0f8532;
+  }
+</style>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="navbar-item title">Apache Log4j Kotlin</span>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://logging.apache.org">a subproject of&nbsp;<strong>Apache Logging Services</strong></a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Home</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="development.html">Development</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/download.html">Download</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/support.html">Support</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/security.html">Security</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="release-notes.html">Release notes</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/apache/logging-log4j-kotlin/edit/main/src/site/antora/modules/ROOT/pages/release-notes.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="1">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Release notes</h1>
+<div class="sect1">
+<h2 id="release-notes-1-x-x"><a class="anchor" href="#release-notes-1-x-x"></a>1.x.x</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>List of changes for the upcoming release.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-x-x-added"><a class="anchor" href="#release-notes-1-x-x-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Add convenience functions for managing logging context in coroutines (<a href="https://github.com/apache/logging-log4j-kotlin/pull/65">65</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-x-x-changed"><a class="anchor" href="#release-notes-1-x-x-changed"></a>Changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Migrate website to Antora (<a href="https://github.com/apache/logging-log4j2/pull/2443">apache/logging-log4j2#2443</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-x-x-updated"><a class="anchor" href="#release-notes-1-x-x-updated"></a>Updated</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update <code>org.apache.logging.log4j:log4j-bom</code> to version <code>2.23.1</code> (<a href="https://github.com/apache/logging-log4j-kotlin/pull/70">70</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.logging:logging-parent</code> to version <code>11.1.0</code> (<a href="https://github.com/apache/logging-log4j-kotlin/pull/74">74</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-1-4-0"><a class="anchor" href="#release-notes-1-4-0"></a>1.4.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2023-12-18</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This minor release fixes incorrect coroutine context map and stack.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-4-0-added"><a class="anchor" href="#release-notes-1-4-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Started generating CycloneDX SBOM with the recent update of <code>logging-parent</code> to version <code>10.2.0</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-4-0-changed"><a class="anchor" href="#release-notes-1-4-0-changed"></a>Changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Coroutine context is not cleared properly, only appended to (<a href="https://github.com/apache/logging-log4j-kotlin/issues/54">54</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.logging:logging-parent</code> to version <code>10.2.0</code></p>
+</li>
+<li>
+<p>Update <code>org.apache.logging.log4j:log4j-bom</code> to version <code>2.22.0</code> (<a href="https://github.com/apache/logging-log4j-kotlin/pull/52">52</a>)</p>
+</li>
+<li>
+<p>Update <code>org.codehaus.mojo:build-helper-maven-plugin</code> to version <code>3.5.0</code> (<a href="https://github.com/apache/logging-log4j-kotlin/pull/51">51</a>)</p>
+</li>
+<li>
+<p>Update <code>org.codehaus.mojo:exec-maven-plugin</code> to version <code>3.1.1</code> (<a href="https://github.com/apache/logging-log4j-kotlin/pull/50">50</a>)</p>
+</li>
+<li>
+<p>Update <code>org.junit:junit-bom</code> to version <code>5.10.1</code> (<a href="https://github.com/apache/logging-log4j-kotlin/pull/49">49</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-4-0-updated"><a class="anchor" href="#release-notes-1-4-0-updated"></a>Updated</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update <code>org.apache.logging:logging-parent</code> to version <code>10.5.0</code> (<a href="https://github.com/apache/logging-log4j-kotlin/pull/58">58</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-1-3-0"><a class="anchor" href="#release-notes-1-3-0"></a>1.3.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2023-10-03</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This minor release bumps the Kotlin baseline to 1.6.21 and contains various small improvements.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-3-0-added"><a class="anchor" href="#release-notes-1-3-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Added an extension property for storing a cached logger (<a href="https://github.com/apache/logging-log4j-kotlin/issues/29">29</a>)</p>
+</li>
+<li>
+<p>Added facade APIs for manipulating the context map and stack (<a href="https://github.com/apache/logging-log4j-kotlin/issues/30">30</a>)</p>
+</li>
+<li>
+<p>Added missing <code>catching</code> and <code>throwing</code> API methods in <code>KotlinLogger</code> (<a href="https://github.com/apache/logging-log4j-kotlin/issues/32">32</a>)</p>
+</li>
+<li>
+<p>Added JPMS support and used <code>org.apache.logging.log4j.api.kotlin</code> for the module name (identical to OSGi <code>Bundle-SymbolicName</code>) of the <code>log4j-api-kotlin</code> artifact</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-3-0-changed"><a class="anchor" href="#release-notes-1-3-0-changed"></a>Changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated Log4j dependency to <code>2.20.0</code></p>
+</li>
+<li>
+<p>Bumped <code>logging-parent</code> version to <code>10.1.1</code> and overhauled the entire project infrastructure to take advantage of its goodies (<a href="https://github.com/apache/logging-log4j-kotlin/pull/37">37</a>)</p>
+</li>
+<li>
+<p>Renamed OSGi <code>Bundle-SymbolicName</code> from <code>org.apache.logging.log4j.kotlin</code> to <code>org.apache.logging.log4j.api.kotlin</code></p>
+</li>
+<li>
+<p>Migrated tests to JUnit 5</p>
+</li>
+<li>
+<p>Bumped Kotlin and Kotlin Extensions baseline to <code>1.6.21</code> and <code>1.6.4</code> respectively</p>
+</li>
+<li>
+<p>Skipped deploying <code>log4j-api-kotlin-benchmark</code> and <code>log4j-api-kotlin-sample</code> modules</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-3-0-removed"><a class="anchor" href="#release-notes-1-3-0-removed"></a>Removed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Stopped exporting KDoc to HTML</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-1-2-0"><a class="anchor" href="#release-notes-1-2-0"></a>1.2.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2021-12-20</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This is the 3rd minor release of the project.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-2-0-changed"><a class="anchor" href="#release-notes-1-2-0-changed"></a>Changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update Kotlin baseline version to <code>1.3.72</code> (<a href="https://issues.apache.org/jira/browse/LOG4J2-3218">LOG4J2-3218</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-1-1-0"><a class="anchor" href="#release-notes-1-1-0"></a>1.1.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2021-08-28</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This is the 2nd minor release of the project.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-1-0-added"><a class="anchor" href="#release-notes-1-1-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Support MDCs with Kotlin coroutines (<a href="https://issues.apache.org/jira/browse/LOG4J2-2433">LOG4J2-2433</a>)</p>
+</li>
+<li>
+<p>Support suspend functions in supplier lambdas (<a href="https://issues.apache.org/jira/browse/LOG4J2-2518">LOG4J2-2518</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-1-0-changed"><a class="anchor" href="#release-notes-1-1-0-changed"></a>Changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update Kotlin baseline version to 1.3.72 (<a href="https://issues.apache.org/jira/browse/LOG4J2-2843">LOG4J2-2843</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-1-0-0"><a class="anchor" href="#release-notes-1-0-0"></a>1.0.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2018-11-03</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This is the first major release of the project.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-0-0-added"><a class="anchor" href="#release-notes-1-0-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Create Kotlin wrapper API for Log4j (<a href="https://issues.apache.org/jira/browse/LOG4J2-1705">LOG4J2-3556</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-1-0-0-changed"><a class="anchor" href="#release-notes-1-0-0-changed"></a>Changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Make <code>namedLogger</code> more discoverable (<a href="https://issues.apache.org/jira/browse/LOG4J2-2432">LOG4J2-2432</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    Copyright © 1999-2024 <a href="https://www.apache.org/">The Apache Software Foundation</a>.
+    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache Software License, Version 2.0</a>.
+    Please read our <a href="https://privacy.apache.org/policies/privacy-policy-public.html">privacy policy</a>.
+  </p>
+  <p>
+    Apache, Log4j, and the Apache feather logo are trademarks or registered trademarks of The Apache Software Foundation.
+    Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+    Other names may be trademarks of their respective owners.
+  </p>
+</footer>
+<script id="site-script" src="./_/js/site.js" data-ui-root-path="./_"></script>
+<script async src="./_/js/vendor/highlight.js"></script>
+<!-- `@asciidoctor/tabs` extension scripts -->
+<script async src="./_/js/vendor/tabs.js"></script>
+  </body>
+</html>
