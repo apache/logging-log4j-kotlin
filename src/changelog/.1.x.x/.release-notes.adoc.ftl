@@ -38,6 +38,6 @@
 
 <#if release.date?has_content>Release date:: ${release.date}</#if>
 
-This minor release bumps the Kotlin baseline to 1.6.21 and contains various small improvements.
+List of changes for the upcoming release.
 
 <#include "../.changelog.adoc.ftl">

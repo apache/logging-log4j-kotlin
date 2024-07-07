@@ -4,5 +4,5 @@
        xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="changed">
   <issue id="apache/logging-log4j2#2443" link="https://github.com/apache/logging-log4j2/pull/2443"/>
-  <description format="asciidoc">Website is migrated to Antora</description>
+  <description format="asciidoc">Migrate website to Antora</description>
 </entry>
