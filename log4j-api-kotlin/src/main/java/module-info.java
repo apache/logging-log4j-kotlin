@@ -14,7 +14,7 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-module org.apache.logging.kotlin {
+module org.apache.logging.log4j.kotlin {
     requires java.base;
     requires org.apache.logging.log4j;
     requires org.apache.logging.log4j.core;
