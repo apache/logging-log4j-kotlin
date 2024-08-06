@@ -28,13 +28,14 @@
 
   <artifactId>log4j-api-kotlin-benchmark</artifactId>
 
+  <name>Apache Log4j Kotlin API benchmarks</name>
+
   <properties>
     <bnd.baseline.skip>true</bnd.baseline.skip>
     <maven.test.skip>true</maven.test.skip>
     <maven.deploy.skip>true</maven.deploy.skip>
     <maven.install.skip>true</maven.install.skip>
     <spotbugs.skip>true</spotbugs.skip>
-    <jmh.generator>default</jmh.generator>
     <uberjar.name>benchmarks</uberjar.name>
   </properties>
 
@@ -77,19 +78,28 @@
   </dependencies>
 
   <build>
+
     <plugins>
 
-      <!-- Compile Kotlin sources first -->
+      <!-- What follows is an unconventional plugin sequence to make JMH work with Kotlin.
+           The follow logic can be summarized as follows:
+
+           1. Compile JMH-annotated Kotlin sources
+           2. Using compiled (and JMH-annotated!) classes, generate JMH Java sources
+           3. Add JMH Java sources
+           4. Compile JMH Java sources -->
+
+      <!-- 1. Compile Kotlin sources -->
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>process-sources</id>
+            <id>compile</id>
             <goals>
               <goal>compile</goal>
             </goals>
-            <phase>generate-sources</phase>
+            <phase>process-sources</phase>
             <configuration>
               <sourceDirs>
                 <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
@@ -99,7 +109,7 @@
         </executions>
       </plugin>
 
-      <!-- Invoke JMH generators to produce benchmark code -->
+      <!-- 2. Generate JMH sources -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
@@ -112,45 +122,48 @@
         </dependencies>
         <executions>
           <execution>
+            <id>generate-JMH-sources</id>
             <goals>
               <goal>java</goal>
             </goals>
-            <phase>generate-resources</phase>
+            <phase>process-resources</phase>
             <configuration>
               <includePluginDependencies>true</includePluginDependencies>
               <mainClass>org.openjdk.jmh.generators.bytecode.JmhBytecodeGenerator</mainClass>
               <arguments>
-                <argument>${project.basedir}/target/classes/</argument>
-                <argument>${project.basedir}/target/generated-sources/jmh/</argument>
-                <argument>${project.basedir}/target/classes/</argument>
-                <argument>${jmh.generator}</argument>
+                <!-- `compiled-bytecode-dir`: -->
+                <argument>${project.build.directory}/classes</argument>
+                <!-- `output-source-dir`: -->
+                <argument>${project.build.directory}/generated-sources/jmh</argument>
+                <!-- `output-resource-dir`: -->
+                <argument>${project.build.directory}/classes</argument>
               </arguments>
             </configuration>
           </execution>
         </executions>
       </plugin>
 
-      <!-- Add JMH generated code to the compile session -->
+      <!-- 3. Add generated JMH sources to the compile session -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>add-source</id>
+            <id>add-JMH-sources</id>
             <goals>
               <goal>add-source</goal>
             </goals>
             <phase>process-resources</phase>
             <configuration>
               <sources>
-                <source>${project.basedir}/target/generated-sources/jmh</source>
+                <source>${project.build.directory}/generated-sources/jmh</source>
               </sources>
             </configuration>
           </execution>
         </executions>
       </plugin>
 
-      <!-- Compile JMH generated code -->
+      <!-- 4. Compile sources (incl. JMH-generated ones) -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -167,6 +180,7 @@
             </goals>
             <phase>package</phase>
             <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
               <finalName>${uberjar.name}</finalName>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">

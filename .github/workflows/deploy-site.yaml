@@ -46,6 +46,7 @@ jobs:
           profile: ~
           whoami: ${{ github.ref_name }}-site-stg-out
           subdir: content/log4j/kotlin
+      install-required: true
       target-branch: ${{ github.ref_name }}-site-stg-out
 
   deploy-site-pro:
@@ -63,6 +64,7 @@ jobs:
           profile: ~
           whoami: ${{ github.ref_name }}-out
           subdir: content/log4j/kotlin
+      install-required: true
       target-branch: ${{ github.ref_name }}-out
 
   export-version:
@@ -92,4 +94,5 @@ jobs:
           profile: ~
           whoami: ${{ github.ref_name }}-site-stg-out
           subdir: content/log4j/kotlin-${{ needs.export-version.outputs.version }}
+      install-required: true
       target-branch: ${{ github.ref_name }}-site-stg-out
