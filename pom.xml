@@ -146,7 +146,7 @@
     <log4j.version>2.24.0</log4j.version>
     <kotlin.version>1.6.21</kotlin.version>
     <kotlinx.coroutines.version>1.6.4</kotlinx.coroutines.version>
-    <mockito-kotlin.version>4.1.0</mockito-kotlin.version>
+    <mockito-kotlin.version>5.0.0</mockito-kotlin.version>
 
     <!-- plugin versions -->
     <build-helper-maven-plugin.version>3.6.0</build-helper-maven-plugin.version>
