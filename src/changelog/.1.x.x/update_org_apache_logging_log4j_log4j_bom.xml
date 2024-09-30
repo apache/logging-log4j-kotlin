@@ -3,6 +3,6 @@
        xmlns="https://logging.apache.org/xml/ns"
        xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="updated">
-  <issue id="87" link="https://github.com/apache/logging-log4j-kotlin/pull/87"/>
-  <description format="asciidoc">Update `org.apache.logging.log4j:log4j-bom` to version `2.24.0`</description>
+  <issue id="95" link="https://github.com/apache/logging-log4j-kotlin/pull/95"/>
+  <description format="asciidoc">Update `org.apache.logging.log4j:log4j-bom` to version `2.24.1`</description>
 </entry>
