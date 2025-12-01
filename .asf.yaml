@@ -48,7 +48,15 @@ github:
     - coroutines
     - concurrency
 
-  del_branch_on_merge: true
+  # Pull Request settings:
+  # https://github.com/apache/infrastructure-asfyaml#pull-request-settings
+  pull_requests:
+    # allow auto-merge
+    allow_auto_merge: true
+    # enable updating head branches of pull requests
+    allow_update_branch: true
+    # auto-delete head branches after being merged
+    del_branch_on_merge: true
 
   # Enforce squashing while merging PRs.
   # Otherwise, the git log gets polluted severely.
@@ -57,9 +65,20 @@ github:
     merge:   false
     rebase:  false
 
-  features:
-    issues: true
-
+  # Enforce Review-then-Commit
   protected_branches:
     main:
-      required_signatures: true
+      # All reviews must be addressed before merging
+      required_conversation_resolution: true
+      # Require checks to pass before merging
+      required_status_checks:
+        checks:
+          # The GitHub Actions app: 15368
+          - app_id: 15368
+            context: "build / build (ubuntu-latest)"
+          # The GitHub Advanced Security app: 57789
+          - app_id: 57789
+            context: "CodeQL"
+      # At least one positive review must be present
+      required_pull_request_reviews:
+        required_approving_review_count: 1
