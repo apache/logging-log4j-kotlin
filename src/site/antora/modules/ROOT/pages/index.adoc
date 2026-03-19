@@ -32,7 +32,9 @@ Your application still needs to have a logging backend (e.g., {log4j-url}[Log4j]
 [#dependencies]
 == Dependencies
 
-You need to have the `org.apache.logging.log4j:log4j-api-kotlin` dependency in your classpath:
+You need to have the `org.apache.logging.log4j:log4j-api-kotlin` dependency in your classpath.
+
+With Maven:
 
 [source,xml,subs="+attributes"]
 ----
@@ -42,6 +44,17 @@ You need to have the `org.apache.logging.log4j:log4j-api-kotlin` dependency in y
   <version>{project-version}</version>
 </dependency>
 ----
+
+or with Gradle:
+
+[source,kotlin,subs="+attributes"]
+----
+implementation("org.apache.logging.log4j:log4j-api-kotlin:{project-version}")
+----
+
+Note that `log4j-api-kotlin` has a transitive dependency on `log4j-api`.
+Since `log4j-core` *also* depends transitively on `log4j-api`, this may result in Maven downgrading the `-api` artifact which can https://github.com/apache/logging-log4j-kotlin/issues/144#issuecomment-4090207780[cause issues].
+We recommend that projects leverage the `log4j-bom` as well.
 
 Java module name and OSGi `Bundle-SymbolicName` are set to `org.apache.logging.log4j.api.kotlin`.
 
