@@ -54,7 +54,7 @@ implementation("org.apache.logging.log4j:log4j-api-kotlin:{project-version}")
 
 Note that `log4j-api-kotlin` has a transitive dependency on `log4j-api`.
 Since `log4j-core` *also* depends transitively on `log4j-api`, this may result in Maven downgrading the `-api` artifact which can https://github.com/apache/logging-log4j-kotlin/issues/144#issuecomment-4090207780[cause issues].
-We recommend that projects leverage the `log4j-bom` as well.
+We recommend that projects https://logging.apache.org/log4j/2.x/manual/installation.html[leverage the `log4j-bom`] as well.
 
 Java module name and OSGi `Bundle-SymbolicName` are set to `org.apache.logging.log4j.api.kotlin`.
 
