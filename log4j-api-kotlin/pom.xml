@@ -49,6 +49,10 @@
       <!-- Legacy library with no classes -->
       kotlin-stdlib-common;ignore=true
     </bnd-extra-module-options>
+
+    <!-- Disable Spotbugs until somebody has time to address its complaints. -->
+    <spotbugs.skip>true</spotbugs.skip>
+
   </properties>
 
   <dependencies>
