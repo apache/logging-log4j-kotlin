@@ -27,10 +27,6 @@ on:
       - "**.md"
       - "**.txt"
   pull_request:
-    paths-ignore:
-      - "**.adoc"
-      - "**.md"
-      - "**.txt"
 
 permissions: read-all
 
