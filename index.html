@@ -132,7 +132,10 @@ Your application still needs to have a logging backend (e.g., <a href="https://l
 <h2 id="dependencies"><a class="anchor" href="#dependencies"></a>Dependencies</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You need to have the <code>org.apache.logging.log4j:log4j-api-kotlin</code> dependency in your classpath:</p>
+<p>You need to have the <code>org.apache.logging.log4j:log4j-api-kotlin</code> dependency in your classpath.</p>
+</div>
+<div class="paragraph">
+<p>With Maven:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -142,6 +145,19 @@ Your application still needs to have a logging backend (e.g., <a href="https://l
   &lt;version&gt;1.6.0-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>or with Gradle:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">implementation("org.apache.logging.log4j:log4j-api-kotlin:1.6.0-SNAPSHOT")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that <code>log4j-api-kotlin</code> has a transitive dependency on <code>log4j-api</code>.
+Since <code>log4j-core</code> <strong>also</strong> depends transitively on <code>log4j-api</code>, this may result in Maven downgrading the <code>-api</code> artifact which can <a href="https://github.com/apache/logging-log4j-kotlin/issues/144#issuecomment-4090207780">cause issues</a>.
+We recommend that projects <a href="https://logging.apache.org/log4j/2.x/manual/installation.html">leverage the <code>log4j-bom</code></a> as well.</p>
 </div>
 <div class="paragraph">
 <p>Java module name and OSGi <code>Bundle-SymbolicName</code> are set to <code>org.apache.logging.log4j.api.kotlin</code>.</p>
