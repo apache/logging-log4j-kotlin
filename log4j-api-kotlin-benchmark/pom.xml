@@ -35,7 +35,6 @@
     <maven.test.skip>true</maven.test.skip>
     <maven.deploy.skip>true</maven.deploy.skip>
     <maven.install.skip>true</maven.install.skip>
-    <spotbugs.skip>true</spotbugs.skip>
     <uberjar.name>benchmarks</uberjar.name>
   </properties>
 
