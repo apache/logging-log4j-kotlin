@@ -35,6 +35,7 @@
     <maven.test.skip>true</maven.test.skip>
     <maven.deploy.skip>true</maven.deploy.skip>
     <maven.install.skip>true</maven.install.skip>
+    <!-- Spotbugs raises false positives because of the compile, generate sources, compile build chain -->
     <spotbugs.skip>true</spotbugs.skip>
     <uberjar.name>benchmarks</uberjar.name>
   </properties>
@@ -87,7 +88,10 @@
            1. Compile JMH-annotated Kotlin sources
            2. Using compiled (and JMH-annotated!) classes, generate JMH Java sources
            3. Add JMH Java sources
-           4. Compile JMH Java sources -->
+           4. Compile JMH Java sources
+
+           Ideally, at some point we can migrate to kotlinx-benchmark, but at the moment
+           that project only supplies a Gradle plugin. -->
 
       <!-- 1. Compile Kotlin sources -->
       <plugin>
