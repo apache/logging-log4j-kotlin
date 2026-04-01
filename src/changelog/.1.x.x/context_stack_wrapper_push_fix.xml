@@ -3,6 +3,7 @@
        xmlns="https://logging.apache.org/xml/ns"
        xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="fixed">
+  <issue id="145" link="https://github.com/apache/logging-log4j-kotlin/issues/145"/>
   <issue id="146" link="https://github.com/apache/logging-log4j-kotlin/issues/146"/>
   <issue id="151" link="https://github.com/apache/logging-log4j-kotlin/pull/151"/>
   <description format="asciidoc">Context stack push parameters are handled correctly</description>
