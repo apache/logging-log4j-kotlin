@@ -103,7 +103,7 @@ object ContextStack {
    *
    * @see ThreadContext.push
    */
-  fun push(message: String, vararg args: Any?) = ThreadContext.push(message, args)
+  fun push(message: String, vararg args: Any?) = ThreadContext.push(message, *args)
 
   /**
    * Trims the current context stack to at most the given depth.
