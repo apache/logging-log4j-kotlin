@@ -193,7 +193,7 @@ You can use the `logger`  extension property to dynamically inject a logger at t
 
 [source,kotlin]
 ----
-import org.apache.logging.log4j.kotlin.logger
+import org.apache.logging.log4j.kotlin.extension.logger
 
 class DbTableService {
 
