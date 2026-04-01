@@ -34,6 +34,10 @@ inline fun <reified T : Any> T.logger() = loggerOf(T::class.java)
  *
  * @since 1.3.0
  */
+@Deprecated(
+  "Replace with extension.logger to avoid unintended consequences with explicitly declared logger properties. This will be removed in the next major release.",
+  replaceWith = ReplaceWith("logger", "org.apache.logging.log4j.kotlin.extension.logger")
+)
 inline val <reified T> T.logger: KotlinLogger
   get() = cachedLoggerOf(T::class.java)
 
