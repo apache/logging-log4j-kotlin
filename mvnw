@@ -298,14 +298,11 @@ MAVEN_CMD_LINE_ARGS="$MAVEN_CONFIG $*"
 export MAVEN_CMD_LINE_ARGS
 
 WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
-LINE_SEPARATOR="
-"
 
 # shellcheck disable=SC2086 # safe args
 exec "$JAVACMD" \
   $MAVEN_OPTS \
   $MAVEN_DEBUG_OPTS \
-  "-Dline.separator=$LINE_SEPARATOR" \
   -classpath "$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.jar" \
   "-Dmaven.multiModuleProjectDirectory=${MAVEN_PROJECTBASEDIR}" \
   ${WRAPPER_LAUNCHER} $MAVEN_CONFIG "$@"
