@@ -174,18 +174,11 @@ IF NOT %WRAPPER_SHA_256_SUM%=="" (
 @REM Provide a "standardized" way to retrieve the CLI args that will
 @REM work with both Windows and non-Windows executions.
 set MAVEN_CMD_LINE_ARGS=%*
-@REM Do not remove the blank lines
-(set \n=^^^
-
-^
-
-)
 
 %MAVEN_JAVA_EXE% ^
   %JVM_CONFIG_MAVEN_PROPS% ^
   %MAVEN_OPTS% ^
   %MAVEN_DEBUG_OPTS% ^
-  -Dline.separator=%\n% ^
   -classpath %WRAPPER_JAR% ^
   "-Dmaven.multiModuleProjectDirectory=%MAVEN_PROJECTBASEDIR%" ^
   %WRAPPER_LAUNCHER% %MAVEN_CONFIG% %*
