@@ -1,5 +1,4 @@
 publish:
-  profile: ~
   whoami: main-site-pro-out
   subdir: content/log4j/kotlin
 
@@ -9,6 +8,6 @@ publish:
 #
 # Random values to cause a change:
 #
-# - Seed: 95
-# - Commit ID: 1eddb536c8d082cd3b48a4ae40dc78f901bff706
-# - Timestamp: 2026-11-04T20:39:39Z
+# - Seed: 403
+# - Commit ID: 9075830cb014f542cd2f2e3c643d4a147c62b8e1
+# - Timestamp: 2026-11-04T22:24:20Z
